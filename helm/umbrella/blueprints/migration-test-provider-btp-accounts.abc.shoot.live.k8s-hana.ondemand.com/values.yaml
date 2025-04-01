@@ -1,0 +1,75 @@
+---
+######################################################################################################################################
+tags: # see ./Chart.yaml @url: https://helm.sh/docs/topics/charts/#tags-and-condition-fields-in-dependencies
+  crossplane-provider-configs: true
+  crossplane-provider-sap-btp-account: true
+######################################################################################################################################
+crossplane-provider-configs:
+  providerConfigs:
+    btpSapCrossplane:
+      - providerConfigRefName: "btp-account-mcp-blueprints"
+        globalAccountSubDomain: "b81eca48-daa3-4515-951c-f499da5d64d5"
+        #cliServerUrl: "https://cli.btp.cloud.sap"
+        cliServerUrl: "https://cli.btp.cloud.sap"
+        cisCredentials:
+          source: "Secret"
+          secretRef:
+            namespace: default
+            name: "cis-provider-secret"
+            key: data
+        serviceAccountSecret:
+          source: "Secret"
+          secretRef:
+            namespace: default
+            name: "sa-provider-secret"
+            key: credentials
+#########################################################################################################
+crossplane-provider-sap-btp-account:
+  subaccountAdminEmails: &subaccountAdminEmails []
+  #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#        
+  entitlementsLegacyLandscape: &entitlementsLegacyLandscape
+    - name: "auditlog-viewer"
+      serviceName: "auditlog-viewer"
+      servicePlanName: "free"
+      permitNumericQuota: false
+      #amount: 1
+    - name: "cis-local"
+      serviceName: "cis"
+      servicePlanName: "local"
+      permitNumericQuota: false
+      #amount: 1
+  #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#        
+  accounts:
+    - accountBtpOrchestrateCloudProviderConfigRefName: "btp-account-mcp-blueprints"
+      #-------------------------------------------------------------------------------------------------------------------------#
+      #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
+      subAccounts:
+        #-------------------------------------------------------------------------------------------------------------------------#
+        - name: "subAccount1"
+          forProvider:
+            displayName: "MCP #1 Blueprint Sub-Account #1"
+            description: "Sub Account managed by MCP & IaD from MCP #2"
+            subdomain: blueprint-test-1
+            region: ""
+            subaccountAdmins: *subaccountAdminEmails
+          entitlements: *entitlementsLegacyLandscape
+          services:
+            serviceManager: true
+            cloudManagement: true
+          subscriptions:
+          - name: "auditlog-viewer"
+            appName: "auditlog-viewer"
+            planName: "free"
+            writeConnectionSecretToRef:
+              name: "auditlog-viewer"
+              namespace: "default"
+        #-------------------------------------------------------------------------------------------------------------------------#                                            
+        - name: "subAccount2"
+          forProvider:
+            displayName: "MCP #1 Blueprint Sub-Account #2"
+            description: "Sub Account managed by MCP & IaD from MCP #2 new"
+            subdomain: blueprint-test-2
+            region: ""
+            subaccountAdmins: *subaccountAdminEmails          
+        #-------------------------------------------------------------------------------------------------------------------------#                                     
+#########################################################################################################

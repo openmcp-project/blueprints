@@ -1,0 +1,24 @@
+---
+# Source: migration-test-provider-btp-accounts/charts/crossplane-provider-configs/templates/mcp/providerConfigs/btp.sap.crossplane.io.yaml
+apiVersion: btp.sap.crossplane.io/v1alpha1
+kind: ProviderConfig
+metadata:
+  name: "btp-account-mcp-blueprints"
+  labels:
+    openmcp.cloud/blueprint-building-block: "crossplane-provider-configs"
+    openmcp.cloud/blueprint-building-block-version: "0.0.15"
+spec:
+  cliServerUrl: "https://cli.btp.cloud.sap"
+  globalAccount: "b81eca48-daa3-4515-951c-f499da5d64d5"
+  cisCredentials:
+    secretRef:
+      key: data
+      name: cis-provider-secret
+      namespace: default
+    source: Secret
+  serviceAccountSecret:
+    secretRef:
+      key: credentials
+      name: sa-provider-secret
+      namespace: default
+    source: Secret

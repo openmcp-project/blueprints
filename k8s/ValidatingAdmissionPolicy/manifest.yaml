@@ -1,0 +1,139 @@
+########################################################################################################################
+# Example Validating Admission Policy to prevent deleting k8s secrets which are referenced by 
+# kind: ProviderConfig (apiVersion: helm.crossplane.io/v1beta1) `.spec.credentials.secretRef.name+namespace`
+# As of Nov 2024, mcp admins do not have permission to manage `kind: ValidatingAdmissionPolicy*`, therefore this 
+# solution can only be applied to self hosted crossplane k8s clusters
+# ---------------------------------------------------------------------------------------------------------------------
+# Steps to reproduce:
+# 1. Install Crossplane on a kind/k8s cluster (e.g. Gardener)
+# 2. Install Crossplane Provider `provider-helm` (see manifest of kind: Provider / apiVersion: pkg.crossplane.io/v1)
+# 3. Apply this manifest
+# 4. Try to delete secret `helm-provider-config-1` -> Should fail -> ->  Secret helm-provider-config-1 cannot be deleted
+#    because its referenced in Kind:ProviderConfig (helm.crossplane.io/v1beta1) helm-provider-config-0
+# 5. Try to delete secret `helm-provider-config-3` -> Should succeed -> Because no reference in Kind:ProviderConfig
+########################################################################################################################
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingAdmissionPolicyBinding
+metadata:
+  name: crossplane-helm-provider-config-secret-binding
+spec:
+  policyName: crossplane-helm-provider-config-if-secret-exists
+  validationActions: [Deny]
+  paramRef:
+    selector: {}
+    parameterNotFoundAction: "Allow"
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingAdmissionPolicy
+metadata:
+  name: crossplane-helm-provider-config-if-secret-exists
+spec:
+  failurePolicy: Fail
+  paramKind:
+    kind: ProviderConfig
+    apiVersion: helm.crossplane.io/v1beta1
+  matchConstraints:
+    resourceRules:
+      - apiGroups: [""]
+        apiVersions: ["v1"]
+        resources: ["secrets"]
+        operations: ["DELETE"]
+  validations:
+    - expression: |
+        (         
+          (
+          has(params.spec) &&  
+          has(params.spec.credentials) && 
+          has(params.spec.credentials.secretRef) && 
+          has(params.spec.credentials.secretRef.name) && 
+          oldObject.metadata.name != params.spec.credentials.secretRef.name &&
+          oldObject.metadata.namespace != params.spec.credentials.secretRef.namespace 
+          ) ||
+          (
+          has(params.spec.identity) && 
+          has(params.spec.identity.secretRef) && 
+          has(params.spec.identity.secretRef.name) && 
+          oldObject.metadata.name != params.spec.identity.secretRef.name &&
+          oldObject.metadata.namespace != params.spec.identity.secretRef.namespace 
+          )
+        )
+      messageExpression: "'Secret %s cannot be deleted because its referenced in Kind:%s (%s) %s'.format([oldObject.metadata.name,params.kind,params.apiVersion,params.metadata.name])"
+      reason: "Invalid"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: helm-provider-config-1
+  namespace: default
+type: Opaque
+data:
+  kubeconfig: dmFsdWU= # Base64 encoded "value"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: helm-provider-config-2
+  namespace: default
+type: Opaque
+data:
+  kubeconfig: dmFsdWU= # Base64 encoded "value"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: helm-provider-config-3
+  namespace: default
+type: Opaque
+data:
+  kubeconfig: dmFsdWU= # Base64 encoded "value"
+---
+apiVersion: pkg.crossplane.io/v1
+kind: Provider
+metadata:
+  name: provider-helm
+spec:
+  package: xpkg.upbound.io/crossplane-contrib/provider-helm:v0.15.0
+---
+apiVersion: helm.crossplane.io/v1beta1
+kind: ProviderConfig
+metadata:
+  name: helm-provider-config-0
+spec:
+  credentials:
+    source: Secret
+    secretRef:
+      name: helm-provider-config-0
+      namespace: default
+      key: kubeconfig
+---
+apiVersion: helm.crossplane.io/v1beta1
+kind: ProviderConfig
+metadata:
+  name: helm-provider-config-1
+spec:
+  credentials:
+    source: Secret
+    secretRef:
+      name: helm-provider-config-1
+      namespace: default
+      key: kubeconfig
+---
+apiVersion: helm.crossplane.io/v1beta1
+kind: ProviderConfig
+metadata:
+  name: helm-provider-config-2
+spec:
+  credentials:
+    source: Secret
+    secretRef:
+      name: helm-provider-config-1
+      namespace: default
+      key: kubeconfig
+  identity:
+    type: "GoogleApplicationCredentials"
+    source: Secret
+    secretRef:
+      name: helm-provider-config-2
+      namespace: default
+      key: kubeconfig

@@ -1,0 +1,104 @@
+---
+######################################################################################################################################
+tags: # see ./Chart.yaml @url: https://helm.sh/docs/topics/charts/#tags-and-condition-fields-in-dependencies
+  external-secrets-config: true
+  crossplane-provider-configs: true
+  crossplane-provider-sap-btp-account: true
+  crossplane-provider-sap-btp-environment: true
+######################################################################################################################################
+external-secrets-config:
+  secretStores:
+  - name: "hashicorp-vault"
+    namespace: "default"
+    provider:
+      vault:
+        server: ""
+        namespace: "ts-co-openmcp/mcp-blueprints"
+        path: "mcps"
+        version: "v2"
+        auth:
+          kubernetes:
+            mountPath: ""
+            role: ""
+            secretRef:
+              name: ""
+              namespace: "default"
+              key: "token"
+  externalSecret:
+    - name: ""
+      namespace: "default"
+      refreshInterval: "15m"
+      targetSecretName: ""
+      secretStore:
+        name: "hashicorp-vault"
+      data:
+        - secretKey: btp-cis-provider-credentials
+          remoteRef:
+            key: ""
+            property: btp-cis-provider-credentials
+        - secretKey: btp-service-account-provider-credentials
+          remoteRef:
+            key: ""
+            property: btp-service-account-provider-credentials
+######################################################################################################################################
+crossplane-provider-configs:
+  providerConfigs:
+    btpSapCrossplane:
+      - providerConfigRefName: ""
+        globalAccountSubDomain: ""
+        cliServerUrl: "https://cli.btp.cloud.sap"
+        cisCredentials:
+          source: "Secret"
+          secretRef:
+            namespace: default
+            name: ""
+            key: btp-cis-provider-credentials
+        serviceAccountSecret:
+          source: "Secret"
+          secretRef:
+            namespace: default
+            name: ""
+            key: btp-service-account-provider-credentials
+#########################################################################################################
+crossplane-provider-sap-btp-account:
+  cfAdminEmails: &cfAdminEmails []
+  subaccountAdminEmails: &subaccountAdminEmails []
+  #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#        
+  btpEntitlements: &btpEntitlements    
+  - name: "cis-local"
+    serviceName: cis
+    servicePlanName: local
+    permitNumericQuota: false
+    amount: 1
+  #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#        
+  accounts:
+    - btpSapCrossplaneProviderConfigRefName: ""
+      #-------------------------------------------------------------------------------------------------------------------------#
+      #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
+      subAccounts:
+        #-------------------------------------------------------------------------------------------------------------------------#
+        - name: "subAccount1"
+          forProvider:
+            displayName: ""
+            description: ""
+            subdomain: ""
+            region: ""
+            subaccountAdminEmails: *subaccountAdminEmails
+          entitlements: *btpEntitlements
+          services:
+            serviceManager: true
+            cloudManagement: true
+        #-------------------------------------------------------------------------------------------------------------------------#                                     
+#########################################################################################################
+crossplane-provider-sap-btp-environment:
+  cloudFoundryEnvironments:
+  - btpSapCrossplaneProviderConfigRefName: ""
+    name: ""
+    forProvider:
+      initialOrgManagers: *cfAdminEmails
+      landscape: ""
+    cloudManagementRef:
+      name: ""
+    subaccountRef:
+      name: ""
+#########################################################################################################

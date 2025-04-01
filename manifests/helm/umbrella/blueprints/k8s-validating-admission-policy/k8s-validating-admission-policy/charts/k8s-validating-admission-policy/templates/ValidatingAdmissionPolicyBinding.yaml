@@ -1,0 +1,16 @@
+---
+# Source: k8s-validating-admission-policy/charts/k8s-validating-admission-policy/templates/ValidatingAdmissionPolicyBinding.yaml
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingAdmissionPolicyBinding
+metadata:
+  name: crossplane-helm-provider-config-secret-binding
+  labels:
+    openmcp.cloud/blueprint-building-block: "k8s-validating-admission-policy"
+    openmcp.cloud/blueprint-building-block-version: "0.0.2"
+spec:
+  paramRef:
+    parameterNotFoundAction: Allow
+    selector: {}
+  policyName: crossplane-helm-provider-config-if-secret-exists
+  validationActions:
+  - Deny

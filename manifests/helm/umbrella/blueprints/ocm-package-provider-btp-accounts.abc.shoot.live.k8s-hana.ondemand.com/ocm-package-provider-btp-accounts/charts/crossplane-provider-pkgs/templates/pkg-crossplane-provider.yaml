@@ -1,0 +1,70 @@
+---
+# Source: ocm-package-provider-btp-accounts/charts/crossplane-provider-pkgs/templates/pkg-crossplane-provider.yaml
+apiVersion: pkg.crossplane.io/v1
+kind: Provider
+metadata:
+  name: provider-ias
+  labels:
+    openmcp.cloud/blueprint-building-block: "crossplane-provider-pkgs"
+    openmcp.cloud/blueprint-building-block-version: "0.0.10"
+spec:
+  package: ocm/crossplane/provider-ias:0.2.2
+  packagePullPolicy: IfNotPresent
+  packagePullSecrets:
+  - name: pull-secret
+---
+# Source: ocm-package-provider-btp-accounts/charts/crossplane-provider-pkgs/templates/pkg-crossplane-provider.yaml
+apiVersion: pkg.crossplane.io/v1
+kind: Provider
+metadata:
+  name: provider-gardener-auth
+  labels:
+    openmcp.cloud/blueprint-building-block: "crossplane-provider-pkgs"
+    openmcp.cloud/blueprint-building-block-version: "0.0.10"
+spec:
+  package: ocm/crossplane/provider-gardener-auth:0.0.4
+  packagePullPolicy: IfNotPresent
+  packagePullSecrets:
+  - name: pull-secret
+---
+# Source: ocm-package-provider-btp-accounts/charts/crossplane-provider-pkgs/templates/pkg-crossplane-provider.yaml
+apiVersion: pkg.crossplane.io/v1
+kind: Provider
+metadata:
+  name: provider-kubernetes
+  labels:
+    openmcp.cloud/blueprint-building-block: "crossplane-provider-pkgs"
+    openmcp.cloud/blueprint-building-block-version: "0.0.10"
+spec:
+  package: ocm/crossplane-contrib/provider-kubernetes:v0.15.0
+  packagePullPolicy: IfNotPresent
+  packagePullSecrets:
+  - name: pull-secret
+---
+# Source: ocm-package-provider-btp-accounts/charts/crossplane-provider-pkgs/templates/pkg-crossplane-provider.yaml
+apiVersion: pkg.crossplane.io/v1
+kind: Provider
+metadata:
+  name: provider-helm
+  labels:
+    openmcp.cloud/blueprint-building-block: "crossplane-provider-pkgs"
+    openmcp.cloud/blueprint-building-block-version: "0.0.10"
+spec:
+  package: ocm/crossplane-contrib/provider-helm:v0.19.0
+  packagePullPolicy: IfNotPresent
+  packagePullSecrets:
+  - name: pull-secret
+---
+# Source: ocm-package-provider-btp-accounts/charts/crossplane-provider-pkgs/templates/pkg-crossplane-provider.yaml
+apiVersion: pkg.crossplane.io/v1
+kind: Provider
+metadata:
+  name: provider-btp
+  labels:
+    openmcp.cloud/blueprint-building-block: "crossplane-provider-pkgs"
+    openmcp.cloud/blueprint-building-block-version: "0.0.10"
+spec:
+  package: ocm/crossplane/provider-btp:v1.0.2
+  packagePullPolicy: IfNotPresent
+  packagePullSecrets:
+  - name: pull-secret

@@ -1,0 +1,18 @@
+---
+# Source: btp-cf-env-runtime/charts/crossplane-provider-sap-btp-account/templates/mcp/btp-subscriptions/entitlements.yaml
+apiVersion: account.btp.sap.crossplane.io/v1alpha1
+kind: Entitlement
+metadata:  
+  name: cis-local  
+  labels:
+    openmcp.cloud/blueprint-building-block: "crossplane-provider-sap-btp-account"
+    openmcp.cloud/blueprint-building-block-version: "0.0.6"
+spec:
+  forProvider:    
+    serviceName: cis
+    servicePlanName: local
+    enable: true
+    subaccountRef:
+      name: subaccount1
+  providerConfigRef:
+    name: ""

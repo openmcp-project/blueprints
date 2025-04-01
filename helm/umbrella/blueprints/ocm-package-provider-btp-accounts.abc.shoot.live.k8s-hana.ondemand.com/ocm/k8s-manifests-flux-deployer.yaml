@@ -1,0 +1,51 @@
+---
+apiVersion: delivery.ocm.software/v1alpha1
+kind: FluxDeployer
+metadata:
+  name: k8s-crossplane-manifests-provider-btp-accounts
+  namespace: ocm-system
+spec:
+  interval: 10s
+  sourceRef:
+    kind: Resource
+    name: k8s-crossplane-manifests-provider-btp-accounts
+  kustomizationTemplate:
+    path: ./
+    prune: true
+    targetNamespace: default
+---
+apiVersion: delivery.ocm.software/v1alpha1
+kind: FluxDeployer
+metadata:
+  name: k8s-crossplane-helm-chart
+  namespace: ocm-system
+spec:
+  interval: 10s
+  sourceRef:
+    kind: Resource
+    name: k8s-crossplane-helm-chart
+  helmReleaseTemplate:
+    install:
+      createNamespace: true
+    #values:    
+    interval: 10s
+    releaseName: "k8s-crossplane-helm-chart"
+    targetNamespace: crossplane-system
+---
+apiVersion: delivery.ocm.software/v1alpha1
+kind: FluxDeployer
+metadata:
+  name: k8s-externa-secrets-helm-chart
+  namespace: ocm-system
+spec:
+  interval: 10s
+  sourceRef:
+    kind: Resource
+    name: k8s-external-secrets-helm-chart
+  helmReleaseTemplate:
+    install:
+      createNamespace: true
+    #values:    
+    interval: 10s
+    releaseName: "k8s-external-secrets"
+    targetNamespace: external-secrets

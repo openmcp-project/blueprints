@@ -1,0 +1,16 @@
+---
+# Source: provider-gardener-existing/charts/crossplane-provider-configs/templates/mcp/providerConfigs/kubernetes-crossplane-io.yaml
+apiVersion: kubernetes.crossplane.io/v1alpha1
+kind: ProviderConfig
+metadata:
+  name: "garden-sa-co-mcp-blueprints"
+  labels:
+    openmcp.cloud/blueprint-building-block: "crossplane-provider-configs"
+    openmcp.cloud/blueprint-building-block-version: "0.0.15"
+spec:
+  credentials:
+    secretRef:
+      key: kubeconfig
+      name: garden-co-golden
+      namespace: default
+    source: Secret

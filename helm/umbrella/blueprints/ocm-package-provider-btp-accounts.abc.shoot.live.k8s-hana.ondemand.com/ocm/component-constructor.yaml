@@ -1,0 +1,70 @@
+components:
+- name: mvp-ocm-mcp
+  labels:
+  - name: "org.opencontainers.image.source"
+    value: "lieber-gruss-von-johannes-und-mir-was-soll-das"
+  provider:
+    name: co-explorer
+  version: v0.0.5 
+  resources:
+  - name: crossplane-image
+    type: ociImage
+    version: 1.18.0
+    access:
+      type: ociArtifact
+      imageReference: xpkg.upbound.io/crossplane/crossplane:v1.18.0
+  - name: external-secrets-operator-image
+    type: ociImage
+    version: 0.13.0
+    access:
+      type: ociArtifact
+      imageReference: oci.external-secrets.io/external-secrets/external-secrets:v0.13.0
+  - name: provider-ias
+    type: ociImage
+    version: 0.2.2
+    access:
+      type: ociArtifact
+      imageReference: crossplane/provider-ias:0.2.2
+  - name: provider-kubernetes
+    type: ociImage
+    version: 0.15.0
+    access:
+      type: ociArtifact
+      imageReference: xpkg.upbound.io/crossplane-contrib/provider-kubernetes:v0.15.0
+  - name: provider-helm
+    type: ociImage
+    version: 0.19.0
+    access:
+      type: ociArtifact
+      imageReference: xpkg.upbound.io/crossplane-contrib/provider-helm:v0.19.0
+  - name: provider-gardener-auth
+    type: ociImage
+    version: 0.0.4
+    access:
+      type: ociArtifact
+      imageReference: crossplane/provider-gardener-auth:0.0.4
+  - name: provider-btp
+    type: ociImage
+    version: 1.0.2
+    access:
+      type: ociArtifact
+      imageReference: ghcr.io/sap/crossplane-provider-btp/crossplane/provider-btp:v1.0.2
+  - name: external-secrets
+    type: helmChart
+    version: 0.13.0
+    access:
+      type: helm
+      helmRepository: https://charts.external-secrets.io
+      helmChart: external-secrets:0.13.0
+  - name: crossplane
+    type: helmChart
+    version: 1.18.0
+    access:
+      type: helm
+      helmRepository: https://charts.crossplane.io/stable
+      helmChart: crossplane:1.18.0
+  - name: k8s-crossplane-manifests-provider-btp-accounts
+    type : fileSystem
+    input:
+      type: dir
+      path: ./../../../../../manifests/helm/umbrella/blueprints/ocm-package-provider-btp-accounts.abc.shoot.live.k8s-hana.ondemand.com

@@ -1,0 +1,16 @@
+---
+# Source: btp-service-operator/charts/sap-btp-services/templates/services-instance-services-cloud-sap.yaml
+apiVersion: services.cloud.sap.com/v1alpha1
+kind: ServiceInstance
+metadata:
+  name: hana-cloud
+  namespace: default
+  labels:
+    openmcp.cloud/blueprint-building-block: "sap-btp-services"
+    openmcp.cloud/blueprint-building-block-version: "0.0.9"
+spec:
+  serviceOfferingName: hana-cloud
+  servicePlanName: hana
+  parameters:
+    "data:\n  memory: 48\n  vcpu: 12\n  systempassword: Cloud-12345! \n  whitelistIPs:\n
+      \   - 127.0.0.1/0\n  enabledservices:\n    scriptserver: true\n  edition: cloud\n"

@@ -1,0 +1,45 @@
+### Helm Chart ###
+*Chart.lock
+*.tgz
+values.local.yaml
+/*.txt
+/helm-packages/*
+/helm-template-*.yaml
+helm-charts-templated.yaml
+### IntelliJ IDEA ###
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+### GH Actions currently not needed! ###
+.github/actions/*
+### Eclipse ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+### Mac OS ###
+.DS_Store
+/.idea/
+/ketos-co-helm-charts.iml
+
+**/*/values-credentials.yaml
+### OCM ###
+helm/umbrella/blueprints/ocm-package-provider-btp-accounts.abc.shoot.live.k8s-hana.ondemand.com/ocm/mvp-ocm-mcp
+helm/umbrella/blueprints/migration-test-provider-btp-accounts.abc.shoot.live.k8s-hana.ondemand.com/cis*

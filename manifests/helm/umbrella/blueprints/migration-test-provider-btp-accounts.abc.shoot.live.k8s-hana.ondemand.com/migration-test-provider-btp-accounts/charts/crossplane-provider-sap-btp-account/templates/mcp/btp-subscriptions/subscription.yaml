@@ -1,0 +1,20 @@
+---
+# Source: migration-test-provider-btp-accounts/charts/crossplane-provider-sap-btp-account/templates/mcp/btp-subscriptions/subscription.yaml
+apiVersion: account.btp.sap.crossplane.io/v1alpha1
+kind: Subscription
+metadata:
+  name: subaccount1-auditlog-viewer
+  labels:
+    openmcp.cloud/blueprint-building-block: "crossplane-provider-sap-btp-account"  
+    openmcp.cloud/blueprint-building-block-version: "0.0.2"
+spec:
+  providerConfigRef:
+    name: btp-account-mcp-blueprints
+  forProvider:
+    appName: auditlog-viewer
+    planName: free
+  cloudManagementRef:
+    name: subaccount1
+  writeConnectionSecretToRef:
+    name: auditlog-viewer
+    namespace: default

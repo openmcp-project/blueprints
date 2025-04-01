@@ -1,0 +1,70 @@
+---
+######################################################################################################################################
+tags: # see ./Chart.yaml @url: https://helm.sh/docs/topics/charts/#tags-and-condition-fields-in-dependencies
+  external-secrets-config: true
+  crossplane-provider-configs: true
+  custom-chart: true
+######################################################################################################################################
+external-secrets-config:
+  secretStores:
+    - name: "hashicorp-vault"
+      namespace: "default"
+      # provider -- https://external-secrets.io/latest/api/spec/
+      provider:
+        vault:
+          server: ""
+          namespace: ""
+          path: "k8s-clusters"
+          version: "v2"
+          auth:
+            kubernetes:
+              mountPath: "kubernetes"
+              role: "mcp-blueprints"
+              secretRef:
+                name: ""
+                namespace: "default"
+                key: "token"
+  externalSecret:
+    - name: "btp-account-mcp-blueprints"
+      namespace: "default"
+      refreshInterval: "15m"
+      targetSecretName: btp-account-mcp-blueprints
+      secretStore:
+        name: "hashicorp-vault"
+      data:
+        - secretKey: btp-cis-provider-credentials
+          remoteRef:
+            key: ""
+            property: btp-cis-provider-credentials
+        - secretKey: btp-service-account-provider-credentials
+          remoteRef:
+            key: ""
+            property: btp-service-account-provider-credentials
+######################################################################################################################################
+crossplane-provider-configs:
+  providerConfigs:
+    btpSapCrossplane:
+      - providerConfigRefName: "provider-config-ref-name-btp-account-mcp-blueprints"
+        globalAccountSubDomain: "globalAccountSubDomain"
+        cliServerUrl: "https://cli.btp.cloud.sap"
+        cisCredentials:
+          source: "Secret"
+          secretRef:
+            namespace: default
+            name: "btp-account-mcp-blueprints"
+            key: btp-cis-provider-credentials
+        serviceAccountSecret:
+          source: "Secret"
+          secretRef:
+            namespace: default
+            name: "btp-account-mcp-blueprints"
+            key: btp-service-account-provider-credentials
+######################################################################################################################################
+custom-chart:
+  replicaCount: 2
+  image:
+    repository: nginx
+    pullPolicy: Always
+  serviceAccount:
+    create: false    
+######################################################################################################################################

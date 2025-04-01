@@ -1,0 +1,16 @@
+---
+# Source: provider-gardener-existing/charts/crossplane-provider-configs/templates/mcp/providerConfigs/helm-crossplane-io.yaml
+apiVersion: helm.crossplane.io/v1beta1
+kind: ProviderConfig
+metadata:
+  name: "gardener-shoot-iad-test"
+  labels:
+    openmcp.cloud/blueprint-building-block: "crossplane-provider-configs"
+    openmcp.cloud/blueprint-building-block-version: "0.0.15"
+spec:
+  credentials:
+    secretRef:
+      key: kubeconfig
+      name: gardener-shoot-kubeconfig-iad-test
+      namespace: default
+    source: Secret

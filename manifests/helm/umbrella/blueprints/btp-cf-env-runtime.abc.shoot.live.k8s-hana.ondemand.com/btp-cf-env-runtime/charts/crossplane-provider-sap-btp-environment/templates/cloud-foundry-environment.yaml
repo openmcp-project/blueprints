@@ -1,0 +1,21 @@
+---
+# Source: btp-cf-env-runtime/charts/crossplane-provider-sap-btp-environment/templates/cloud-foundry-environment.yaml
+apiVersion: environment.btp.sap.crossplane.io/v1alpha1
+kind: CloudFoundryEnvironment
+metadata:
+  name: provider-config-""-cf-test
+  labels:
+    openmcp.cloud/blueprint-building-block: "crossplane-provider-sap-btp-environment"
+    openmcp.cloud/blueprint-building-block-version: "0.0.12"
+spec:
+  providerConfigRef:
+    name: provider-config-""
+  forProvider:
+    initialOrgManagers:
+    - steffen.brunner@sap.com
+    - dl_66c9ed85dbece8d67bc369c4@global.corp.sap
+    landscape: cf-eu30
+  cloudManagementRef:
+    name: ""    
+  subaccountRef:
+    name: ""

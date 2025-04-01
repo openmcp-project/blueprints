@@ -1,0 +1,38 @@
+---
+# Source: provider-aws.zzzz/charts/crossplane-provider-aws-iam/templates/role-iam-aws-upbound-io.yaml
+apiVersion: iam.aws.upbound.io/v1beta1
+kind: Role
+metadata:
+  name: dev-us-ekscluster
+  annotations:
+    crossplane.io/composition-resource-name: role
+  labels:
+    openmcp.cloud/blueprint-building-block: "crossplane-provider-aws-iam"
+    openmcp.cloud/blueprint-building-block-version: "0.0.10"
+    crossplane.io/claim-namespace: clops-dev-us
+    crossplane.io/composite: dev-us-ekscluster
+  ownerReferences:
+    - apiVersion: clops.isbn.sap.org/v1alpha1
+      blockOwnerDeletion: true
+      controller: true
+      kind: XEKSCluster
+      name: dev-us-ekscluster
+      uid: ""
+spec:
+  deletionPolicy: ""
+  forProvider:
+    assumeRolePolicy: |
+      {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Principal": {
+              "Service": "eks.amazonaws.com"
+            },
+            "Action": "sts:AssumeRole"
+          }
+        ]
+      }
+  providerConfigRef:
+    name: dev-us-aws
