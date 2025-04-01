@@ -12,7 +12,7 @@ jobs:
     uses: "openmcp-project/blueprint-workflows/.github/workflows/git-pr-status-checks.yml@main"
     with:
       HELM_REPO_NAME: 'building-blocks'
-      HELM_REPO_URL: 'https://raw.githubusercontent.com/openmcp-project/blueprint-building-blocks/gh-pages/'
+      HELM_REPO_URL: 'https://raw.githubusercontent.com/openmcp-project/blueprint-building-blocks/refs/heads/gh-pages/'
       BUILDING_BLOCKS_GIT_REPO_URL: 'https://github.com/openmcp-project/blueprint-building-blocks.git'
     secrets:
       HELM_REPO_USERNAME: "${{ secrets.GITHUB_TOKEN }}"
