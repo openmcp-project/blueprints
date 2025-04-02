@@ -29,6 +29,6 @@ dependencies:
   - name: test-custom-chart
     alias: test-custom-chart
     version: 0.0.5
-    repository: " https://raw.githubusercontent.com/openmcp-project/blueprint-building-blocks/gh-pages/"
+    repository: "oci://ghcr.io/openmcp-project"
     tags:
       - test-custom-chart

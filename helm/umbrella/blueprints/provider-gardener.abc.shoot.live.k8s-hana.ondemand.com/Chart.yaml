@@ -29,24 +29,24 @@ dependencies:
   - name: crossplane-provider-configs
     alias: crossplane-provider-configs
     version: 0.0.15
-    repository: " https://raw.githubusercontent.com/openmcp-project/blueprint-building-blocks/gh-pages/"
+    repository: "oci://ghcr.io/openmcp-project"
     tags:
       - crossplane-provider-configs
   - name: external-secrets-config
     alias: external-secrets-config
     version: 0.1.7
-    repository: " https://raw.githubusercontent.com/openmcp-project/blueprint-building-blocks/gh-pages/"
+    repository: "oci://ghcr.io/openmcp-project"
     tags:
       - external-secrets-config
   - name: crossplane-gardener-shoot-clusters
     alias: crossplane-gardener-shoot-clusters
     version: 0.0.8
-    repository: " https://raw.githubusercontent.com/openmcp-project/blueprint-building-blocks/gh-pages/"
+    repository: "oci://ghcr.io/openmcp-project"
     tags:
       - crossplane-gardener-shoot-clusters
   - name: crossplane-provider-helm
     alias: crossplane-provider-helm
     version: 0.0.8
-    repository: " https://raw.githubusercontent.com/openmcp-project/blueprint-building-blocks/gh-pages/"
+    repository: "oci://ghcr.io/openmcp-project"
     tags:
       - crossplane-provider-helm

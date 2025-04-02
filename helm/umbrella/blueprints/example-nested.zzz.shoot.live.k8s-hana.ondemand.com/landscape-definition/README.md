@@ -8,7 +8,7 @@ A nested umbrealla Helm chart which contains crossplane manifests to demonstrate
 
 | Repository | Name | Version |
 |------------|------|---------|
-|  https://raw.githubusercontent.com/openmcp-project/blueprint-building-blocks/gh-pages/ | crossplane-provider-sap-btp-account(crossplane-provider-sap-btp-account) | 0.0.6 |
+|  oci://ghcr.io/openmcp-project | crossplane-provider-sap-btp-account(crossplane-provider-sap-btp-account) | 0.0.6 |
 
 ## Values
 

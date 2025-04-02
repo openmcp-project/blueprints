@@ -34,24 +34,24 @@ dependencies:
   - name: crossplane-provider-configs
     alias: crossplane-provider-configs
     version: 0.0.15
-    repository: " https://raw.githubusercontent.com/openmcp-project/blueprint-building-blocks/gh-pages/"
+    repository: "oci://ghcr.io/openmcp-project"
     tags:
       - crossplane-provider-configs
   - name: external-secrets-config
     alias: external-secrets-config
     version: 0.1.7
-    repository: " https://raw.githubusercontent.com/openmcp-project/blueprint-building-blocks/gh-pages/"
+    repository: "oci://ghcr.io/openmcp-project"
     tags:
       - external-secrets-config
   - name: crossplane-provider-sap-btp-account
     alias: crossplane-provider-sap-btp-account
     version: 0.0.6
-    repository: " https://raw.githubusercontent.com/openmcp-project/blueprint-building-blocks/gh-pages/"
+    repository: "oci://ghcr.io/openmcp-project"
     tags:
       - crossplane-provider-sap-btp-account
   - name: sap-btp-services
     alias: sap-btp-services
     version: 0.0.9
-    repository: " https://raw.githubusercontent.com/openmcp-project/blueprint-building-blocks/gh-pages/"
+    repository: "oci://ghcr.io/openmcp-project"
     tags:
       - sap-btp-services

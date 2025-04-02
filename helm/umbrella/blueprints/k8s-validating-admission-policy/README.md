@@ -8,7 +8,7 @@ A Umbrealla Helm chart which contains k8s ValidatingAdmissionPolicy & Validating
 
 | Repository | Name | Version |
 |------------|------|---------|
-|  https://raw.githubusercontent.com/openmcp-project/blueprint-building-blocks/gh-pages/ | k8s-validating-admission-policy(k8s-validating-admission-policy) | 0.0.2 |
+|  oci://ghcr.io/openmcp-project | k8s-validating-admission-policy(k8s-validating-admission-policy) | 0.0.2 |
 
 ## Values
 

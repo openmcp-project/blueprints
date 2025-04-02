@@ -27,12 +27,12 @@ dependencies:
   - name: crossplane-provider-configs
     alias: crossplane-provider-configs
     version: 0.0.15
-    repository: " https://raw.githubusercontent.com/openmcp-project/blueprint-building-blocks/gh-pages/"
+    repository: "oci://ghcr.io/openmcp-project"
     tags:
       - crossplane-provider-configs
   - name: crossplane-provider-sap-btp-account
     alias: crossplane-provider-sap-btp-account
     version: 0.0.2
-    repository: " https://raw.githubusercontent.com/openmcp-project/blueprint-building-blocks/gh-pages/"
+    repository: "oci://ghcr.io/openmcp-project"
     tags:
       - crossplane-provider-sap-btp-account
