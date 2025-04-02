@@ -8,8 +8,8 @@ A nested umbrealla Helm chart which contains crossplane manifests to demonstrate
 
 | Repository | Name | Version |
 |------------|------|---------|
-|  https://raw.githubusercontent.com/openmcp-project/blueprint-building-blocks/gh-pages/ | crossplane-provider-configs(crossplane-provider-configs) | 0.0.15 |
-|  https://raw.githubusercontent.com/openmcp-project/blueprint-building-blocks/gh-pages/ | external-secrets-config(external-secrets-config) | 0.1.7 |
+|  oci://ghcr.io/openmcp-project | crossplane-provider-configs(crossplane-provider-configs) | 0.0.15 |
+|  oci://ghcr.io/openmcp-project | external-secrets-config(external-secrets-config) | 0.1.7 |
 
 ## Values
 

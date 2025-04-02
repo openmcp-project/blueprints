@@ -11,8 +11,8 @@ A Umbrealla Helm chart which contains crossplane manifests to demonstrate orches
 
 | Repository | Name | Version |
 |------------|------|---------|
-|  https://raw.githubusercontent.com/openmcp-project/blueprint-building-blocks/gh-pages/ | crossplane-provider-configs(crossplane-provider-configs) | 0.0.15 |
-|  https://raw.githubusercontent.com/openmcp-project/blueprint-building-blocks/gh-pages/ | crossplane-provider-sap-btp-account(crossplane-provider-sap-btp-account) | 0.0.2 |
+|  oci://ghcr.io/openmcp-project | crossplane-provider-configs(crossplane-provider-configs) | 0.0.15 |
+|  oci://ghcr.io/openmcp-project | crossplane-provider-sap-btp-account(crossplane-provider-sap-btp-account) | 0.0.2 |
 
 ## Values
 

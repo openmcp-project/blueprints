@@ -8,7 +8,7 @@ A Umbrealla Helm chart which tests Renovate Bot Helm Chart Release Notes.
 
 | Repository | Name | Version |
 |------------|------|---------|
-|  https://raw.githubusercontent.com/openmcp-project/blueprint-building-blocks/gh-pages/ | test-custom-chart(test-custom-chart) | 0.0.5 |
+|  oci://ghcr.io/openmcp-project | test-custom-chart(test-custom-chart) | 0.0.5 |
 
 ## Values
 

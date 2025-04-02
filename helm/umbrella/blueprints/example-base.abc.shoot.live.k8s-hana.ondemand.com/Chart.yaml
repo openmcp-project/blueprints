@@ -29,12 +29,12 @@ dependencies:
   - name: crossplane-provider-configs
     alias: crossplane-provider-configs
     version: 0.0.15
-    repository: ://raw.githubusercontent.com/openmcp-project/blueprint-building-blocks/gh-pages/"
+    repository: "oci://ghcr.io/openmcp-project"
     tags:
       - crossplane-provider-configs
   - name: external-secrets-config
     alias: external-secrets-config
     version: 0.1.7
-    repository: ://raw.githubusercontent.com/openmcp-project/blueprint-building-blocks/gh-pages/"
+    repository: "oci://ghcr.io/openmcp-project"
     tags:
       - external-secrets-config

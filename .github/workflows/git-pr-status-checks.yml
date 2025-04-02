@@ -9,5 +9,11 @@ concurrency:
 
 jobs:
   pr-status-check:
-    uses: "openmcp-project/blueprint-workflows/.github/workflows/git-pr-status-checks.yml@main"
-    secrets: inherit
+    uses: "openmcp-project/blueprint-workflows/.github/workflows/git-pr-status-checks.yml@chore/os_preparations"
+    with:
+      HELM_REPO_NAME: 'building-blocks'
+      HELM_REPO_OCI_URL: 'oci://ghcr.io/openmcp-project'
+      BUILDING_BLOCKS_GIT_REPO_URL: 'https://github.com/openmcp-project/blueprint-building-blocks.git'
+    secrets:
+      HELM_REPO_USERNAME: "${{ secrets.GITHUB_TOKEN }}"
+      HELM_REPO_TOKEN: "${{ secrets.GITHUB_TOKEN }}"

@@ -27,6 +27,6 @@ dependencies:
   - name: k8s-validating-admission-policy
     alias: k8s-validating-admission-policy
     version: 0.0.2
-    repository: " https://raw.githubusercontent.com/openmcp-project/blueprint-building-blocks/gh-pages/"
+    repository: "oci://ghcr.io/openmcp-project"
     tags:
       - k8s-validating-admission-policy
