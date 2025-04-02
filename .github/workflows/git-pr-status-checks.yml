@@ -15,8 +15,7 @@ jobs:
       contents: read
     uses: "openmcp-project/blueprint-workflows/.github/workflows/git-pr-status-checks.yml@chore/os_preparations"
     with:
-      HELM_REPO_NAME: 'building-blocks'
-      HELM_REPO_OCI_URL: 'oci://ghcr.io/openmcp-project'
+      HELM_OCI_REGISTRY: 'ghcr.io'
       BUILDING_BLOCKS_GIT_REPO_URL: 'https://github.com/openmcp-project/blueprint-building-blocks.git'
     secrets:
       HELM_REPO_USERNAME: "${{ secrets.GITHUB_TOKEN }}"
