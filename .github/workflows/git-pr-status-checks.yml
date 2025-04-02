@@ -9,6 +9,10 @@ concurrency:
 
 jobs:
   pr-status-check:
+    permissions:
+      pull-requests: write
+      packages: read
+      contents: read
     uses: "openmcp-project/blueprint-workflows/.github/workflows/git-pr-status-checks.yml@chore/os_preparations"
     with:
       HELM_REPO_NAME: 'building-blocks'
