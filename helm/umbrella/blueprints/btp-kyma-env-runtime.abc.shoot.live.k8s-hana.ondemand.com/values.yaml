@@ -77,7 +77,7 @@ crossplane-provider-sap-btp-account:
     amount: 1
   #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#        
   accounts:
-    - btpSapCrossplaneProviderConfigRefName: ""
+    - btpSapCrossplaneProviderConfigRefName: "btpSapCrossplaneProviderConfigRefName"
       #-------------------------------------------------------------------------------------------------------------------------#
       #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
       subAccounts:
@@ -97,7 +97,7 @@ crossplane-provider-sap-btp-account:
 #########################################################################################################
 crossplane-provider-sap-btp-environment:
   kymaEnvironments:
-  - btpSapCrossplaneProviderConfigRefName: ""
+  - btpSapCrossplaneProviderConfigRefName: "btpSapCrossplaneProviderConfigRefName"
     name: "kyma-test"
     forProvider:
       parameters:
