@@ -41,6 +41,7 @@ crossplane-provider-sap-btp-account:
   #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#        
   accounts:
     - accountBtpOrchestrateCloudProviderConfigRefName: "btp-account-mcp-blueprints"
+      btpSapCrossplaneProviderConfigRefName: "btpSapCrossplaneProviderConfigRefName"
       #-------------------------------------------------------------------------------------------------------------------------#
       #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
       subAccounts:
