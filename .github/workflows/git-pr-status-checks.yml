@@ -20,4 +20,4 @@ jobs:
     secrets:
       HELM_REPO_USERNAME: "${{ secrets.GITHUB_TOKEN }}"
       HELM_REPO_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-      BUILDING_BLOCKS_GIT_REPO_URL: "${{ secrets.GITHUB_TOKEN }}"
+      BUILDING_BLOCKS_GIT_REPO_URL: "${{ secrets.ORG_REPO_TOKEN }}"
