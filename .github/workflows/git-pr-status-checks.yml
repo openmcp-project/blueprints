@@ -12,7 +12,7 @@ jobs:
     permissions:
       pull-requests: write
       packages: read
-      contents: read
+      contents: write
     uses: "openmcp-project/blueprint-workflows/.github/workflows/git-pr-status-checks.yml@chore/os_preparations"
     with:
       HELM_OCI_REGISTRY: 'ghcr.io'
