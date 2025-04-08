@@ -9,12 +9,12 @@ metadata:
     openmcp.cloud/blueprint-building-block-version: "0.0.6"
 spec:
   providerConfigRef:
-    name: provider-config-""
+    name: btpSapCrossplaneProviderConfigRefName
   forProvider:
     serviceManagerRef:
       name: subaccount1
     subaccountRef:
       name: subaccount1
   writeConnectionSecretToRef:
-    name: cis-provider-config-""-subaccount1
+    name: cis-btpsapcrossplaneproviderconfigrefname-subaccount1
     namespace: default

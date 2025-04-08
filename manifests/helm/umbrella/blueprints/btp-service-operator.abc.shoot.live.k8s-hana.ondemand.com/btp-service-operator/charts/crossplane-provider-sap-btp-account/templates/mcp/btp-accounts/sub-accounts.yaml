@@ -9,10 +9,10 @@ metadata:
     openmcp.cloud/blueprint-building-block-version: "0.0.6"
 spec:
   forProvider:
-    description: Cloud Orchestrator Managed Control Plane Blueprint PoC
+    description: ""
     displayName: ""
-    region: eu30
+    region: ""
     subaccountAdminEmails: []
     subdomain: ""
   providerConfigRef:
-    name: ""
+    name: "btpSapCrossplaneProviderConfigRefName"
