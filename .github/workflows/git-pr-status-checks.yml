@@ -7,12 +7,13 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
+permissions:
+  pull-requests: write
+  packages: read
+  contents: write
+  
 jobs:
   pr-status-check:
-    permissions:
-      pull-requests: write
-      packages: read
-      contents: write
     uses: "openmcp-project/blueprint-workflows/.github/workflows/git-pr-status-checks.yml@chore/os_preparations"
     with:
       HELM_OCI_REGISTRY: 'ghcr.io'
