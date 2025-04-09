@@ -48,7 +48,7 @@ A nested umbrealla Helm chart which contains crossplane manifests to demonstrate
 | external-secrets-config.secretStores[0].provider.vault.auth.kubernetes.secretRef.namespace | string | `"default"` |  |
 | external-secrets-config.secretStores[0].provider.vault.namespace | string | `""` |  |
 | external-secrets-config.secretStores[0].provider.vault.path | string | `"k8s-clusters"` |  |
-| external-secrets-config.secretStores[0].provider.vault.server | string | `""` |  |
+| external-secrets-config.secretStores[0].provider.vault.server | string | `"vault.example"` |  |
 | external-secrets-config.secretStores[0].provider.vault.version | string | `"v2"` |  |
 | tags.crossplane-provider-configs | bool | `true` |  |
 | tags.external-secrets-config | bool | `true` |  |
