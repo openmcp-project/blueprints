@@ -9,7 +9,7 @@ metadata:
     openmcp.cloud/blueprint-building-block-version: "0.0.6"
 spec:
   providerConfigRef:
-    name: btpSapCrossplaneProviderConfigRefName
+    name: btp-account-provider-config
   forProvider:
     appName: auditlog-viewer
     planName: free

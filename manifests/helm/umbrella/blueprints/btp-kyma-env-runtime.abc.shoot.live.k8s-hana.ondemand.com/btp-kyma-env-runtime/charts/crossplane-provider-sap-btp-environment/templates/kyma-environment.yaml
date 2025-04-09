@@ -3,13 +3,13 @@
 apiVersion: environment.btp.sap.crossplane.io/v1alpha1
 kind: KymaEnvironment
 metadata:
-  name: btpsapcrossplaneproviderconfigrefname-kyma-test
+  name: btp-account-provider-config-kyma-test
   labels:
     openmcp.cloud/blueprint-building-block: "crossplane-provider-sap-btp-environment"
     openmcp.cloud/blueprint-building-block-version: "0.0.12"
 spec:
   providerConfigRef:
-    name: btpSapCrossplaneProviderConfigRefName
+    name: btp-account-provider-config
   forProvider:
     parameters:
       administrators: []

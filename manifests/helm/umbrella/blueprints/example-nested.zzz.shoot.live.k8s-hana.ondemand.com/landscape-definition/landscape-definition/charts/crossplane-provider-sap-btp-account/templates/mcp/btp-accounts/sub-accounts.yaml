@@ -9,8 +9,8 @@ metadata:
     openmcp.cloud/blueprint-building-block-version: "0.0.6"
 spec:
   forProvider:
-    description: Sub Account managed by CO MCP & IaD
-    displayName: CO Managed Control Plane Blueprint Sub-Account
+    description: Sub Account managed by Open MCP & IaD
+    displayName: Open Managed Control Plane Blueprint Sub-Account
     region: ""
     subaccountAdminEmails: []
     subdomain: ""

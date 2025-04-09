@@ -15,7 +15,7 @@ spec:
     subaccountRef:
       name: subaccount1
   providerConfigRef:
-    name: "btpSapCrossplaneProviderConfigRefName"
+    name: "btp-account-provider-config"
 ---
 # Source: migration-test-provider-btp-accounts/charts/crossplane-provider-sap-btp-account/templates/mcp/btp-subscriptions/entitlements.yaml
 apiVersion: account.btp.sap.crossplane.io/v1alpha1
@@ -33,4 +33,4 @@ spec:
     subaccountRef:
       name: subaccount1
   providerConfigRef:
-    name: "btpSapCrossplaneProviderConfigRefName"
+    name: "btp-account-provider-config"
