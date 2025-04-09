@@ -11,7 +11,7 @@ external-secrets-config:
       # provider -- https://external-secrets.io/latest/api/spec/
       provider:
         vault:
-          server: ""
+          server: "vault.example"
           namespace: ""
           path: "k8s-clusters"
           version: "v2"
@@ -20,7 +20,7 @@ external-secrets-config:
               mountPath: "kubernetes"
               role: "mcp-blueprints"
               secretRef:
-                name: ""
+                name: "vault-tokenreview-service-account"
                 namespace: "default"
                 key: "token"
   externalSecret:
@@ -33,11 +33,11 @@ external-secrets-config:
       data:
         - secretKey: btp-cis-provider-credentials
           remoteRef:
-            key: ""
+            key: "btp-endpoint.example/btp-account"
             property: btp-cis-provider-credentials
         - secretKey: btp-service-account-provider-credentials
           remoteRef:
-            key: ""
+            key: "btp-endpoint.example/btp-account"
             property: btp-service-account-provider-credentials
 ######################################################################################################################################
 crossplane-provider-configs:

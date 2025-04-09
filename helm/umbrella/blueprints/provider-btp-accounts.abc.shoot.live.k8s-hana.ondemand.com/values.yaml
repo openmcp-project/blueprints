@@ -12,7 +12,7 @@ external-secrets-config:
       # provider -- https://external-secrets.io/latest/api/spec/
       provider:
         vault:
-          server: ""
+          server: "vault.example"
           namespace: ""
           path: "k8s-clusters"
           version: "v2"

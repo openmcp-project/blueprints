@@ -7,9 +7,8 @@ tags: # see ./Chart.yaml @url: https://helm.sh/docs/topics/charts/#tags-and-cond
 crossplane-provider-configs:
   providerConfigs:
     btpSapCrossplane:
-      - providerConfigRefName: "btp-account-mcp-blueprints"
+      - providerConfigRefName: "btp-account-provider-config"
         globalAccountSubDomain: "b81eca48-daa3-4515-951c-f499da5d64d5"
-        #cliServerUrl: "https://cli.btp.cloud.sap"
         cliServerUrl: "https://cli.btp.cloud.sap"
         cisCredentials:
           source: "Secret"
@@ -40,8 +39,8 @@ crossplane-provider-sap-btp-account:
       #amount: 1
   #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#        
   accounts:
-    - accountBtpOrchestrateCloudProviderConfigRefName: "btp-account-mcp-blueprints"
-      btpSapCrossplaneProviderConfigRefName: "btpSapCrossplaneProviderConfigRefName"
+    - accountBtpOrchestrateCloudproviderConfigRefName: "btp-account-provider-config"
+      btpSapCrossplaneProviderConfigRefName: "btp-account-provider-config"
       #-------------------------------------------------------------------------------------------------------------------------#
       #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
       subAccounts:
@@ -49,7 +48,7 @@ crossplane-provider-sap-btp-account:
         - name: "subAccount1"
           forProvider:
             displayName: "MCP #1 Blueprint Sub-Account #1"
-            description: "Sub Account managed by MCP & IaD from MCP #2"
+            description: "Sub Account managed by OpenMCP & IaD from OpenMCP #2"
             subdomain: blueprint-test-1
             region: ""
             subaccountAdmins: *subaccountAdminEmails
@@ -68,7 +67,7 @@ crossplane-provider-sap-btp-account:
         - name: "subAccount2"
           forProvider:
             displayName: "MCP #1 Blueprint Sub-Account #2"
-            description: "Sub Account managed by MCP & IaD from MCP #2 new"
+            description: "Sub Account managed by OpenMCP & IaD from OpenMCP #2 new"
             subdomain: blueprint-test-2
             region: ""
             subaccountAdmins: *subaccountAdminEmails          
