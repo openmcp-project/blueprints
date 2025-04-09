@@ -12,7 +12,7 @@ external-secrets-config:
     namespace: "default"
     provider:
       vault:
-        server: ""
+        server: "vault.example"
         namespace: "ts-co-openmcp/mcp-blueprints"
         path: "mcps"
         version: "v2"

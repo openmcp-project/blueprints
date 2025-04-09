@@ -12,20 +12,20 @@ external-secrets-config:
     namespace: "default"
     provider:
       vault:
-        server: ""
-        namespace: "ts-co-openmcp/mcp-blueprints"
+        server: "https://vault.example/"
+        namespace: "openmcp/blueprints"
         path: "mcps"
         version: "v2"
         auth:
           kubernetes:
-            mountPath: ""
-            role: ""
+            mountPath: "k8s-openmcp-blueprints"
+            role: "k8s-openmcp-role"
             secretRef:
-              name: ""
+              name: "vault-tokenreview-service-account"
               namespace: "default"
               key: "token"
   externalSecret:
-    - name: ""
+    - name: "btp-account-mcp-blueprints"
       namespace: "default"
       refreshInterval: "15m"
       targetSecretName: ""
@@ -34,30 +34,30 @@ external-secrets-config:
       data:
         - secretKey: btp-cis-provider-credentials
           remoteRef:
-            key: ""
+            key: "btp-endpoint.example/btp-account"
             property: btp-cis-provider-credentials
         - secretKey: btp-service-account-provider-credentials
           remoteRef:
-            key: ""
+            key: "btp-endpoint.example/btp-account"
             property: btp-service-account-provider-credentials
 ######################################################################################################################################
 crossplane-provider-configs:
   providerConfigs:
     btpSapCrossplane:
-      - providerConfigRefName: ""
-        globalAccountSubDomain: ""
+      - providerConfigRefName: "btp-account-provider-config"
+        globalAccountSubDomain: "exmpl"
         cliServerUrl: "https://cli.btp.cloud.sap"
         cisCredentials:
           source: "Secret"
           secretRef:
             namespace: default
-            name: ""
+            name: "btp-account-mcp-blueprints"
             key: btp-cis-provider-credentials
         serviceAccountSecret:
           source: "Secret"
           secretRef:
             namespace: default
-            name: ""
+            name: "btp-account-mcp-blueprints"
             key: btp-service-account-provider-credentials
 #########################################################################################################
 crossplane-provider-sap-btp-account:
@@ -72,17 +72,17 @@ crossplane-provider-sap-btp-account:
     amount: 1
   #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#        
   accounts:
-    - btpSapCrossplaneProviderConfigRefName: "btpSapCrossplaneProviderConfigRefName"
+    - btpSapCrossplaneProviderConfigRefName: "btp-account-provider-config"
       #-------------------------------------------------------------------------------------------------------------------------#
       #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
       subAccounts:
         #-------------------------------------------------------------------------------------------------------------------------#
         - name: "subAccount1"
           forProvider:
-            displayName: ""
-            description: ""
-            subdomain: ""
-            region: ""
+            displayName: "exmpl dev eu01"
+            description: "Open Orchestrator Managed Control Plane Blueprint PoC"
+            subdomain: "exmpl-dev-eu01"
+            region: "eu01"
             subaccountAdminEmails: *subaccountAdminEmails
           entitlements: *btpEntitlements
           services:
@@ -92,7 +92,7 @@ crossplane-provider-sap-btp-account:
 #########################################################################################################
 crossplane-provider-sap-btp-environment:
   cloudFoundryEnvironments:
-  - btpSapCrossplaneProviderConfigRefName: "btpSapCrossplaneProviderConfigRefName"
+  - btpSapCrossplaneProviderConfigRefName: "btp-account-provider-config"
     name: ""
     forProvider:
       initialOrgManagers: *cfAdminEmails

@@ -21,8 +21,8 @@ crossplane-provider-sap-btp-account:
         #-------------------------------------------------------------------------------------------------------------------------#
         - name: "subAccount1"
           forProvider:
-            displayName: "CO Managed Control Plane Blueprint Sub-Account"
-            description: "Sub Account managed by CO MCP & IaD"
+            displayName: "Open Managed Control Plane Blueprint Sub-Account"
+            description: "Sub Account managed by Open MCP & IaD"
             subdomain: ""
             region: ""
             subaccountAdminEmails: *subaccountAdminEmails
