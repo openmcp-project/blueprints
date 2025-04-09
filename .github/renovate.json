@@ -12,9 +12,6 @@
     ":dependencyDashboard",
     ":semanticCommits"
   ],
-  "assignees": [
-    "<user_name>"
-  ],
   "timezone": "Europe/Berlin",
   "semanticCommitType": "chore",
   "semanticCommitScope": "deps",
