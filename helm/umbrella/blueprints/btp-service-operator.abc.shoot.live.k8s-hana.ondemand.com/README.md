@@ -75,7 +75,7 @@ A Umbrealla Helm chart which demonstrate orchestration of SAP BTP Service Operat
 | external-secrets-config.secretStores[0].provider.vault.auth.kubernetes.secretRef.namespace | string | `"default"` |  |
 | external-secrets-config.secretStores[0].provider.vault.namespace | string | `"ts-co-openmcp/mcp-blueprints"` |  |
 | external-secrets-config.secretStores[0].provider.vault.path | string | `"mcps"` |  |
-| external-secrets-config.secretStores[0].provider.vault.server | string | `""` |  |
+| external-secrets-config.secretStores[0].provider.vault.server | string | `"vault.example"` |  |
 | external-secrets-config.secretStores[0].provider.vault.version | string | `"v2"` |  |
 | sap-btp-services.services[0].bindings[0].credentialsRotationPolicy.enabled | bool | `false` |  |
 | sap-btp-services.services[0].bindings[0].credentialsRotationPolicy.rotatedBindingTTL | string | `"1s"` |  |
