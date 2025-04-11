@@ -33,7 +33,7 @@ spec:
           annotations:
             cert.gardener.cloud/secretname: www-tls
             dns.gardener.cloud/class: garden
-            dns.gardener.cloud/dnsnames: ''
+            dns.gardener.cloud/dnsnames: ""
             dns.gardener.cloud/ttl: "600"
           appProtocol: false
         watchIngressWithoutClass: true

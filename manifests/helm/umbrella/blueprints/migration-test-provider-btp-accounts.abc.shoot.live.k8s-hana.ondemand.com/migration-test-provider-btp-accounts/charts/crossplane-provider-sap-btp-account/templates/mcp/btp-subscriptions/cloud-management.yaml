@@ -6,15 +6,15 @@ metadata:
   name: subaccount1
   labels:
     openmcp.cloud/blueprint-building-block: "crossplane-provider-sap-btp-account"
-    openmcp.cloud/blueprint-building-block-version: "0.0.2"
+    openmcp.cloud/blueprint-building-block-version: "0.0.6"
 spec:
   providerConfigRef:
-    name: btp-account-mcp-blueprints
+    name: btp-account-provider-config
   forProvider:
     serviceManagerRef:
       name: subaccount1
     subaccountRef:
       name: subaccount1
   writeConnectionSecretToRef:
-    name: cis-btp-account-mcp-blueprints-subaccount1
+    name: cis-btp-account-provider-config-subaccount1
     namespace: default

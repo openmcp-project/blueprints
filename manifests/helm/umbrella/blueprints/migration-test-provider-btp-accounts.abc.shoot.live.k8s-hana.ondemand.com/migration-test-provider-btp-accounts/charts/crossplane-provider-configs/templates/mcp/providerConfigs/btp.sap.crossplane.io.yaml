@@ -3,7 +3,7 @@
 apiVersion: btp.sap.crossplane.io/v1alpha1
 kind: ProviderConfig
 metadata:
-  name: "btp-account-mcp-blueprints"
+  name: "btp-account-provider-config"
   labels:
     openmcp.cloud/blueprint-building-block: "crossplane-provider-configs"
     openmcp.cloud/blueprint-building-block-version: "0.0.15"

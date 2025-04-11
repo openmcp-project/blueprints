@@ -3,22 +3,22 @@
 apiVersion: btp.sap.crossplane.io/v1alpha1
 kind: ProviderConfig
 metadata:
-  name: ""
+  name: "btp-account-provider-config"
   labels:
     openmcp.cloud/blueprint-building-block: "crossplane-provider-configs"
     openmcp.cloud/blueprint-building-block-version: "0.0.15"
 spec:
   cliServerUrl: "https://cli.btp.cloud.sap"
-  globalAccount: ""
+  globalAccount: "exmpl"
   cisCredentials:
     secretRef:
       key: btp-cis-provider-credentials
-      name: ""
+      name: btp-account-mcp-blueprints
       namespace: default
     source: Secret
   serviceAccountSecret:
     secretRef:
       key: btp-service-account-provider-credentials
-      name: ""
+      name: btp-account-mcp-blueprints
       namespace: default
     source: Secret

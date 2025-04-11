@@ -15,4 +15,4 @@ spec:
     subaccountRef:
       name: subaccount1
   providerConfigRef:
-    name: ""
+    name: "btp-account-provider-config"

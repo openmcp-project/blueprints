@@ -1,5 +1,4 @@
-# TL;DR
-This template umbrella Helm Chart demonstrates the orchestration of BTP resources such as [BTP Sub Accounts](https://learning.sap.com/learning-journeys/introducing-cloud-security-on-sap-business-technology-platform/using-global-accounts-and-subaccounts_fc42dbb5-5c5b-4903-a3f6-fed3d7f5ee22) and [BTP Entitlements](https://help.sap.com/docs/btp/sap-business-technology-platform/managing-entitlements-and-quotas-using-cockpit?locale=322080db84734e9b8812ede13703b83c.html).
+
 
 # migration-test-provider-btp-accounts
 
@@ -11,8 +10,10 @@ A Umbrealla Helm chart which contains crossplane manifests to demonstrate orches
 
 | Repository | Name | Version |
 |------------|------|---------|
-|  oci://ghcr.io/openmcp-project | crossplane-provider-configs(crossplane-provider-configs) | 0.0.15 |
-|  oci://ghcr.io/openmcp-project | crossplane-provider-sap-btp-account(crossplane-provider-sap-btp-account) | 0.0.2 |
+| oci://ghcr.io/openmcp-project | crossplane-provider-configs(crossplane-provider-configs) | 0.0.15 |
+| oci://ghcr.io/openmcp-project | crossplane-provider-sap-btp-account(crossplane-provider-sap-btp-account) | 0.0.6 |
+# TL;DR
+This template umbrella Helm Chart demonstrates the orchestration of BTP resources such as [BTP Sub Accounts](https://learning.sap.com/learning-journeys/introducing-cloud-security-on-sap-business-technology-platform/using-global-accounts-and-subaccounts_fc42dbb5-5c5b-4903-a3f6-fed3d7f5ee22) and [BTP Entitlements](https://help.sap.com/docs/btp/sap-business-technology-platform/managing-entitlements-and-quotas-using-cockpit?locale=322080db84734e9b8812ede13703b83c.html).
 
 ## Values
 
@@ -24,12 +25,13 @@ A Umbrealla Helm chart which contains crossplane manifests to demonstrate orches
 | crossplane-provider-configs.providerConfigs.btpSapCrossplane[0].cisCredentials.source | string | `"Secret"` |  |
 | crossplane-provider-configs.providerConfigs.btpSapCrossplane[0].cliServerUrl | string | `"https://cli.btp.cloud.sap"` |  |
 | crossplane-provider-configs.providerConfigs.btpSapCrossplane[0].globalAccountSubDomain | string | `"b81eca48-daa3-4515-951c-f499da5d64d5"` |  |
-| crossplane-provider-configs.providerConfigs.btpSapCrossplane[0].providerConfigRefName | string | `"btp-account-mcp-blueprints"` |  |
+| crossplane-provider-configs.providerConfigs.btpSapCrossplane[0].providerConfigRefName | string | `"btp-account-provider-config"` |  |
 | crossplane-provider-configs.providerConfigs.btpSapCrossplane[0].serviceAccountSecret.secretRef.key | string | `"credentials"` |  |
 | crossplane-provider-configs.providerConfigs.btpSapCrossplane[0].serviceAccountSecret.secretRef.name | string | `"sa-provider-secret"` |  |
 | crossplane-provider-configs.providerConfigs.btpSapCrossplane[0].serviceAccountSecret.secretRef.namespace | string | `"default"` |  |
 | crossplane-provider-configs.providerConfigs.btpSapCrossplane[0].serviceAccountSecret.source | string | `"Secret"` |  |
-| crossplane-provider-sap-btp-account.accounts[0].accountBtpOrchestrateCloudProviderConfigRefName | string | `"btp-account-mcp-blueprints"` |  |
+| crossplane-provider-sap-btp-account.accounts[0].accountBtpOrchestrateCloudproviderConfigRefName | string | `"btp-account-provider-config"` |  |
+| crossplane-provider-sap-btp-account.accounts[0].btpSapCrossplaneProviderConfigRefName | string | `"btp-account-provider-config"` |  |
 | crossplane-provider-sap-btp-account.accounts[0].subAccounts[0].entitlements[0].name | string | `"auditlog-viewer"` |  |
 | crossplane-provider-sap-btp-account.accounts[0].subAccounts[0].entitlements[0].permitNumericQuota | bool | `false` |  |
 | crossplane-provider-sap-btp-account.accounts[0].subAccounts[0].entitlements[0].serviceName | string | `"auditlog-viewer"` |  |
@@ -38,7 +40,7 @@ A Umbrealla Helm chart which contains crossplane manifests to demonstrate orches
 | crossplane-provider-sap-btp-account.accounts[0].subAccounts[0].entitlements[1].permitNumericQuota | bool | `false` |  |
 | crossplane-provider-sap-btp-account.accounts[0].subAccounts[0].entitlements[1].serviceName | string | `"cis"` |  |
 | crossplane-provider-sap-btp-account.accounts[0].subAccounts[0].entitlements[1].servicePlanName | string | `"local"` |  |
-| crossplane-provider-sap-btp-account.accounts[0].subAccounts[0].forProvider.description | string | `"Sub Account managed by MCP & IaD from MCP #2"` |  |
+| crossplane-provider-sap-btp-account.accounts[0].subAccounts[0].forProvider.description | string | `"Sub Account managed by OpenMCP & IaD from OpenMCP #2"` |  |
 | crossplane-provider-sap-btp-account.accounts[0].subAccounts[0].forProvider.displayName | string | `"MCP #1 Blueprint Sub-Account #1"` |  |
 | crossplane-provider-sap-btp-account.accounts[0].subAccounts[0].forProvider.region | string | `""` |  |
 | crossplane-provider-sap-btp-account.accounts[0].subAccounts[0].forProvider.subaccountAdmins | list | `[]` |  |
@@ -51,7 +53,7 @@ A Umbrealla Helm chart which contains crossplane manifests to demonstrate orches
 | crossplane-provider-sap-btp-account.accounts[0].subAccounts[0].subscriptions[0].planName | string | `"free"` |  |
 | crossplane-provider-sap-btp-account.accounts[0].subAccounts[0].subscriptions[0].writeConnectionSecretToRef.name | string | `"auditlog-viewer"` |  |
 | crossplane-provider-sap-btp-account.accounts[0].subAccounts[0].subscriptions[0].writeConnectionSecretToRef.namespace | string | `"default"` |  |
-| crossplane-provider-sap-btp-account.accounts[0].subAccounts[1].forProvider.description | string | `"Sub Account managed by MCP & IaD from MCP #2 new"` |  |
+| crossplane-provider-sap-btp-account.accounts[0].subAccounts[1].forProvider.description | string | `"Sub Account managed by OpenMCP & IaD from OpenMCP #2 new"` |  |
 | crossplane-provider-sap-btp-account.accounts[0].subAccounts[1].forProvider.displayName | string | `"MCP #1 Blueprint Sub-Account #2"` |  |
 | crossplane-provider-sap-btp-account.accounts[0].subAccounts[1].forProvider.region | string | `""` |  |
 | crossplane-provider-sap-btp-account.accounts[0].subAccounts[1].forProvider.subaccountAdmins | list | `[]` |  |
@@ -69,3 +71,5 @@ A Umbrealla Helm chart which contains crossplane manifests to demonstrate orches
 | tags.crossplane-provider-configs | bool | `true` |  |
 | tags.crossplane-provider-sap-btp-account | bool | `true` |  |
 
+----------------------------------------------
+Autogenerated from chart metadata using [helm-docs v1.14.2](https://github.com/norwoodj/helm-docs/releases/v1.14.2)

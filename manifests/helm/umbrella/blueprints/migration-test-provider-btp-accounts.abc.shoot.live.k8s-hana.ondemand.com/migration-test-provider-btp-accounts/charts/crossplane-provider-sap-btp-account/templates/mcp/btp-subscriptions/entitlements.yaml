@@ -6,7 +6,7 @@ metadata:
   name: auditlog-viewer  
   labels:
     openmcp.cloud/blueprint-building-block: "crossplane-provider-sap-btp-account"
-    openmcp.cloud/blueprint-building-block-version: "0.0.2"
+    openmcp.cloud/blueprint-building-block-version: "0.0.6"
 spec:
   forProvider:    
     serviceName: auditlog-viewer
@@ -15,7 +15,7 @@ spec:
     subaccountRef:
       name: subaccount1
   providerConfigRef:
-    name: "btp-account-mcp-blueprints"
+    name: "btp-account-provider-config"
 ---
 # Source: migration-test-provider-btp-accounts/charts/crossplane-provider-sap-btp-account/templates/mcp/btp-subscriptions/entitlements.yaml
 apiVersion: account.btp.sap.crossplane.io/v1alpha1
@@ -24,7 +24,7 @@ metadata:
   name: cis-local  
   labels:
     openmcp.cloud/blueprint-building-block: "crossplane-provider-sap-btp-account"
-    openmcp.cloud/blueprint-building-block-version: "0.0.2"
+    openmcp.cloud/blueprint-building-block-version: "0.0.6"
 spec:
   forProvider:    
     serviceName: cis
@@ -33,4 +33,4 @@ spec:
     subaccountRef:
       name: subaccount1
   providerConfigRef:
-    name: "btp-account-mcp-blueprints"
+    name: "btp-account-provider-config"

@@ -6,10 +6,10 @@ metadata:
   name: subaccount1-auditlog-viewer
   labels:
     openmcp.cloud/blueprint-building-block: "crossplane-provider-sap-btp-account"  
-    openmcp.cloud/blueprint-building-block-version: "0.0.2"
+    openmcp.cloud/blueprint-building-block-version: "0.0.6"
 spec:
   providerConfigRef:
-    name: btp-account-mcp-blueprints
+    name: btp-account-provider-config
   forProvider:
     appName: auditlog-viewer
     planName: free

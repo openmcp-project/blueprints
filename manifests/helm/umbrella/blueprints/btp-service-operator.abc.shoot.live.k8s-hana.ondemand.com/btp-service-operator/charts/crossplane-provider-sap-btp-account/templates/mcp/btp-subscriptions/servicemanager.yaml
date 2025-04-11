@@ -10,11 +10,11 @@ metadata:
 spec:
   writeConnectionSecretToRef:
     # !!! TODO: Make this configurable !!!
-    name: btp-service-manager-provider-config-""-subaccount1
+    name: btp-service-manager-btpSapCrossplaneProviderConfigRefName-subaccount1
     # !!! TODO: Make this configurable !!!
     namespace: default
   forProvider:
     subaccountRef:
       name: subaccount1
   providerConfigRef:
-    name: ""
+    name: "btpSapCrossplaneProviderConfigRefName"
