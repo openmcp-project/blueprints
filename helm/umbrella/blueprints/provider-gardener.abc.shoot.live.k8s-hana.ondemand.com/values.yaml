@@ -21,7 +21,7 @@ external-secrets-config:
             mountPath: ""
             role: ""
             secretRef:
-                name: ""
+                name: "vault-token-sa"
                 namespace: "default"
                 key: "token"
   externalSecret:
@@ -34,7 +34,7 @@ external-secrets-config:
       data:
         - secretKey: kubeconfig
           remoteRef:
-            key: ""
+            key: "btp-endpoint.example/btp-account"
             property: kubeconfig  
 ######################################################################################################################################
 crossplane-provider-configs:
