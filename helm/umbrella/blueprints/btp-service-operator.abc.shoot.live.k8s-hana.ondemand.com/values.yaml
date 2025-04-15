@@ -34,11 +34,11 @@ external-secrets-config:
       data:
         - secretKey: btp-cis-provider-credentials
           remoteRef:
-            key: ""
+            key: "btp-endpoint.example/btp-account"
             property: btp-cis-provider-credentials
         - secretKey: btp-service-account-provider-credentials
           remoteRef:
-            key: ""
+            key: "btp-endpoint.example/btp-account"
             property: btp-service-account-provider-credentials
 ######################################################################################################################################
 crossplane-provider-configs:

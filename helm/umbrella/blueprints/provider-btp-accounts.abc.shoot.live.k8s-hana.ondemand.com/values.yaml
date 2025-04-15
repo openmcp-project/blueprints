@@ -21,7 +21,7 @@ external-secrets-config:
               mountPath: "kubernetes"
               role: "mcp-blueprints"
               secretRef:
-                name: ""
+                name: "vault-token-sa"
                 namespace: "default"
                 key: "token"
   externalSecret:
@@ -34,11 +34,11 @@ external-secrets-config:
       data:
         - secretKey: btp-cis-provider-credentials
           remoteRef:
-            key: ""
+            key: "btp-endpoint.example/btp-account"
             property: btp-cis-provider-credentials
         - secretKey: btp-service-account-provider-credentials
           remoteRef:
-            key: ""
+            key: "btp-endpoint.example/btp-account"
             property: btp-service-account-provider-credentials
 ######################################################################################################################################
 crossplane-provider-configs:
@@ -79,7 +79,7 @@ crossplane-provider-sap-btp-account:
         - name: "subAccount1"
           forProvider:
             displayName: "CO Managed Control Plane Blueprint Sub-Account"
-            description: "Sub Account managed by CO MCP & IaD"
+            description: "Sub Account managed by OpenMCP & IaD"
             subdomain: mcp-blueprint-test-1
             region: ""
             subaccountAdminEmails: *subaccountAdminEmails

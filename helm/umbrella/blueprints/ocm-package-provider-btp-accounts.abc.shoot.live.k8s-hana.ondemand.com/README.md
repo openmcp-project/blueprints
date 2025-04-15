@@ -58,7 +58,7 @@ This template umbrella Helm Chart demonstrates the orchestration of BTP resource
 | crossplane-provider-sap-btp-account.accounts[0].subAccounts[0].entitlements[0].permitNumericQuota | bool | `true` |  |
 | crossplane-provider-sap-btp-account.accounts[0].subAccounts[0].entitlements[0].serviceName | string | `"auditlog-management"` |  |
 | crossplane-provider-sap-btp-account.accounts[0].subAccounts[0].entitlements[0].servicePlanName | string | `"default"` |  |
-| crossplane-provider-sap-btp-account.accounts[0].subAccounts[0].forProvider.description | string | `"Sub Account managed by CO MCP & IaD"` |  |
+| crossplane-provider-sap-btp-account.accounts[0].subAccounts[0].forProvider.description | string | `"Sub Account managed by OpenMCP & IaD"` |  |
 | crossplane-provider-sap-btp-account.accounts[0].subAccounts[0].forProvider.displayName | string | `"CO Managed Control Plane Blueprint Sub-Account"` |  |
 | crossplane-provider-sap-btp-account.accounts[0].subAccounts[0].forProvider.region | string | `""` |  |
 | crossplane-provider-sap-btp-account.accounts[0].subAccounts[0].forProvider.subaccountAdminEmails | list | `[]` |  |
