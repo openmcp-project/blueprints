@@ -33,10 +33,10 @@ A Umbrealla Helm chart which demonstrate on how to include local Helm Charts wit
 | custom-chart.image.repository | string | `"nginx"` |  |
 | custom-chart.replicaCount | int | `2` |  |
 | custom-chart.serviceAccount.create | bool | `false` |  |
-| external-secrets-config.externalSecret[0].data[0].remoteRef.key | string | `""` |  |
+| external-secrets-config.externalSecret[0].data[0].remoteRef.key | string | `"btp-endpoint.example/btp-account"` |  |
 | external-secrets-config.externalSecret[0].data[0].remoteRef.property | string | `"btp-cis-provider-credentials"` |  |
 | external-secrets-config.externalSecret[0].data[0].secretKey | string | `"btp-cis-provider-credentials"` |  |
-| external-secrets-config.externalSecret[0].data[1].remoteRef.key | string | `""` |  |
+| external-secrets-config.externalSecret[0].data[1].remoteRef.key | string | `"btp-endpoint.example/btp-account"` |  |
 | external-secrets-config.externalSecret[0].data[1].remoteRef.property | string | `"btp-service-account-provider-credentials"` |  |
 | external-secrets-config.externalSecret[0].data[1].secretKey | string | `"btp-service-account-provider-credentials"` |  |
 | external-secrets-config.externalSecret[0].name | string | `"btp-account-mcp-blueprints"` |  |
@@ -49,11 +49,11 @@ A Umbrealla Helm chart which demonstrate on how to include local Helm Charts wit
 | external-secrets-config.secretStores[0].provider.vault.auth.kubernetes.mountPath | string | `"kubernetes"` |  |
 | external-secrets-config.secretStores[0].provider.vault.auth.kubernetes.role | string | `"mcp-blueprints"` |  |
 | external-secrets-config.secretStores[0].provider.vault.auth.kubernetes.secretRef.key | string | `"token"` |  |
-| external-secrets-config.secretStores[0].provider.vault.auth.kubernetes.secretRef.name | string | `""` |  |
+| external-secrets-config.secretStores[0].provider.vault.auth.kubernetes.secretRef.name | string | `"vault-token-sa"` |  |
 | external-secrets-config.secretStores[0].provider.vault.auth.kubernetes.secretRef.namespace | string | `"default"` |  |
-| external-secrets-config.secretStores[0].provider.vault.namespace | string | `""` |  |
+| external-secrets-config.secretStores[0].provider.vault.namespace | string | `"ns1"` |  |
 | external-secrets-config.secretStores[0].provider.vault.path | string | `"k8s-clusters"` |  |
-| external-secrets-config.secretStores[0].provider.vault.server | string | `"vault.example"` |  |
+| external-secrets-config.secretStores[0].provider.vault.server | string | `"https://vault.example/"` |  |
 | external-secrets-config.secretStores[0].provider.vault.version | string | `"v2"` |  |
 | tags.crossplane-provider-configs | bool | `true` |  |
 | tags.custom-chart | bool | `true` |  |
