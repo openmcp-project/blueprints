@@ -49,10 +49,10 @@ This template umbrella Helm Chart demonstrates the orchestration of BTP resource
 | crossplane-provider-sap-btp-account.entitlementsLegacyLandscape[0].serviceName | string | `"auditlog-management"` |  |
 | crossplane-provider-sap-btp-account.entitlementsLegacyLandscape[0].servicePlanName | string | `"default"` |  |
 | crossplane-provider-sap-btp-account.subaccountAdminEmails | list | `[]` |  |
-| external-secrets-config.externalSecret[0].data[0].remoteRef.key | string | `""` |  |
+| external-secrets-config.externalSecret[0].data[0].remoteRef.key | string | `"btp-endpoint.example/btp-account"` |  |
 | external-secrets-config.externalSecret[0].data[0].remoteRef.property | string | `"btp-cis-provider-credentials"` |  |
 | external-secrets-config.externalSecret[0].data[0].secretKey | string | `"btp-cis-provider-credentials"` |  |
-| external-secrets-config.externalSecret[0].data[1].remoteRef.key | string | `""` |  |
+| external-secrets-config.externalSecret[0].data[1].remoteRef.key | string | `"btp-endpoint.example/btp-account"` |  |
 | external-secrets-config.externalSecret[0].data[1].remoteRef.property | string | `"btp-service-account-provider-credentials"` |  |
 | external-secrets-config.externalSecret[0].data[1].secretKey | string | `"btp-service-account-provider-credentials"` |  |
 | external-secrets-config.externalSecret[0].name | string | `"btp-account-mcp-blueprints"` |  |
@@ -65,7 +65,7 @@ This template umbrella Helm Chart demonstrates the orchestration of BTP resource
 | external-secrets-config.secretStores[0].provider.vault.auth.kubernetes.mountPath | string | `"kubernetes"` |  |
 | external-secrets-config.secretStores[0].provider.vault.auth.kubernetes.role | string | `"mcp-blueprints"` |  |
 | external-secrets-config.secretStores[0].provider.vault.auth.kubernetes.secretRef.key | string | `"token"` |  |
-| external-secrets-config.secretStores[0].provider.vault.auth.kubernetes.secretRef.name | string | `""` |  |
+| external-secrets-config.secretStores[0].provider.vault.auth.kubernetes.secretRef.name | string | `"vault-token-sa"` |  |
 | external-secrets-config.secretStores[0].provider.vault.auth.kubernetes.secretRef.namespace | string | `"default"` |  |
 | external-secrets-config.secretStores[0].provider.vault.namespace | string | `""` |  |
 | external-secrets-config.secretStores[0].provider.vault.path | string | `"k8s-clusters"` |  |
