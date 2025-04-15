@@ -51,9 +51,9 @@ A Umbrealla Helm chart which demonstrate on how to include local Helm Charts wit
 | external-secrets-config.secretStores[0].provider.vault.auth.kubernetes.secretRef.key | string | `"token"` |  |
 | external-secrets-config.secretStores[0].provider.vault.auth.kubernetes.secretRef.name | string | `"vault-token-sa"` |  |
 | external-secrets-config.secretStores[0].provider.vault.auth.kubernetes.secretRef.namespace | string | `"default"` |  |
-| external-secrets-config.secretStores[0].provider.vault.namespace | string | `""` |  |
+| external-secrets-config.secretStores[0].provider.vault.namespace | string | `"ns1"` |  |
 | external-secrets-config.secretStores[0].provider.vault.path | string | `"k8s-clusters"` |  |
-| external-secrets-config.secretStores[0].provider.vault.server | string | `"vault.example"` |  |
+| external-secrets-config.secretStores[0].provider.vault.server | string | `"https://vault.example/"` |  |
 | external-secrets-config.secretStores[0].provider.vault.version | string | `"v2"` |  |
 | tags.crossplane-provider-configs | bool | `true` |  |
 | tags.custom-chart | bool | `true` |  |
