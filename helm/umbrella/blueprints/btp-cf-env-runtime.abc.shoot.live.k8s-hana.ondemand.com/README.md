@@ -57,11 +57,11 @@ A Umbrealla Helm chart which demonstrate orchestration of SAP BTP Cloud Foundry 
 | crossplane-provider-sap-btp-account.cfAdminEmails | list | `[]` |  |
 | crossplane-provider-sap-btp-account.subaccountAdminEmails | list | `[]` |  |
 | crossplane-provider-sap-btp-environment.cloudFoundryEnvironments[0].btpSapCrossplaneProviderConfigRefName | string | `"btp-account-provider-config"` |  |
-| crossplane-provider-sap-btp-environment.cloudFoundryEnvironments[0].cloudManagementRef.name | string | `""` |  |
+| crossplane-provider-sap-btp-environment.cloudFoundryEnvironments[0].cloudManagementRef.name | string | `"dev-eu01"` |  |
 | crossplane-provider-sap-btp-environment.cloudFoundryEnvironments[0].forProvider.initialOrgManagers | list | `[]` |  |
-| crossplane-provider-sap-btp-environment.cloudFoundryEnvironments[0].forProvider.landscape | string | `""` |  |
-| crossplane-provider-sap-btp-environment.cloudFoundryEnvironments[0].name | string | `""` |  |
-| crossplane-provider-sap-btp-environment.cloudFoundryEnvironments[0].subaccountRef.name | string | `""` |  |
+| crossplane-provider-sap-btp-environment.cloudFoundryEnvironments[0].forProvider.landscape | string | `"eu01"` |  |
+| crossplane-provider-sap-btp-environment.cloudFoundryEnvironments[0].name | string | `"test"` |  |
+| crossplane-provider-sap-btp-environment.cloudFoundryEnvironments[0].subaccountRef.name | string | `"dev-eu01"` |  |
 | external-secrets-config.externalSecret[0].data[0].remoteRef.key | string | `"btp-endpoint.example/btp-account"` |  |
 | external-secrets-config.externalSecret[0].data[0].remoteRef.property | string | `"btp-cis-provider-credentials"` |  |
 | external-secrets-config.externalSecret[0].data[0].secretKey | string | `"btp-cis-provider-credentials"` |  |
