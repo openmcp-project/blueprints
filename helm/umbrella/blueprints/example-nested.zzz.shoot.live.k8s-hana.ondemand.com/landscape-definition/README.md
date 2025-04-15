@@ -24,9 +24,9 @@ A nested umbrealla Helm chart which contains crossplane manifests to demonstrate
 | crossplane-provider-sap-btp-account.accounts[0].subAccounts[0].entitlements[0].servicePlanName | string | `"default"` |  |
 | crossplane-provider-sap-btp-account.accounts[0].subAccounts[0].forProvider.description | string | `"Sub Account managed by Open MCP & IaD"` |  |
 | crossplane-provider-sap-btp-account.accounts[0].subAccounts[0].forProvider.displayName | string | `"Open Managed Control Plane Blueprint Sub-Account"` |  |
-| crossplane-provider-sap-btp-account.accounts[0].subAccounts[0].forProvider.region | string | `""` |  |
+| crossplane-provider-sap-btp-account.accounts[0].subAccounts[0].forProvider.region | string | `"eu01"` |  |
 | crossplane-provider-sap-btp-account.accounts[0].subAccounts[0].forProvider.subaccountAdminEmails | list | `[]` |  |
-| crossplane-provider-sap-btp-account.accounts[0].subAccounts[0].forProvider.subdomain | string | `""` |  |
+| crossplane-provider-sap-btp-account.accounts[0].subAccounts[0].forProvider.subdomain | string | `"dev-eu01"` |  |
 | crossplane-provider-sap-btp-account.accounts[0].subAccounts[0].name | string | `"subAccount1"` |  |
 | crossplane-provider-sap-btp-account.entitlementsLegacyLandscape[0].amount | int | `1` |  |
 | crossplane-provider-sap-btp-account.entitlementsLegacyLandscape[0].name | string | `"auditlog-oauth2"` |  |
