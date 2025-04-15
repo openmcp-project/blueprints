@@ -23,8 +23,8 @@ crossplane-provider-sap-btp-account:
           forProvider:
             displayName: "Open Managed Control Plane Blueprint Sub-Account"
             description: "Sub Account managed by Open MCP & IaD"
-            subdomain: ""
-            region: ""
+            subdomain: "dev-eu01"
+            region: "eu01"
             subaccountAdminEmails: *subaccountAdminEmails
           entitlements: *entitlementsLegacyLandscape
         #-------------------------------------------------------------------------------------------------------------------------#                                     

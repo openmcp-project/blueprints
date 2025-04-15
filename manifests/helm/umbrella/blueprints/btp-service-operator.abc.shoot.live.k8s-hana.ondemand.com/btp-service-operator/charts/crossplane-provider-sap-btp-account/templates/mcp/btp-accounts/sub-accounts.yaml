@@ -11,8 +11,8 @@ spec:
   forProvider:
     description: ""
     displayName: ""
-    region: ""
+    region: "eu01"
     subaccountAdminEmails: []
-    subdomain: ""
+    subdomain: "dev-eu01"
   providerConfigRef:
     name: "btpSapCrossplaneProviderConfigRefName"

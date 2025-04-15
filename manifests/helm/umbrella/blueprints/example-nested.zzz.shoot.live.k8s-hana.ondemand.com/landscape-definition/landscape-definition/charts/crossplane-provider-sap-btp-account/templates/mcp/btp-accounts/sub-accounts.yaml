@@ -11,8 +11,8 @@ spec:
   forProvider:
     description: Sub Account managed by Open MCP & IaD
     displayName: Open Managed Control Plane Blueprint Sub-Account
-    region: ""
+    region: "eu01"
     subaccountAdminEmails: []
-    subdomain: ""
+    subdomain: "dev-eu01"
   providerConfigRef:
     name: "provider-config-ref-name-btp-account-mcp-blueprints"

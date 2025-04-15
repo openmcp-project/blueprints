@@ -13,8 +13,8 @@ external-secrets-config:
       # provider -- https://external-secrets.io/latest/api/spec/
       provider:
         vault:
-          server: "vault.example"
-          namespace: ""
+          server: "https://vault.example/"
+          namespace: "ns1"
           path: "k8s-clusters"
           version: "v2"
           auth:
@@ -115,7 +115,7 @@ crossplane-provider-sap-btp-account:
             displayName: "CO Managed Control Plane Blueprint Sub-Account"
             description: "Sub Account managed by OpenMCP & IaD"
             subdomain: mcp-blueprint-test-1
-            region: ""
+            region: "eu01"
             subaccountAdminEmails: *subaccountAdminEmails
           entitlements: *entitlementsLegacyLandscape
         #-------------------------------------------------------------------------------------------------------------------------#                                     
