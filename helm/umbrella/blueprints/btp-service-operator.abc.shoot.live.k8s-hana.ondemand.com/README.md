@@ -55,10 +55,10 @@ A Umbrealla Helm chart which demonstrate orchestration of SAP BTP Service Operat
 | crossplane-provider-sap-btp-account.btpEntitlements[0].serviceName | string | `"cis"` |  |
 | crossplane-provider-sap-btp-account.btpEntitlements[0].servicePlanName | string | `"local"` |  |
 | crossplane-provider-sap-btp-account.subaccountAdminEmails | list | `[]` |  |
-| external-secrets-config.externalSecret[0].data[0].remoteRef.key | string | `""` |  |
+| external-secrets-config.externalSecret[0].data[0].remoteRef.key | string | `"btp-endpoint.example/btp-account"` |  |
 | external-secrets-config.externalSecret[0].data[0].remoteRef.property | string | `"btp-cis-provider-credentials"` |  |
 | external-secrets-config.externalSecret[0].data[0].secretKey | string | `"btp-cis-provider-credentials"` |  |
-| external-secrets-config.externalSecret[0].data[1].remoteRef.key | string | `""` |  |
+| external-secrets-config.externalSecret[0].data[1].remoteRef.key | string | `"btp-endpoint.example/btp-account"` |  |
 | external-secrets-config.externalSecret[0].data[1].remoteRef.property | string | `"btp-service-account-provider-credentials"` |  |
 | external-secrets-config.externalSecret[0].data[1].secretKey | string | `"btp-service-account-provider-credentials"` |  |
 | external-secrets-config.externalSecret[0].name | string | `""` |  |
