@@ -16,12 +16,12 @@ spec:
       autoScalerMax: 9
       autoScalerMin: 6
       machineType: ""
-      region: ""
+      region: "eu01"
     planName: gcp
   cloudManagementRef:
-    name: ""
+    name: "dev-eu01"
   subaccountRef:
-    name: ""
+    name: "dev-eu01"
   writeConnectionSecretToRef:
     name: kyma-kubeconfig-local
     namespace: default

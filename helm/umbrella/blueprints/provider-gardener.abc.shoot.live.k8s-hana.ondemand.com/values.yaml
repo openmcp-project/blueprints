@@ -12,14 +12,14 @@ external-secrets-config:
     namespace: "default"
     provider:
       vault:
-        server: "vault.example"
-        namespace: "ts-co-openmcp/mcp-blueprints"
+        server: "https://vault.example/"
+        namespace: "ns1"
         path: "mcps"
         version: "v2"
         auth:
           kubernetes:
-            mountPath: ""
-            role: ""
+            mountPath: "kubernetes"
+            role: "openmcp-kubernetes"
             secretRef:
                 name: "vault-token-sa"
                 namespace: "default"

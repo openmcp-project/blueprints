@@ -12,23 +12,23 @@ external-secrets-config:
     namespace: "default"
     provider:
       vault:
-        server: "vault.example"
-        namespace: "ts-co-openmcp/mcp-blueprints"
+        server: "https://vault.example/"
+        namespace: "ns1"
         path: "mcps"
         version: "v2"
         auth:
           kubernetes:
-            mountPath: ""
-            role: ""
+            mountPath: "kubernetes"
+            role: "openmcp-kubernetes"
             secretRef:
-              name: ""
+              name: "vault-token-sa"
               namespace: "default"
               key: "token"
   externalSecret:
-    - name: ""
+    - name: "btp-account"
       namespace: "default"
       refreshInterval: "15m"
-      targetSecretName: ""
+      targetSecretName: "btp-account"
       secretStore:
         name: "hashicorp-vault"
       data:
@@ -51,13 +51,13 @@ crossplane-provider-configs:
           source: "Secret"
           secretRef:
             namespace: default
-            name: ""
+            name: "btp-account"
             key: btp-cis-provider-credentials
         serviceAccountSecret:
           source: "Secret"
           secretRef:
             namespace: default
-            name: ""
+            name: "btp-account"
             key: btp-service-account-provider-credentials
 #########################################################################################################
 crossplane-provider-sap-btp-account:
@@ -78,10 +78,10 @@ crossplane-provider-sap-btp-account:
         #-------------------------------------------------------------------------------------------------------------------------#
         - name: "subAccount1"
           forProvider:
-            displayName: ""
-            description: ""
-            subdomain: ""
-            region: ""
+            displayName: "dev-eu01"
+            description: "Open Managed Control Plane Blueprint"
+            subdomain: "dev-eu01"
+            region: "eu01"
             subaccountAdminEmails: *subaccountAdminEmails
           entitlements: *btpEntitlements
           services:

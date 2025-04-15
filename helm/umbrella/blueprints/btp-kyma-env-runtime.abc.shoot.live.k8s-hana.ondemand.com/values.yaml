@@ -104,13 +104,13 @@ crossplane-provider-sap-btp-environment:
         administrators: *subaccountAdminEmails
         autoScalerMax: 9
         autoScalerMin: 6
-        machineType: ""
-        region: ""
+        machineType: "n2-standard-48" 
+        region: "europe-west3"
       planName: "gcp"
     cloudManagementRef:
-      name: ""
+      name: "dev-eu01"
     subaccountRef:
-      name: ""
+      name: "dev-eu01"
     writeConnectionSecretToRef:
       name: "kyma-kubeconfig-local"
       namespace: "default"

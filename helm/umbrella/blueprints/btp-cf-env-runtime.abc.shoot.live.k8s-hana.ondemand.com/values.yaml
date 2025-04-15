@@ -93,12 +93,12 @@ crossplane-provider-sap-btp-account:
 crossplane-provider-sap-btp-environment:
   cloudFoundryEnvironments:
   - btpSapCrossplaneProviderConfigRefName: "btp-account-provider-config"
-    name: ""
+    name: "test"
     forProvider:
       initialOrgManagers: *cfAdminEmails
-      landscape: ""
+      landscape: "eu01"
     cloudManagementRef:
-      name: ""
+      name: "dev-eu01"
     subaccountRef:
-      name: ""
+      name: "dev-eu01"
 #########################################################################################################
