@@ -39,7 +39,7 @@ This template umbrella Helm Chart demonstrates the orchestration of BTP resource
 | crossplane-provider-sap-btp-account.accounts[0].subAccounts[0].entitlements[0].servicePlanName | string | `"default"` |  |
 | crossplane-provider-sap-btp-account.accounts[0].subAccounts[0].forProvider.description | string | `"Sub Account managed by OpenMCP & IaD"` |  |
 | crossplane-provider-sap-btp-account.accounts[0].subAccounts[0].forProvider.displayName | string | `"CO Managed Control Plane Blueprint Sub-Account"` |  |
-| crossplane-provider-sap-btp-account.accounts[0].subAccounts[0].forProvider.region | string | `""` |  |
+| crossplane-provider-sap-btp-account.accounts[0].subAccounts[0].forProvider.region | string | `"eu01"` |  |
 | crossplane-provider-sap-btp-account.accounts[0].subAccounts[0].forProvider.subaccountAdminEmails | list | `[]` |  |
 | crossplane-provider-sap-btp-account.accounts[0].subAccounts[0].forProvider.subdomain | string | `"mcp-blueprint-test-1"` |  |
 | crossplane-provider-sap-btp-account.accounts[0].subAccounts[0].name | string | `"subAccount1"` |  |
@@ -67,9 +67,9 @@ This template umbrella Helm Chart demonstrates the orchestration of BTP resource
 | external-secrets-config.secretStores[0].provider.vault.auth.kubernetes.secretRef.key | string | `"token"` |  |
 | external-secrets-config.secretStores[0].provider.vault.auth.kubernetes.secretRef.name | string | `"vault-token-sa"` |  |
 | external-secrets-config.secretStores[0].provider.vault.auth.kubernetes.secretRef.namespace | string | `"default"` |  |
-| external-secrets-config.secretStores[0].provider.vault.namespace | string | `""` |  |
+| external-secrets-config.secretStores[0].provider.vault.namespace | string | `"ns1"` |  |
 | external-secrets-config.secretStores[0].provider.vault.path | string | `"k8s-clusters"` |  |
-| external-secrets-config.secretStores[0].provider.vault.server | string | `"vault.example"` |  |
+| external-secrets-config.secretStores[0].provider.vault.server | string | `"https://vault.example/"` |  |
 | external-secrets-config.secretStores[0].provider.vault.version | string | `"v2"` |  |
 | tags.crossplane-provider-configs | bool | `true` |  |
 | tags.crossplane-provider-sap-btp-account | bool | `true` |  |
