@@ -15,13 +15,13 @@ spec:
       administrators: []
       autoScalerMax: 9
       autoScalerMin: 6
-      machineType: ""
-      region: "eu01"
+      machineType: n2-standard-48
+      region: europe-west3
     planName: gcp
   cloudManagementRef:
-    name: "dev-eu01"
+    name: dev-eu01
   subaccountRef:
-    name: "dev-eu01"
+    name: dev-eu01
   writeConnectionSecretToRef:
     name: kyma-kubeconfig-local
     namespace: default
