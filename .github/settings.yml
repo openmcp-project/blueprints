@@ -16,7 +16,7 @@ repository:
   private: false
 
   # A comma-separated list of topics to set on the repository
-  topics: k8s, Cloud-Native, IaD, Cloud Orchestrator, ManageControlPlane, Blueprints
+  topics: k8s, Cloud-Native, IaD, ManageControlPlane, Blueprints
 
   # Either `true` to enable issues for this repository, `false` to disable them.
   has_issues: true
@@ -135,7 +135,7 @@ branches:
         strict: true
         # Required. The list of status checks to require in order to merge into this branch
         contexts:
-          - "Managed Control Plane Blueprints"
+          - "open MCP Blueprints"
       # Required. Enforce all configured restrictions for administrators. Set to true to enforce required status checks for repository administrators. Set to null to disable.
       enforce_admins: false
       # Prevent merge commits from being pushed to matching branches
