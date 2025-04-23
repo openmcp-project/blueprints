@@ -1,0 +1,58 @@
+---
+apiVersion: delivery.ocm.software/v1alpha1
+kind: ComponentVersion
+metadata:
+  name: mvp-ocm-mcp
+  namespace: ocm-system
+spec:
+  interval: 5s
+  component: mvp-ocm-mcp
+  version:
+    semver: ">=v0.0.4"
+  repository:
+    url: ocm
+    secretRef:
+      name: pull-secret      
+---
+apiVersion: delivery.ocm.software/v1alpha1
+kind: Resource
+metadata:
+  name: k8s-crossplane-manifests-provider-btp-accounts
+  namespace: ocm-system
+spec:
+  interval: 5s
+  sourceRef:
+    kind: ComponentVersion
+    name: mvp-ocm-mcp
+    resourceRef:
+      name: k8s-crossplane-manifests-provider-btp-accounts
+      version: latest
+---
+apiVersion: delivery.ocm.software/v1alpha1
+kind: Resource
+metadata:
+  name: k8s-crossplane-helm-chart
+  namespace: ocm-system
+spec:
+  interval: 5s
+  sourceRef:
+    kind: ComponentVersion
+    name: mvp-ocm-mcp
+    resourceRef:
+      name: crossplane
+      version: 1.18.0
+---
+apiVersion: delivery.ocm.software/v1alpha1
+kind: Resource
+metadata:
+  name: k8s-external-secrets-helm-chart
+  namespace: ocm-system
+spec:
+  interval: 5s
+  sourceRef:
+    kind: ComponentVersion
+    name: mvp-ocm-mcp
+    resourceRef:
+      name: external-secrets
+      version: 0.13.0
+---

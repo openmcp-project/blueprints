@@ -1,0 +1,118 @@
+---
+######################################################################################################################################
+tags: # see ./Chart.yaml @url: https://helm.sh/docs/topics/charts/#tags-and-condition-fields-in-dependencies
+  external-secrets-config: true
+  crossplane-provider-configs: true
+  crossplane-provider-sap-btp-account: true
+  sap-btp-services: true
+######################################################################################################################################
+external-secrets-config:
+  secretStores:
+  - name: "hashicorp-vault"
+    namespace: "default"
+    provider:
+      vault:
+        server: "https://vault.example/"
+        namespace: "ns1"
+        path: "mcps"
+        version: "v2"
+        auth:
+          kubernetes:
+            mountPath: "kubernetes"
+            role: "openmcp-kubernetes"
+            secretRef:
+              name: "vault-token-sa"
+              namespace: "default"
+              key: "token"
+  externalSecret:
+    - name: "btp-account"
+      namespace: "default"
+      refreshInterval: "15m"
+      targetSecretName: "btp-account"
+      secretStore:
+        name: "hashicorp-vault"
+      data:
+        - secretKey: btp-cis-provider-credentials
+          remoteRef:
+            key: "btp-endpoint.example/btp-account"
+            property: btp-cis-provider-credentials
+        - secretKey: btp-service-account-provider-credentials
+          remoteRef:
+            key: "btp-endpoint.example/btp-account"
+            property: btp-service-account-provider-credentials
+######################################################################################################################################
+crossplane-provider-configs:
+  providerConfigs:
+    btpSapCrossplane:
+      - providerConfigRefName: ""
+        globalAccountSubDomain: ""
+        cliServerUrl: "https://cli.btp.cloud.sap"
+        cisCredentials:
+          source: "Secret"
+          secretRef:
+            namespace: default
+            name: "btp-account"
+            key: btp-cis-provider-credentials
+        serviceAccountSecret:
+          source: "Secret"
+          secretRef:
+            namespace: default
+            name: "btp-account"
+            key: btp-service-account-provider-credentials
+#########################################################################################################
+crossplane-provider-sap-btp-account:
+  subaccountAdminEmails: &subaccountAdminEmails []
+  #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#        
+  btpEntitlements: &btpEntitlements       
+  - name: "cis-local"
+    serviceName: cis
+    servicePlanName: local
+    permitNumericQuota: false
+    amount: 1
+  #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#        
+  accounts:
+    - btpSapCrossplaneProviderConfigRefName: "btpSapCrossplaneProviderConfigRefName"
+      #-------------------------------------------------------------------------------------------------------------------------#
+      #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
+      subAccounts:
+        #-------------------------------------------------------------------------------------------------------------------------#
+        - name: "subAccount1"
+          forProvider:
+            displayName: "dev-eu01"
+            description: "Open Managed Control Plane Blueprint"
+            subdomain: "dev-eu01"
+            region: "eu01"
+            subaccountAdminEmails: *subaccountAdminEmails
+          entitlements: *btpEntitlements
+          services:
+            serviceManager: true
+            cloudManagement: false
+        #-------------------------------------------------------------------------------------------------------------------------#                                     
+#########################################################################################################
+sap-btp-services:
+  services:
+  - name: "hana-cloud"
+    namespace: "default"
+    instance:
+      name: "hana-cloud"
+      serviceOfferingName: "hana-cloud"
+      servicePlanName: "hana"
+      parameters: |
+        data:
+          memory: 48
+          vcpu: 12
+          systempassword: Cloud-12345! 
+          whitelistIPs:
+            - 127.0.0.1/0
+          enabledservices:
+            scriptserver: true
+          edition: cloud
+    bindings:
+      - name: "hana-binding"
+        secretName: "hana-binding-secret"
+        parameters: []          
+        credentialsRotationPolicy:
+          enabled: false
+          rotationFrequency: 1s
+          rotatedBindingTTL: 1s   
+#########################################################################################################

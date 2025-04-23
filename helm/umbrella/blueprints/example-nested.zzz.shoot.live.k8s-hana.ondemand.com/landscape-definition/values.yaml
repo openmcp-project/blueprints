@@ -1,0 +1,31 @@
+---
+######################################################################################################################################
+tags: # see ./Chart.yaml @url: https://helm.sh/docs/topics/charts/#tags-and-condition-fields-in-dependencies  
+  crossplane-provider-sap-btp-account: true  
+#########################################################################################################
+crossplane-provider-sap-btp-account:
+  subaccountAdminEmails: &subaccountAdminEmails []
+  #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#        
+  entitlementsLegacyLandscape: &entitlementsLegacyLandscape
+    - name: "auditlog-oauth2"
+      serviceName: "auditlog-management"
+      servicePlanName: "default"
+      permitNumericQuota: true
+      amount: 1
+  #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#        
+  accounts:
+    - btpSapCrossplaneProviderConfigRefName: "provider-config-ref-name-btp-account-mcp-blueprints"
+      #-------------------------------------------------------------------------------------------------------------------------#
+      #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
+      subAccounts:
+        #-------------------------------------------------------------------------------------------------------------------------#
+        - name: "subAccount1"
+          forProvider:
+            displayName: "Open Managed Control Plane Blueprint Sub-Account"
+            description: "Sub Account managed by Open MCP & IaD"
+            subdomain: "dev-eu01"
+            region: "eu01"
+            subaccountAdminEmails: *subaccountAdminEmails
+          entitlements: *entitlementsLegacyLandscape
+        #-------------------------------------------------------------------------------------------------------------------------#                                     
+######################################################################################################################################

@@ -1,0 +1,18 @@
+---
+# Source: landscape-definition/charts/crossplane-provider-sap-btp-account/templates/mcp/btp-accounts/sub-accounts.yaml
+apiVersion: account.btp.sap.crossplane.io/v1alpha1
+kind: Subaccount
+metadata:
+  name: subaccount1
+  labels:
+    openmcp.cloud/blueprint-building-block: "crossplane-provider-sap-btp-account"
+    openmcp.cloud/blueprint-building-block-version: "0.0.6"
+spec:
+  forProvider:
+    description: Sub Account managed by Open MCP & IaD
+    displayName: Open Managed Control Plane Blueprint Sub-Account
+    region: eu01
+    subaccountAdminEmails: []
+    subdomain: dev-eu01
+  providerConfigRef:
+    name: "provider-config-ref-name-btp-account-mcp-blueprints"

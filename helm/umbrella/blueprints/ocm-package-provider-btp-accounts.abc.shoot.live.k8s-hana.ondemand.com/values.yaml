@@ -1,0 +1,122 @@
+---
+######################################################################################################################################
+tags: # see ./Chart.yaml @url: https://helm.sh/docs/topics/charts/#tags-and-condition-fields-in-dependencies
+  external-secrets-config: false
+  crossplane-provider-configs: true
+  crossplane-provider-pkgs: true
+  crossplane-provider-sap-btp-account: true
+######################################################################################################################################
+external-secrets-config:
+  secretStores:
+    - name: "hashicorp-vault"
+      namespace: "default"
+      # provider -- https://external-secrets.io/latest/api/spec/
+      provider:
+        vault:
+          server: "https://vault.example/"
+          namespace: "ns1"
+          path: "k8s-clusters"
+          version: "v2"
+          auth:
+            kubernetes:
+              mountPath: "kubernetes"
+              role: "mcp-blueprints"
+              secretRef:
+                name: "vault-token-sa"
+                namespace: "default"
+                key: "token"
+  externalSecret:
+    - name: "btp-account-mcp-blueprints"
+      namespace: "default"
+      refreshInterval: "15m"
+      targetSecretName: btp-account-mcp-blueprints
+      secretStore:
+        name: "hashicorp-vault"
+      data:
+        - secretKey: btp-cis-provider-credentials
+          remoteRef:
+            key: "btp-endpoint.example/btp-account"
+            property: btp-cis-provider-credentials
+        - secretKey: btp-service-account-provider-credentials
+          remoteRef:
+            key: "btp-endpoint.example/btp-account"
+            property: btp-service-account-provider-credentials
+######################################################################################################################################
+crossplane-provider-pkgs:
+  providers:
+  - name: "provider-ias"
+    spec:
+      package: ocm/crossplane/provider-ias:0.2.2
+      packagePullPolicy: IfNotPresent
+      packagePullSecrets: 
+      - name: pull-secret
+  - name: "provider-gardener-auth" 
+    spec:
+      package: ocm/crossplane/provider-gardener-auth:0.0.4
+      packagePullPolicy: IfNotPresent
+      packagePullSecrets: 
+      - name: pull-secret
+  - name: "provider-kubernetes"
+    spec:
+      package: xpkg.upbound.io/crossplane-contrib/provider-kubernetes:v0.15.0 
+      packagePullPolicy: IfNotPresent
+      packagePullSecrets:
+      - name: pull-secret
+  - name: "provider-helm"
+    spec:
+      package: xpkg.upbound.io/crossplane-contrib/provider-helm:v0.19.0
+      packagePullPolicy: IfNotPresent
+      packagePullSecrets:
+      - name: pull-secret
+  - name: "provider-btp"
+    spec:
+      package: ghcr.io/sap/crossplane-provider-btp/crossplane/provider-btp:v1.0.2
+      packagePullPolicy: IfNotPresent
+      packagePullSecrets:
+      - name: pull-secret
+######################################################################################################################################
+crossplane-provider-configs:
+  providerConfigs:
+    btpSapCrossplane:
+      - providerConfigRefName: "provider-config-ref-name-btp-account-mcp-blueprints"
+        globalAccountSubDomain: "globalAccountSubDomain"
+        cliServerUrl: "https://cli.btp.cloud.sap"
+        cisCredentials:
+          source: "Secret"
+          secretRef:
+            namespace: default
+            name: "btp-account-mcp-blueprints"
+            key: btp-cis-provider-credentials
+        serviceAccountSecret:
+          source: "Secret"
+          secretRef:
+            namespace: default
+            name: "btp-account-mcp-blueprints"
+            key: btp-service-account-provider-credentials
+#########################################################################################################
+crossplane-provider-sap-btp-account:
+  subaccountAdminEmails: &subaccountAdminEmails []
+  #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#        
+  entitlementsLegacyLandscape: &entitlementsLegacyLandscape
+    - name: "auditlog-oauth2"
+      serviceName: "auditlog-management"
+      servicePlanName: "default"
+      permitNumericQuota: true
+      amount: 1
+  #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#        
+  accounts:
+    - btpSapCrossplaneProviderConfigRefName: "provider-config-ref-name-btp-account-mcp-blueprints"
+      #-------------------------------------------------------------------------------------------------------------------------#
+      #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
+      subAccounts:
+        #-------------------------------------------------------------------------------------------------------------------------#
+        - name: "subAccount1"
+          forProvider:
+            displayName: "CO Managed Control Plane Blueprint Sub-Account"
+            description: "Sub Account managed by OpenMCP & IaD"
+            subdomain: mcp-blueprint-test-1
+            region: "eu01"
+            subaccountAdminEmails: *subaccountAdminEmails
+          entitlements: *entitlementsLegacyLandscape
+        #-------------------------------------------------------------------------------------------------------------------------#                                     
+#########################################################################################################

@@ -1,0 +1,112 @@
+---
+######################################################################################################################################
+tags: # see ./Chart.yaml @url: https://helm.sh/docs/topics/charts/#tags-and-condition-fields-in-dependencies
+  external-secrets-config: true
+  crossplane-provider-configs: true  
+  crossplane-gardener-shoot-kubeconfigs: true
+  crossplane-provider-helm: true
+######################################################################################################################################
+external-secrets-config:
+  secretStores:
+  - name: "hashicorp-vault"
+    namespace: "default"
+    provider:
+      vault:
+        server: "https://vault.example/"
+        namespace: "ns1"
+        path: "mcps"
+        version: "v2"
+        auth:
+          kubernetes:
+            mountPath: "kubernetes"
+            role: "openmcp-kubernetes"
+            secretRef:
+                name: "vault-token-sa"
+                namespace: "default"
+                key: "token"
+  externalSecret:
+    - name: "garden-co-golden"
+      namespace: "default"
+      refreshInterval: "15m"
+      targetSecretName: garden-co-golden
+      secretStore:
+        name: "hashicorp-vault"
+      data:
+        - secretKey: kubeconfig
+          remoteRef:
+            key: "btp-endpoint.example/btp-account"
+            property: kubeconfig
+######################################################################################################################################
+crossplane-provider-configs:
+  providerConfigs:
+    kubernetesCrossplane:
+      - providerConfigRefName: "garden-sa-co-mcp-blueprints"
+        credentials:
+          source: "Secret"
+          secretRef:
+            name: "garden-co-golden"
+            namespace: default
+            key: kubeconfig
+    helmCrossplane:
+      - providerConfigRefName: "gardener-shoot-iad-test"
+        credentials:
+          source: "Secret"
+          secretRef:
+            namespace: default
+            name: "gardener-shoot-kubeconfig-iad-test"
+            key: kubeconfig
+    gardenerOrchestrateCloud:
+      - providerConfigRefName: "garden-sa-co-mcp-blueprints"
+        credentials:
+          source: "Secret"
+          secretRef:
+            namespace: default
+            name: "garden-co-golden"
+            key: kubeconfig                              
+######################################################################################################################################
+crossplane-gardener-shoot-kubeconfigs:
+  shootClusters:
+  - name: "iad-test" # name of the already existing shoot cluster in gardener project 'co-golden'
+    projectNamespace: "garden-co-golden"
+    # -- needs to match ProviderConfig of kubernetes.crossplane.io
+    gardenerOrchestrateCloudProviderConfigRefName: "garden-sa-co-mcp-blueprints"
+    kubernetesCrossplaneProviderConfigRefName: "garden-sa-co-mcp-blueprints"
+###################################################################
+crossplane-provider-helm:
+  helmReleases:
+    ingressNginx:
+      helmCrossplaneProviderConfigRefName: "gardener-shoot-iad-test"
+      name: "ingress-nginx"
+      chart:
+        name: "ingress-nginx"
+        repository: "https://kubernetes.github.io/ingress-nginx"
+        version: 4.10.0
+      namespace: "default"
+      values:
+        fullnameOverride: ingress-nginx
+        controller:
+          ingressClassResource:
+            default: true
+          watchIngressWithoutClass: true
+          config:
+            # @url: https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/configmap/#enable-underscores-in-headers
+            enable-underscores-in-headers: "true"
+          extraArgs:
+            # K8_NAMESPACE/K8_SECRET_NAME
+            # @url:
+            # https://kubernetes.github.io/ingress-nginx/user-guide/tls/#default-ssl-certificate
+            default-ssl-certificate: "default/www-tls"
+          service:
+            # Works fine on GCP/AWS
+            appProtocol: false
+            annotations:
+              # Let Gardener manage external DNS records for this Service.
+              # @url:
+              # https://github.com/gardener/external-dns-management#dnsannotation-objects
+              cert.gardener.cloud/secretname: "www-tls"
+              dns.gardener.cloud/dnsnames: ""
+              dns.gardener.cloud/ttl: "600"
+              dns.gardener.cloud/class: "garden"
+        defaultBackend:
+          enabled: true
+#########################################################################################################
