@@ -49,17 +49,17 @@ provider-kubernetes                            0.15.0           ociImage   exter
 
 ```
 
-6. Install flux+ocm controller [Gardener Shoot k8c cluster](https://dashboard.garden.canary.k8s.ondemand.com/namespace/garden-co-golden/shoots/test) to test consume OCM OCI artifact.
+6. Install flux+ocm controller to test consume OCM OCI artifact.
 - flux -> https://fluxcd.io/flux/installation/
 - ocm controller -> https://ocm.software/docs/controller/installation/
 
 7. Create k8s secret which contains credentials to pull image from artifact repository
 ```bash
 kubectl create secret docker-registry pull-secret -n ocm-system \
-    --docker-server=mcp-blueprints.common.repositories.cloud.sap \
+    --docker-server=ghcr.io/openmcp-project/images \
     --docker-username=<user_name> \
     --docker-password=cm.... \
-    --docker-email=steffen....@sap.com
+    --docker-email=<email_address>
 ```
 7. Instruct OCM controller to download component `mvp-ocm-mcp` from repository `ocm`
 - see  [k8s-manifests-ocm-component-version-resource.yaml](./k8s-manifests-ocm-component-version-resource.yaml)

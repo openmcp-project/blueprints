@@ -8,7 +8,7 @@ crossplane-provider-configs:
   providerConfigs:
     btpSapCrossplane:
       - providerConfigRefName: "btp-account-provider-config"
-        globalAccountSubDomain: "b81eca48-daa3-4515-951c-f499da5d64d5"
+        globalAccountSubDomain: "example1-aabb-1234-o987-3xampl3qwer6"
         cliServerUrl: "https://cli.btp.cloud.sap"
         cisCredentials:
           source: "Secret"
