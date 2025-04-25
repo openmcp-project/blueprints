@@ -40,7 +40,7 @@ dependencies:
       - external-secrets-config
   - name: crossplane-gardener-shoot-kubeconfigs
     alias: crossplane-gardener-shoot-kubeconfigs
-    version: 0.0.7
+    version: 0.0.10
     repository: "oci://ghcr.io/openmcp-project"
     tags:
       - crossplane-gardener-shoot-kubeconfigs
