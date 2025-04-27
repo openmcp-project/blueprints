@@ -46,7 +46,7 @@ dependencies:
       - crossplane-gardener-shoot-clusters
   - name: crossplane-provider-helm
     alias: crossplane-provider-helm
-    version: 0.0.8
+    version: 0.0.11
     repository: "oci://ghcr.io/openmcp-project"
     tags:
       - crossplane-provider-helm
