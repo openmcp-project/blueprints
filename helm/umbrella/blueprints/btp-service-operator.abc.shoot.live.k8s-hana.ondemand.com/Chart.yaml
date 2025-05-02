@@ -45,7 +45,7 @@ dependencies:
       - external-secrets-config
   - name: crossplane-provider-sap-btp-account
     alias: crossplane-provider-sap-btp-account
-    version: 0.0.6
+    version: 0.0.9
     repository: "oci://ghcr.io/openmcp-project"
     tags:
       - crossplane-provider-sap-btp-account
