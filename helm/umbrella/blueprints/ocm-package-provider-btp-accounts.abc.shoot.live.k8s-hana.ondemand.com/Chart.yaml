@@ -34,7 +34,7 @@ dependencies:
       - crossplane-provider-configs
   - name: crossplane-provider-pkgs
     alias: crossplane-provider-pkgs
-    version: 0.0.10
+    version: 0.0.13
     repository: "oci://ghcr.io/openmcp-project"
     tags:
       - crossplane-provider-pkgs
