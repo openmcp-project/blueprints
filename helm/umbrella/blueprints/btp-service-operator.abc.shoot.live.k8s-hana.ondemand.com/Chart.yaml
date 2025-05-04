@@ -51,7 +51,7 @@ dependencies:
       - crossplane-provider-sap-btp-account
   - name: sap-btp-services
     alias: sap-btp-services
-    version: 0.0.9
+    version: 0.0.12
     repository: "oci://ghcr.io/openmcp-project"
     tags:
       - sap-btp-services
