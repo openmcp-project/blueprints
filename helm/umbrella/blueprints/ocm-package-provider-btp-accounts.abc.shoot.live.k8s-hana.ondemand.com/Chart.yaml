@@ -40,7 +40,7 @@ dependencies:
       - crossplane-provider-pkgs
   - name: external-secrets-config
     alias: external-secrets-config
-    version: 0.1.7
+    version: 0.1.10
     repository: "oci://ghcr.io/openmcp-project"
     tags:
       - external-secrets-config
