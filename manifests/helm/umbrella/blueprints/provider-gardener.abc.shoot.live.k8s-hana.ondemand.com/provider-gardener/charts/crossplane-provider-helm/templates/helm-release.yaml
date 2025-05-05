@@ -6,7 +6,7 @@ metadata:
   name: gardener-shoot-iad-test-ingress-nginx  
   labels:
     openmcp.cloud/blueprint-building-block: "crossplane-provider-helm"
-    openmcp.cloud/blueprint-building-block-version: "0.0.8"
+    openmcp.cloud/blueprint-building-block-version: "0.0.11"
 spec:
   providerConfigRef:
     name: gardener-shoot-iad-test
