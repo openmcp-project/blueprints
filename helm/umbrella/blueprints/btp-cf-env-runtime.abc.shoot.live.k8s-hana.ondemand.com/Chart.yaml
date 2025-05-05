@@ -49,7 +49,7 @@ dependencies:
       - crossplane-provider-sap-btp-account
   - name: crossplane-provider-sap-btp-environment
     alias: crossplane-provider-sap-btp-environment
-    version: 0.0.12
+    version: 0.0.15
     repository: "oci://ghcr.io/openmcp-project"
     tags:
       - crossplane-provider-sap-btp-environment
