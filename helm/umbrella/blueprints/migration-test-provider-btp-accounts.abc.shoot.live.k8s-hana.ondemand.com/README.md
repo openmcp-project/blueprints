@@ -2,7 +2,7 @@
 
 # migration-test-provider-btp-accounts
 
-![Version: 0.0.16](https://img.shields.io/badge/Version-0.0.16-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.0.1](https://img.shields.io/badge/AppVersion-0.0.1-informational?style=flat-square)
+![Version: 0.0.17](https://img.shields.io/badge/Version-0.0.17-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.0.1](https://img.shields.io/badge/AppVersion-0.0.1-informational?style=flat-square)
 
 A Umbrealla Helm chart which contains crossplane manifests to demonstrate orchestration of SAP BTP Accounts
 
@@ -10,8 +10,8 @@ A Umbrealla Helm chart which contains crossplane manifests to demonstrate orches
 
 | Repository | Name | Version |
 |------------|------|---------|
-| oci://ghcr.io/openmcp-project | crossplane-provider-configs(crossplane-provider-configs) | 0.0.15 |
-| oci://ghcr.io/openmcp-project | crossplane-provider-sap-btp-account(crossplane-provider-sap-btp-account) | 0.0.6 |
+| oci://ghcr.io/openmcp-project | crossplane-provider-configs(crossplane-provider-configs) | 0.0.18 |
+| oci://ghcr.io/openmcp-project | crossplane-provider-sap-btp-account(crossplane-provider-sap-btp-account) | 0.0.9 |
 # TL;DR
 This template umbrella Helm Chart demonstrates the orchestration of BTP resources such as [BTP Sub Accounts](https://learning.sap.com/learning-journeys/introducing-cloud-security-on-sap-business-technology-platform/using-global-accounts-and-subaccounts_fc42dbb5-5c5b-4903-a3f6-fed3d7f5ee22) and [BTP Entitlements](https://help.sap.com/docs/btp/sap-business-technology-platform/managing-entitlements-and-quotas-using-cockpit?locale=322080db84734e9b8812ede13703b83c.html).
 
@@ -24,7 +24,7 @@ This template umbrella Helm Chart demonstrates the orchestration of BTP resource
 | crossplane-provider-configs.providerConfigs.btpSapCrossplane[0].cisCredentials.secretRef.namespace | string | `"default"` |  |
 | crossplane-provider-configs.providerConfigs.btpSapCrossplane[0].cisCredentials.source | string | `"Secret"` |  |
 | crossplane-provider-configs.providerConfigs.btpSapCrossplane[0].cliServerUrl | string | `"https://cli.btp.cloud.sap"` |  |
-| crossplane-provider-configs.providerConfigs.btpSapCrossplane[0].globalAccountSubDomain | string | `"b81eca48-daa3-4515-951c-f499da5d64d5"` |  |
+| crossplane-provider-configs.providerConfigs.btpSapCrossplane[0].globalAccountSubDomain | string | `"example1-aabb-1234-o987-3xampl3qwer6"` |  |
 | crossplane-provider-configs.providerConfigs.btpSapCrossplane[0].providerConfigRefName | string | `"btp-account-provider-config"` |  |
 | crossplane-provider-configs.providerConfigs.btpSapCrossplane[0].serviceAccountSecret.secretRef.key | string | `"credentials"` |  |
 | crossplane-provider-configs.providerConfigs.btpSapCrossplane[0].serviceAccountSecret.secretRef.name | string | `"sa-provider-secret"` |  |
