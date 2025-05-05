@@ -18,7 +18,7 @@ icon: "https://avatars.githubusercontent.com/u/2531208?s=200&v=4"
 # you make changes to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
 
-version: 0.0.20
+version: 0.0.21
 
 # This is the version number of the application being deployed. This version
 # number should be incremented each time you make changes to the application.
@@ -28,25 +28,25 @@ appVersion: "0.0.1"
 dependencies:
   - name: crossplane-provider-configs
     alias: crossplane-provider-configs
-    version: 0.0.15
+    version: 0.0.18
     repository: "oci://ghcr.io/openmcp-project"
     tags:
       - crossplane-provider-configs
   - name: external-secrets-config
     alias: external-secrets-config
-    version: 0.1.7
+    version: 0.1.10
     repository: "oci://ghcr.io/openmcp-project"
     tags:
       - external-secrets-config
   - name: crossplane-gardener-shoot-clusters
     alias: crossplane-gardener-shoot-clusters
-    version: 0.0.8
+    version: 0.0.11
     repository: "oci://ghcr.io/openmcp-project"
     tags:
       - crossplane-gardener-shoot-clusters
   - name: crossplane-provider-helm
     alias: crossplane-provider-helm
-    version: 0.0.8
+    version: 0.0.11
     repository: "oci://ghcr.io/openmcp-project"
     tags:
       - crossplane-provider-helm

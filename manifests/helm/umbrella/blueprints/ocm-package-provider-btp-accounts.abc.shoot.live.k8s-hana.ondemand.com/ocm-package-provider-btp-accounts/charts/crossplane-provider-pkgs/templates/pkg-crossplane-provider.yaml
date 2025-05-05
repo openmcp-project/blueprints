@@ -6,7 +6,7 @@ metadata:
   name: provider-ias
   labels:
     openmcp.cloud/blueprint-building-block: "crossplane-provider-pkgs"
-    openmcp.cloud/blueprint-building-block-version: "0.0.10"
+    openmcp.cloud/blueprint-building-block-version: "0.0.13"
 spec:
   package: ocm/crossplane/provider-ias:0.2.2
   packagePullPolicy: IfNotPresent
@@ -20,7 +20,7 @@ metadata:
   name: provider-gardener-auth
   labels:
     openmcp.cloud/blueprint-building-block: "crossplane-provider-pkgs"
-    openmcp.cloud/blueprint-building-block-version: "0.0.10"
+    openmcp.cloud/blueprint-building-block-version: "0.0.13"
 spec:
   package: ocm/crossplane/provider-gardener-auth:0.0.4
   packagePullPolicy: IfNotPresent
@@ -34,7 +34,7 @@ metadata:
   name: provider-kubernetes
   labels:
     openmcp.cloud/blueprint-building-block: "crossplane-provider-pkgs"
-    openmcp.cloud/blueprint-building-block-version: "0.0.10"
+    openmcp.cloud/blueprint-building-block-version: "0.0.13"
 spec:
   package: xpkg.upbound.io/crossplane-contrib/provider-kubernetes:v0.15.0
   packagePullPolicy: IfNotPresent
@@ -48,7 +48,7 @@ metadata:
   name: provider-helm
   labels:
     openmcp.cloud/blueprint-building-block: "crossplane-provider-pkgs"
-    openmcp.cloud/blueprint-building-block-version: "0.0.10"
+    openmcp.cloud/blueprint-building-block-version: "0.0.13"
 spec:
   package: xpkg.upbound.io/crossplane-contrib/provider-helm:v0.19.0
   packagePullPolicy: IfNotPresent
@@ -62,7 +62,7 @@ metadata:
   name: provider-btp
   labels:
     openmcp.cloud/blueprint-building-block: "crossplane-provider-pkgs"
-    openmcp.cloud/blueprint-building-block-version: "0.0.10"
+    openmcp.cloud/blueprint-building-block-version: "0.0.13"
 spec:
   package: ghcr.io/sap/crossplane-provider-btp/crossplane/provider-btp:v1.0.2
   packagePullPolicy: IfNotPresent
