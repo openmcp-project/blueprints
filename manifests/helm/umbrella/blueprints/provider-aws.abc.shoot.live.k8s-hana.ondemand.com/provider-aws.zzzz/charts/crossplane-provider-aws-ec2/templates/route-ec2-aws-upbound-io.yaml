@@ -10,8 +10,8 @@ spec:
     destinationCidrBlock: 0.0.0.0/0
     gatewayIdSelector:
       matchControllerRef: true
-    region: us-east-1
+    region: east-1
     routeTableIdSelector:
       matchControllerRef: true
   providerConfigRef:
-    name: dev-us-aws
+    name: dev-aws

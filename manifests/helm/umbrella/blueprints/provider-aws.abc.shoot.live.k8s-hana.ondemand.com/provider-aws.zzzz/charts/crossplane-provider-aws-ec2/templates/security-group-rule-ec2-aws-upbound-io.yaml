@@ -12,13 +12,13 @@ spec:
     description: Everywhere
     fromPort: 3306
     protocol: tcp
-    region: us-east-1
+    region: east-1
     securityGroupIdSelector:
       matchControllerRef: true
     toPort: 3306
     type: ingress
   providerConfigRef:
-    name: dev-us-aws
+    name: dev-aws
 ---
 # Source: provider-aws.zzzz/charts/crossplane-provider-aws-ec2/templates/security-group-rule-ec2-aws-upbound-io.yaml
 apiVersion: ec2.aws.upbound.io/v1beta1
@@ -33,10 +33,10 @@ spec:
     description: Everywhere
     fromPort: 5432
     protocol: tcp
-    region: us-east-1
+    region: east-1
     securityGroupIdSelector:
       matchControllerRef: true
     toPort: 5432
     type: ingress
   providerConfigRef:
-    name: dev-us-aws
+    name: dev-aws

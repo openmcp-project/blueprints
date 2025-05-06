@@ -16,7 +16,7 @@ spec:
           name: basic-bucket
         spec:
           forProvider:
-            region: us-east-2
+            region: east-2
           providerConfigRef:
             name: default
       name: s3Bucket
@@ -26,7 +26,7 @@ spec:
         transforms:
         - map:
             EU: eu-north-1
-            US: us-east-2
+            US: east-2
           type: map
         type: FromCompositeFieldPath
     - base:
@@ -41,7 +41,7 @@ spec:
               type: S
             hashKey: S3ID
             readCapacity: 1
-            region: us-east-2
+            region: east-2
             writeCapacity: 1
       name: dynamoDB
       patches:
@@ -50,7 +50,7 @@ spec:
         transforms:
         - map:
             EU: eu-north-1
-            US: us-east-2
+            US: east-2
           type: map
         type: FromCompositeFieldPath
 ---
@@ -62,7 +62,7 @@ metadata:
 spec:
   compositeTypeRef:
     apiVersion: api.example/v1alpha1
-    kind: XEKSCluster
+    kind: EKSCluster
   mode: "Pipeline"
   writeConnectionSecretsToNamespace: "crossplane-system"
   pipeline:
@@ -86,7 +86,7 @@ spec:
                 enableDnsHostnames: true
                 enableDnsSupport: true
               providerConfigRef:
-                name: dev-us-aws
+                name: dev-aws
           name: vpc
           patches:
           - patchSetName: common-parameters
@@ -105,7 +105,7 @@ spec:
                 vpcIdSelector:
                   matchControllerRef: true
               providerConfigRef:
-                name: dev-us-aws
+                name: dev-aws
           name: internetgateway
           patches:
           - patchSetName: common-parameters
@@ -123,7 +123,7 @@ spec:
                 vpcIdSelector:
                   matchControllerRef: true
               providerConfigRef:
-                name: dev-us-aws
+                name: dev-aws
           name: subnet-public-1
           patches:
           - patchSetName: common-parameters
@@ -150,7 +150,7 @@ spec:
                 vpcIdSelector:
                   matchControllerRef: true
               providerConfigRef:
-                name: dev-us-aws
+                name: dev-aws
           name: subnet-public-2
           patches:
           - patchSetName: common-parameters
@@ -177,7 +177,7 @@ spec:
                 vpcIdSelector:
                   matchControllerRef: true
               providerConfigRef:
-                name: dev-us-aws
+                name: dev-aws
           name: subnet-private-1
           patches:
           - patchSetName: common-parameters
@@ -204,7 +204,7 @@ spec:
                 vpcIdSelector:
                   matchControllerRef: true
               providerConfigRef:
-                name: dev-us-aws
+                name: dev-aws
           name: subnet-private-2
           patches:
           - patchSetName: common-parameters
@@ -228,7 +228,7 @@ spec:
               forProvider:
                 domain: vpc
               providerConfigRef:
-                name: dev-us-aws
+                name: dev-aws
           name: elastic-ip-1
           patches:
           - patchSetName: common-parameters
@@ -243,7 +243,7 @@ spec:
               forProvider:
                 domain: vpc
               providerConfigRef:
-                name: dev-us-aws
+                name: dev-aws
           name: elastic-ip-2
           patches:
           - patchSetName: common-parameters
@@ -264,7 +264,7 @@ spec:
                     type: subnet
                     visibility: public
               providerConfigRef:
-                name: dev-us-aws
+                name: dev-aws
           name: natgateway-1
           patches:
           - patchSetName: common-parameters
@@ -288,7 +288,7 @@ spec:
                     type: subnet
                     visibility: public
               providerConfigRef:
-                name: dev-us-aws
+                name: dev-aws
           name: natgateway-2
           patches:
           - patchSetName: common-parameters
@@ -305,7 +305,7 @@ spec:
                 vpcIdSelector:
                   matchControllerRef: true
               providerConfigRef:
-                name: dev-us-aws
+                name: dev-aws
           name: routetable-public
           patches:
           - patchSetName: common-parameters
@@ -319,7 +319,7 @@ spec:
                 vpcIdSelector:
                   matchControllerRef: true
               providerConfigRef:
-                name: dev-us-aws
+                name: dev-aws
           name: routetable-private-1
           patches:
           - patchSetName: common-parameters
@@ -333,7 +333,7 @@ spec:
                 vpcIdSelector:
                   matchControllerRef: true
               providerConfigRef:
-                name: dev-us-aws
+                name: dev-aws
           name: routetable-private-2
           patches:
           - patchSetName: common-parameters
@@ -351,9 +351,9 @@ spec:
                       type: subnet
                       visibility: private
               providerConfigRef:
-                name: dev-us-aws
+                name: dev-aws
               writeConnectionSecretToRef:
-                name: dev-us-connection-secret
+                name: dev-connection-secret
                 namespace: crossplane-system
           connectionDetails:
           - fromConnectionSecretKey: kubeconfig
@@ -396,7 +396,7 @@ spec:
                     ]
                   }
               providerConfigRef:
-                name: dev-us-aws
+                name: dev-aws
           name: role
         - base:
             apiVersion: iam.aws.upbound.io/v1beta1
@@ -407,7 +407,7 @@ spec:
                 roleSelector:
                   matchControllerRef: true
               providerConfigRef:
-                name: dev-us-aws
+                name: dev-aws
           name: rolePolicyAttachment
         - base:
             apiVersion: eks.aws.upbound.io/v1beta1
@@ -426,7 +426,7 @@ spec:
                     type: subnet
                     visibility: private
               providerConfigRef:
-                name: dev-us-aws
+                name: dev-aws
           name: eks-nodegroup
           patches:
           - patchSetName: common-parameters
@@ -441,8 +441,8 @@ spec:
             toFieldPath: spec.forProvider.amiType
             transforms:
             - map:
-                gpu: AL2_x86_64_GPU
-                non-gpu: AL2_x86_64
+                gpu: x86_GPU
+                non-gpu: x86
               type: map
             type: FromCompositeFieldPath
           - fromFieldPath: spec.parameters.workernode-role
@@ -479,7 +479,7 @@ spec:
                 crossplane.io/external-name: {{ get $params "id" | default ( print $claimNamespace "-vpc" ) }}
             spec:
               forProvider:
-                region: {{ get $params "region" | default "us-east-1" }}
+                region: {{ get $params "region" | default "east-1" }}
                 vpcCidrBlock: {{ get $params "vpcCIDRBlock" | default "192.168.0.0/16" }}
                 enableDnsSupport: true
                 enableDnsHostNames: true
@@ -532,10 +532,10 @@ spec:
                 maintenanceWindow: Mon:00:00-Mon:03:00
                 passwordSecretRef:
                   key: password
-                  name: {{ printf "%s-rds-admin-pw" $claimNamespace }}
+                  name: {{ printf "%s-rds-root" $claimNamespace }}
                   namespace: {{ $claimNamespace }}
                 publiclyAccessible: false
-                region: {{ printf "us-%s-1" (get $params "region" | default "east") }}
+                region: {{ printf "%s-1" (get $params "region" | default "east") }}
                 skipFinalSnapshot: true
                 storageEncrypted: true
                 storageType: gp2

@@ -7,16 +7,16 @@ metadata:
 spec:
   deletionPolicy: ""  
   forProvider:
-    region: us-east-1
+    region: east-1
     routeTableIdSelector:
       matchControllerRef: true
     subnetIdSelector:
       matchControllerRef: true
       matchLabels:
         access: public
-        zone: us-east-1a
+        zone: east-1a
   providerConfigRef:
-    name: dev-us-aws
+    name: dev-aws
 ---
 # Source: provider-aws.zzzz/charts/crossplane-provider-aws-ec2/templates/route-table-association-ec2-aws-upbound-io.yaml
 apiVersion: ec2.aws.upbound.io/v1beta1  
@@ -26,16 +26,16 @@ metadata:
 spec:
   deletionPolicy: ""  
   forProvider:
-    region: us-east-1
+    region: east-1
     routeTableIdSelector:
       matchControllerRef: true
     subnetIdSelector:
       matchControllerRef: true
       matchLabels:
         access: private
-        zone: us-east-1a
+        zone: east-1a
   providerConfigRef:
-    name: dev-us-aws
+    name: dev-aws
 ---
 # Source: provider-aws.zzzz/charts/crossplane-provider-aws-ec2/templates/route-table-association-ec2-aws-upbound-io.yaml
 apiVersion: ec2.aws.upbound.io/v1beta1  
@@ -45,16 +45,16 @@ metadata:
 spec:
   deletionPolicy: ""  
   forProvider:
-    region: us-east-1
+    region: east-1
     routeTableIdSelector:
       matchControllerRef: true
     subnetIdSelector:
       matchControllerRef: true
       matchLabels:
         access: public
-        zone: us-east-1b
+        zone: east-1b
   providerConfigRef:
-    name: dev-us-aws
+    name: dev-aws
 ---
 # Source: provider-aws.zzzz/charts/crossplane-provider-aws-ec2/templates/route-table-association-ec2-aws-upbound-io.yaml
 apiVersion: ec2.aws.upbound.io/v1beta1  
@@ -64,13 +64,13 @@ metadata:
 spec:
   deletionPolicy: ""  
   forProvider:
-    region: us-east-1
+    region: east-1
     routeTableIdSelector:
       matchControllerRef: true
     subnetIdSelector:
       matchControllerRef: true
       matchLabels:
         access: private
-        zone: us-east-1b
+        zone: east-1b
   providerConfigRef:
-    name: dev-us-aws
+    name: dev-aws

@@ -19,16 +19,16 @@ spec:
     maintenanceWindow: Mon:00:00-Mon:03:00
     passwordSecretRef:
       key: password
-      name: dev-us-rds-admin-pw
+      name: dev-rds-root
       namespace: dev-us
     publiclyAccessible: false
-    region: us-east-1
+    region: east-1
     skipFinalSnapshot: true
     storageEncrypted: true
     storageType: gp2
     username: adminuser
   providerConfigRef:
-    name: dev-us-aws
+    name: dev-aws
   writeConnectionSecretToRef:
-    name: dev-us-rds-connection-details
+    name: dev-rds-connection-details
     namespace: dev-us

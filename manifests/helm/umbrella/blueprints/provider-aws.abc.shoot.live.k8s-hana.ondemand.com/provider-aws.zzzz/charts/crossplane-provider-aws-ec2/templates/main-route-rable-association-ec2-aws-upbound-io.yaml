@@ -7,10 +7,10 @@ metadata:
 spec:
   deletionPolicy: ""  
   forProvider:
-    region: us-east-1
+    region: east-1
     routeTableIdSelector:
       matchControllerRef: true
     vpcIdSelector:
       matchControllerRef: true
   providerConfigRef:
-    name: dev-us-aws
+    name: dev-aws

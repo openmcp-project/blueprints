@@ -9,10 +9,10 @@ spec:
   forProvider:
     description: Allow access to databases
     name: platform-ref-eks-network-security-group
-    region: us-east-1
+    region: east-1
     tags:
       Name: platform-ref-eks-network-security-group
     vpcIdSelector:
       matchControllerRef: true
   providerConfigRef:
-    name: dev-us-aws
+    name: dev-aws

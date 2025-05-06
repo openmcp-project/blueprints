@@ -3,15 +3,15 @@
 apiVersion: ec2.aws.upbound.io/v1beta1
 kind: InternetGateway
 metadata:
-  name: dev-us-ekscluster
+  name: dev-ekscluster
 spec:
   deletionPolicy: ""  
   forProvider:
-    region: us-west-2
+    region: west-2
     vpcIdSelector:
       matchControllerRef: true
   providerConfigRef:
-    name: dev-us-aws
+    name: dev-aws
 ---
 # Source: provider-aws.zzzz/charts/crossplane-provider-aws-ec2/templates/internet-gateway-ec2-aws-upbound-io.yaml
 apiVersion: ec2.aws.upbound.io/v1beta1
@@ -21,10 +21,10 @@ metadata:
 spec:
   deletionPolicy: ""  
   forProvider:
-    region: us-east-1
+    region: east-1
     tags:
       Name: platform-ref-eks-network-internet-gateway
     vpcIdSelector:
       matchControllerRef: true
   providerConfigRef:
-    name: dev-us-aws
+    name: dev-aws
