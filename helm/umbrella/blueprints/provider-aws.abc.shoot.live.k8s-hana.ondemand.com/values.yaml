@@ -1,0 +1,1461 @@
+---
+######################################################################################################################################
+tags: # see ./Chart.yaml @url: https://helm.sh/docs/topics/charts/#tags-and-condition-fields-in-dependencies
+  external-secrets-config: true
+  crossplane-provider-configs: true
+  crossplane-provider-aws-ec2: true
+  crossplane-provider-aws-eks: true
+  crossplane-provider-aws-iam: true
+  crossplane-provider-aws-rdr: true
+  crossplane-provider-apiextensions-composition: true
+######################################################################################################################################
+external-secrets-config:
+  secretStores:
+    - name: "hashicorp-vault"
+      namespace: "default"
+      # provider -- https://external-secrets.io/latest/api/spec/
+      provider:
+        vault:
+          server: "https://vault.example/"
+          namespace: "ns1"
+          path: "k8s-clusters"
+          version: "v2"
+          auth:
+            # VaultAppRole authenticates with Vault using the
+            # App Role auth mechanism
+            # https://www.vaultproject.io/docs/auth/approle
+            appRole:
+              # Path where the App Role authentication backend is mounted
+              path: "approle"
+              # RoleID configured in the App Role authentication backend
+              roleId: ""
+              # Reference to a key in a K8 Secret that contains the App Role SecretId
+              secretRef:
+                name: "hashicorp-vault-token"
+                key: "token"
+  externalSecret:
+    - name: ""
+      namespace: "default"
+      refreshInterval: "15m"
+      targetSecretName: ""
+      secretStore:
+        name: "hashicorp-vault"
+      data:
+        - secretKey: kubeconfig
+          remoteRef:
+            key: ""
+            property: kubeconfig
+    - name: "btp-account-test"
+      namespace: "default"
+      refreshInterval: "15m"
+      targetSecretName: btp-account-test
+      secretStore:
+        name: "hashicorp-vault"
+      data:
+        - secretKey: btp-cis-provider-credentials
+          remoteRef:
+            key: ""
+            property: btp-cis-provider-credentials
+        - secretKey: btp-service-account-provider-credentials
+          remoteRef:
+            key: ""
+            property: btp-service-account-provider-credentials
+  #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
+  credentials: []
+    # - name: "hashicorp-vault-token"
+    #   namespace: "default"
+    #   stringData:
+    #     token: "..."
+    #   data: {}
+######################################################################################################################################
+crossplane-provider-configs:
+  providerConfigs:
+    kubernetesCrossplane: []    
+    helmCrossplane: []
+    gardenerOrchestrateCloud: []
+    btpSapCrossplane: []
+#########################################################################################################
+crossplane-provider-aws-ec2:
+  eips:
+    - name: "dev-ekscluster"
+      spec:
+        forProvider:
+          domain: vpc
+          region: west-2
+        providerConfigRef:
+          name: dev-aws
+    - name: "dev-ekscluster-2"
+      spec:
+        forProvider:
+          domain: vpc
+          region: west-2
+        providerConfigRef:
+          name: dev-aws
+  # -- https://marketplace.upbound.io/providers/upbound/provider-aws-ec2/v1.11.0/resources/ec2.aws.upbound.io/InternetGateway/v1beta1
+  internetGateways:
+    - name: "dev-ekscluster"
+      labels: {}
+      annotations: {}
+      ownerReferences: {}      
+      spec:
+        
+        forProvider:
+          region: west-2
+          vpcIdSelector:
+            matchControllerRef: true
+        providerConfigRef:
+          name: dev-aws
+    - name: "reference-eks-network"
+      labels: {}
+      annotations: {}
+      ownerReferences: {}      
+      spec:
+        
+        forProvider:
+          region: east-1
+          tags:
+            Name: platform-ref-eks-network-internet-gateway
+          vpcIdSelector:
+            matchControllerRef: true
+        providerConfigRef:
+          name: dev-aws
+  # -- https://marketplace.upbound.io/providers/upbound/provider-aws-ec2/v1.11.0/resources/ec2.aws.upbound.io/NATGateway/v1beta1
+  natGateways:
+    - name: "dev-ekscluster"
+      labels: {}
+      annotations: {}
+      ownerReferences: {}      
+      spec:
+        
+        forProvider:
+          allocationIdSelector:
+            matchLabels:
+              type: eip-1
+          region: west-2
+          subnetIdSelector:
+            matchLabels:
+              type: subnet
+              visibility: public
+              zone: west-2a
+        providerConfigRef:
+          name: dev-aws
+    - name: "dev-ekscluster-2"
+      labels: {}
+      annotations: {}
+      ownerReferences: {}      
+      spec:
+        
+        forProvider:
+          allocationIdSelector:
+            matchLabels:
+              type: eip-2
+          region: west-2
+          subnetIdSelector:
+            matchLabels:
+              type: subnet
+              visibility: public
+              zone: west-2b
+        providerConfigRef:
+          name: dev-aws
+  securityGroups:
+    - name: "reference-eks-network"
+      labels: {}
+      annotations: {}
+      ownerReferences: {}      
+      spec:
+        forProvider:
+          description: Allow access to databases
+          name: platform-ref-eks-network-security-group
+          region: east-1
+          tags:
+            Name: platform-ref-eks-network-security-group
+          vpcIdSelector:
+            matchControllerRef: true
+        providerConfigRef:
+          name: dev-aws        
+  securityGroupRules:
+    - name: "reference-eks-network"
+      labels: {}
+      annotations: {}
+      ownerReferences: {}      
+      spec:
+        forProvider:
+          cidrBlocks:
+            - 192.168.0.0/16
+          description: Everywhere
+          fromPort: 3306
+          protocol: tcp
+          region: east-1
+          securityGroupIdSelector:
+            matchControllerRef: true
+          toPort: 3306
+          type: ingress
+        providerConfigRef:
+          name: dev-aws
+    - name: "reference-eks-network-5432"
+      labels: {}
+      annotations: {}
+      ownerReferences: {}      
+      spec:
+        forProvider:
+          cidrBlocks:
+            - 192.168.0.0/16
+          description: Everywhere
+          fromPort: 5432
+          protocol: tcp
+          region: east-1
+          securityGroupIdSelector:
+            matchControllerRef: true
+          toPort: 5432
+          type: ingress
+        providerConfigRef:
+          name: dev-aws
+  # -- https://marketplace.upbound.io/providers/upbound/provider-aws-ec2/v1.11.0/resources/ec2.aws.upbound.io/RouteTable/v1beta1
+  routeTables:
+    - name: "dev-ekscluster"
+      spec:
+        forProvider:
+          region: west-2
+          vpcIdSelector:
+            matchControllerRef: true
+        providerConfigRef:
+          name: dev-aws        
+    - name: "reference-eks-network"
+      spec:
+        forProvider:
+          region: east-1
+          tags:
+            Name: platform-ref-eks-network-route-table
+          vpcIdSelector:
+            matchControllerRef: true
+        providerConfigRef:
+          name: dev-aws        
+  
+  routeTableAssociations:
+    - name: "reference-eks-network-public"
+      labels: {}
+      annotations: {}
+      ownerReferences: {}      
+      spec:
+        forProvider:
+          region: east-1
+          routeTableIdSelector:
+            matchControllerRef: true
+          subnetIdSelector:
+            matchControllerRef: true
+            matchLabels:
+              access: public
+              zone: east-1a
+        providerConfigRef:
+          name: dev-aws        
+    - name: "reference-eks-network-private"
+      labels: {}
+      annotations: {}
+      ownerReferences: {}      
+      spec:
+        forProvider:
+          region: east-1
+          routeTableIdSelector:
+            matchControllerRef: true
+          subnetIdSelector:
+            matchControllerRef: true
+            matchLabels:
+              access: private
+              zone: east-1a
+        providerConfigRef:
+          name: dev-aws        
+    - name: "reference-eks-network-public-1b"
+      labels: {}
+      annotations: {}
+      ownerReferences: {}      
+      spec:
+        forProvider:
+          region: east-1
+          routeTableIdSelector:
+            matchControllerRef: true
+          subnetIdSelector:
+            matchControllerRef: true
+            matchLabels:
+              access: public
+              zone: east-1b
+        providerConfigRef:
+          name: dev-aws        
+    - name: "reference-eks-network-private-1b"
+      labels: {}
+      annotations: {}
+      ownerReferences: {}      
+      spec:
+        forProvider:
+          region: east-1
+          routeTableIdSelector:
+            matchControllerRef: true
+          subnetIdSelector:
+            matchControllerRef: true
+            matchLabels:
+              access: private
+              zone: east-1b
+        providerConfigRef:
+          name: dev-aws        
+  mainRouteTableAssociations:
+    - name: "reference-eks-network"
+      labels: {}
+      annotations: {}
+      ownerReferences: {}      
+      spec:
+        forProvider:
+          region: east-1
+          routeTableIdSelector:
+            matchControllerRef: true
+          vpcIdSelector:
+            matchControllerRef: true
+        providerConfigRef:
+          name: dev-aws        
+  routes:
+    - name: "reference-eks-network"
+      labels: {}
+      annotations: {}
+      ownerReferences: {}      
+      spec:
+        forProvider:
+          destinationCidrBlock: 0.0.0.0/0
+          gatewayIdSelector:
+            matchControllerRef: true
+          region: east-1
+          routeTableIdSelector:
+            matchControllerRef: true
+        providerConfigRef:
+          name: dev-aws        
+  # -- https://marketplace.upbound.io/providers/upbound/provider-aws-ec2/v1.11.0/resources/ec2.aws.upbound.io/Subnet/v1beta1
+  subnets:
+    - name: "dev-ekscluster"
+      labels: {}
+      annotations: {}
+      ownerReferences: {}      
+      spec:
+        forProvider:
+          availabilityZone: west-2a
+          cidrBlock: 192.168.50.0/24
+          mapPublicIpOnLaunch: false
+          region: west-2
+          vpcIdSelector:
+            matchControllerRef: true
+        providerConfigRef:
+          name: dev-aws
+    - name: "reference-eks-network"
+      labels: {}
+      annotations: {}
+      ownerReferences: {}      
+      spec:
+        forProvider:
+          availabilityZone: east-1a
+          cidrBlock: 192.168.128.0/18
+          region: east-1
+          tags:
+            Name: platform-ref-eks-network-subnet-east-1a-private-2
+            kubernetes.io/role/internal-elb: "1"
+          vpcIdSelector:
+            matchControllerRef: true
+        providerConfigRef:
+          name: dev-aws
+    - name: "reference-eks-network-public-0"
+      labels: {}
+      annotations: {}
+      ownerReferences: {}      
+      spec:
+        forProvider:
+          availabilityZone: east-1a
+          cidrBlock: 192.168.0.0/18
+          mapPublicIpOnLaunch: true
+          region: east-1
+          tags:
+            Name: platform-ref-eks-network-subnet-east-1a-public-0
+            kubernetes.io/role/elb: "1"
+          vpcIdSelector:
+            matchControllerRef: true
+        providerConfigRef:
+          name: dev-aws
+    - name: "reference-eks-network-east-1b-private-3"
+      labels: {}
+      annotations: {}
+      ownerReferences: {}      
+      spec:
+        forProvider:
+          availabilityZone: east-1b
+          cidrBlock: 192.168.192.0/18
+          region: east-1
+          tags:
+            Name: platform-ref-eks-network-subnet-east-1b-private-3
+            kubernetes.io/role/internal-elb: "1"
+          vpcIdSelector:
+            matchControllerRef: true
+        providerConfigRef:
+          name: dev-aws
+    - name: "reference-eks-network-east-1b-public-1"
+      labels: {}
+      annotations: {}
+      ownerReferences: {}      
+      spec:
+        forProvider:
+          availabilityZone: east-1b
+          cidrBlock: 192.168.64.0/18
+          mapPublicIpOnLaunch: true
+          region: east-1
+          tags:
+            Name: platform-ref-eks-network-subnet-east-1b-public-1
+            kubernetes.io/role/elb: "1"
+          vpcIdSelector:
+            matchControllerRef: true
+        providerConfigRef:
+          name: dev-aws
+    - name: "dev-ekscluster-2"
+      labels: {}
+      annotations: {}
+      ownerReferences: {}      
+      spec:
+        forProvider:
+          availabilityZone: west-2b
+          cidrBlock: 192.168.51.0/24
+          mapPublicIpOnLaunch: false
+          region: west-2
+          vpcIdSelector:
+            matchControllerRef: true
+        providerConfigRef:
+          name: dev-aws
+    - name: "dev-ekscluster-3"
+      labels: {}
+      annotations: {}
+      ownerReferences: {}      
+      spec:
+        
+        forProvider:
+          availabilityZone: west-2b
+          cidrBlock: 192.168.49.0/24
+          mapPublicIpOnLaunch: true
+          region: west-2
+          vpcIdSelector:
+            matchControllerRef: true
+        providerConfigRef:
+          name: dev-aws
+    - name: "dev-ekscluster-4"
+      labels: {}
+      annotations: {}
+      ownerReferences: {}      
+      spec:
+        
+        forProvider:
+          availabilityZone: west-2b
+          cidrBlock: 192.168.49.0/24
+          mapPublicIpOnLaunch: true
+          region: west-2
+          vpcIdSelector:
+            matchControllerRef: true
+        providerConfigRef:
+          name: dev-aws
+  # -- https://marketplace.upbound.io/providers/upbound/provider-aws-ec2/v1.11.0/resources/ec2.aws.upbound.io/VPC/v1beta1
+  vpcs:
+    - name: "dev-ekscluster"
+      labels: {}
+      annotations: {}
+      ownerReferences: {}      
+      spec:
+        forProvider:
+          cidrBlock: 192.168.48.0/20
+          enableDnsHostnames: true
+          enableDnsSupport: true
+          region: west-2
+        providerConfigRef:
+          name: dev-aws        
+    - name: "reference-eks-network"
+      labels: {}
+      annotations: {}
+      ownerReferences: {}      
+      spec:
+        forProvider:
+          cidrBlock: 192.168.0.0/16
+          enableDnsHostnames: true
+          enableDnsSupport: true
+          region: east-1
+          tags:
+            Name: platform-ref-eks-network-vpc
+        providerConfigRef:
+          name: dev-aws
+    - name: "vpc-west-2"
+      labels: {}
+      annotations: {}
+      ownerReferences: {}      
+      spec:
+        forProvider:
+          enableDnsHostNames: true
+          enableDnsSupport: true
+          instanceTenancy: default
+          region: west-2
+          vpcCidrBlock: 10.0.0.0/16
+        providerConfigRef:
+          name: dev-aws
+#########################################################################################################
+crossplane-provider-aws-eks:
+  clusters:
+    - name: "dev-ekscluster"
+      labels:
+        crossplane.io/composite: dev-ekscluster
+        crossplane.io/claim-namespace: dev-us
+      annotations:
+        crossplane.io/composition-resource-name: eks-cluster
+      ownerReferences:
+        - apiVersion: api.example/v1alpha1
+          blockOwnerDeletion: true
+          controller: true
+          kind: EKSCluster
+          name: dev-ekscluster
+          uid: ""
+      spec:
+        
+        forProvider:
+          region: west-2
+          roleArn: arn:aws:iam::XXXX:role/EKS-Cluster-Role
+          version: "1.29"
+          vpcConfig:
+            - endpointPrivateAccess: false
+              endpointPublicAccess: true
+              subnetIdSelector:
+                matchLabels:
+                  type: subnet
+                  visibility: private
+        providerConfigRef:
+          name: dev-aws
+        writeConnectionSecretToRef:
+          name: dev-connection-secret
+          namespace: crossplane-system
+        publishConnectionDetailsTo: {}
+  nodeGroups:
+    - name: "dev-ekscluster"
+      labels:
+        crossplane.io/composite: dev-ekscluster
+        crossplane.io/claim-namespace: dev-us
+      annotations:
+        crossplane.io/composition-resource-name: eks-nodegroup
+      ownerReferences: 
+        - apiVersion: api.example/v1alpha1
+          blockOwnerDeletion: true
+          controller: true
+          kind: EKSCluster
+          name: dev-ekscluster
+          uid: ""
+      spec:
+        forProvider:
+          amiType: x86
+          clusterNameSelector:
+            matchControllerRef: true
+          instanceTypes:
+            - t3.medium
+          nodeRoleArn: arn:aws:iam::XXXX:role/EKS-WorkerNode-Role
+          region: west-2
+          scalingConfig:
+            - desiredSize: 2
+              maxSize: 2
+              minSize: 1
+          subnetIdSelector:
+            matchControllerRef: true
+            matchLabels:
+              type: subnet
+              visibility: private
+        providerConfigRef:
+          name: dev-aws
+        publishConnectionDetailsTo: {}
+        writeConnectionSecretToRef: {}
+#########################################################################################################
+crossplane-provider-aws-iam:
+  roles:
+    - name: "dev-ekscluster"
+      labels:
+        crossplane.io/composite: dev-ekscluster
+        crossplane.io/claim-namespace: dev-us
+      annotations:
+        crossplane.io/composition-resource-name: role
+      ownerReferences:
+        - apiVersion: api.example/v1alpha1
+          blockOwnerDeletion: true
+          controller: true
+          kind: EKSCluster
+          name: dev-ekscluster
+          uid: ""
+      spec:
+        
+        forProvider:
+          assumeRolePolicy: |
+            {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Principal": {
+                    "Service": "eks.amazonaws.com"
+                  },
+                  "Action": "sts:AssumeRole"
+                }
+              ]
+            }
+        providerConfigRef:
+          name: dev-aws
+        publishConnectionDetailsTo: {}
+        writeConnectionSecretToRef: {}  
+  rolePolicyAttachments:
+    - name: "dev-ekscluster"
+      labels:
+        crossplane.io/composite: dev-ekscluster
+        crossplane.io/claim-namespace: dev-us
+      annotations:
+        crossplane.io/composition-resource-name: rolePolicyAttachment
+      ownerReferences:
+        - apiVersion: api.example/v1alpha1
+          blockOwnerDeletion: true
+          controller: true
+          kind: EKSCluster
+          name: dev-ekscluster
+          uid: ""
+      spec:
+        
+        forProvider:
+          policyArn: arn:aws:iam::aws:policy/AmazonEKSClusterPolicy
+          roleSelector:
+            matchControllerRef: true
+        providerConfigRef:
+          name: dev-aws
+        publishConnectionDetailsTo: {}
+        writeConnectionSecretToRef: {}
+#########################################################################################################
+crossplane-provider-aws-rdr:
+  instances:
+    - name: "rds-instance"
+      labels: {}
+      annotations: {}
+      ownerReferences: {}      
+      spec:
+        forProvider:
+          allocatedStorage: 20
+          autoGeneratePassword: true
+          autoMinorVersionUpgrade: true
+          backupRetentionPeriod: 14
+          backupWindow: 09:46-10:16
+          dbName: clopsdevusdb
+          engine: postgres
+          engineVersion: "16.1"
+          instanceClass: db.t3.micro
+          maintenanceWindow: Mon:00:00-Mon:03:00
+          passwordSecretRef:
+            key: password
+            name: dev-rds-root
+            namespace: dev-us
+          publiclyAccessible: false
+          region: east-1
+          skipFinalSnapshot: true
+          storageEncrypted: true
+          storageType: gp2
+          username: adminuser
+        providerConfigRef:
+          name: dev-aws
+        writeConnectionSecretToRef:
+          name: dev-rds-connection-details
+          namespace: dev-us
+#########################################################################################################
+crossplane-provider-apiextensions-composition:
+  compositions:
+  - name: "nosqls.aws.api.example" 
+    spec:
+      compositeTypeRef:
+        apiVersion: aws.api.example/v1alpha1
+        kind: NoSQL
+      resources:
+        - name: s3Bucket
+          base:
+            apiVersion: s3.aws.upbound.io/v1beta1
+            kind: Bucket
+            metadata:
+              name: basic-bucket
+            spec:
+              forProvider:
+                region: east-2
+              providerConfigRef:
+                name: default
+          patches:
+            - type: FromCompositeFieldPath
+              fromFieldPath: "spec.location"
+              toFieldPath: "spec.forProvider.region"
+              transforms:
+                - type: map
+                  map:
+                    EU: "eu-north-1"
+                    US: "east-2"
+        - name: dynamoDB
+          base:
+            apiVersion: dynamodb.aws.upbound.io/v1beta1
+            kind: Table
+            metadata:
+              name: nosql-database
+            spec:
+              forProvider:
+                region: "east-2"
+                writeCapacity: 1
+                readCapacity: 1
+                attribute:
+                  - name: S3ID
+                    type: S
+                hashKey: S3ID
+          patches:
+            - type: FromCompositeFieldPath
+              fromFieldPath: "spec.location"
+              toFieldPath: "spec.forProvider.region"
+              transforms:
+                - type: map
+                  map:
+                    EU: "eu-north-1"
+                    US: "east-2"
+  - name: "eks-cluster" 
+    spec:
+      compositeTypeRef:
+        apiVersion: api.example/v1alpha1
+        kind: EKSCluster
+      mode: "Pipeline"
+      writeConnectionSecretsToNamespace: "crossplane-system"
+      pipeline:
+        - functionRef:
+            name: patch-and-transform
+          input:
+            apiVersion: pt.fn.crossplane.io/v1beta1
+            kind: Resources
+            patchSets:
+              - name: common-parameters
+                patches:
+                  - fromFieldPath: spec.parameters.region
+                    toFieldPath: spec.forProvider.region
+                    type: FromCompositeFieldPath
+            resources:
+              - base:
+                  apiVersion: ec2.aws.upbound.io/v1beta1
+                  kind: VPC
+                  spec:
+                    forProvider:
+                      enableDnsHostnames: true
+                      enableDnsSupport: true
+                    providerConfigRef:
+                      name: dev-aws
+                name: vpc
+                patches:
+                  - patchSetName: common-parameters
+                    type: PatchSet
+                  - fromFieldPath: spec.parameters.vpc-cidrBlock
+                    toFieldPath: spec.forProvider.cidrBlock
+                    type: FromCompositeFieldPath
+              - base:
+                  apiVersion: ec2.aws.upbound.io/v1beta1
+                  kind: InternetGateway
+                  metadata:
+                    labels:
+                      type: igw
+                  spec:
+                    forProvider:
+                      vpcIdSelector:
+                        matchControllerRef: true
+                    providerConfigRef:
+                      name: dev-aws
+                name: internetgateway
+                patches:
+                  - patchSetName: common-parameters
+                    type: PatchSet
+              - base:
+                  apiVersion: ec2.aws.upbound.io/v1beta1
+                  kind: Subnet
+                  metadata:
+                    labels:
+                      type: subnet
+                      visibility: public
+                  spec:
+                    forProvider:
+                      mapPublicIpOnLaunch: true
+                      vpcIdSelector:
+                        matchControllerRef: true
+                    providerConfigRef:
+                      name: dev-aws
+                name: subnet-public-1
+                patches:
+                  - patchSetName: common-parameters
+                    type: PatchSet
+                  - fromFieldPath: spec.parameters.subnet1-public-cidrBlock
+                    toFieldPath: spec.forProvider.cidrBlock
+                    type: FromCompositeFieldPath
+                  - fromFieldPath: spec.parameters.subnet1-public-availabilityZone
+                    toFieldPath: spec.forProvider.availabilityZone
+                    type: FromCompositeFieldPath
+                  - fromFieldPath: spec.parameters.subnet1-public-availabilityZone
+                    toFieldPath: metadata.labels.zone
+                    type: FromCompositeFieldPath
+              - base:
+                  apiVersion: ec2.aws.upbound.io/v1beta1
+                  kind: Subnet
+                  metadata:
+                    labels:
+                      type: subnet
+                      visibility: public
+                  spec:
+                    forProvider:
+                      mapPublicIpOnLaunch: true
+                      vpcIdSelector:
+                        matchControllerRef: true
+                    providerConfigRef:
+                      name: dev-aws
+                name: subnet-public-2
+                patches:
+                  - patchSetName: common-parameters
+                    type: PatchSet
+                  - fromFieldPath: spec.parameters.subnet2-public-cidrBlock
+                    toFieldPath: spec.forProvider.cidrBlock
+                    type: FromCompositeFieldPath
+                  - fromFieldPath: spec.parameters.subnet2-public-availabilityZone
+                    toFieldPath: spec.forProvider.availabilityZone
+                    type: FromCompositeFieldPath
+                  - fromFieldPath: spec.parameters.subnet2-public-availabilityZone
+                    toFieldPath: metadata.labels.zone
+                    type: FromCompositeFieldPath
+              - base:
+                  apiVersion: ec2.aws.upbound.io/v1beta1
+                  kind: Subnet
+                  metadata:
+                    labels:
+                      type: subnet
+                      visibility: private
+                  spec:
+                    forProvider:
+                      mapPublicIpOnLaunch: false
+                      vpcIdSelector:
+                        matchControllerRef: true
+                    providerConfigRef:
+                      name: dev-aws
+                name: subnet-private-1
+                patches:
+                  - patchSetName: common-parameters
+                    type: PatchSet
+                  - fromFieldPath: spec.parameters.subnet1-private-cidrBlock
+                    toFieldPath: spec.forProvider.cidrBlock
+                    type: FromCompositeFieldPath
+                  - fromFieldPath: spec.parameters.subnet1-private-availabilityZone
+                    toFieldPath: spec.forProvider.availabilityZone
+                    type: FromCompositeFieldPath
+                  - fromFieldPath: spec.parameters.subnet1-private-availabilityZone
+                    toFieldPath: metadata.labels.zone
+                    type: FromCompositeFieldPath
+              - base:
+                  apiVersion: ec2.aws.upbound.io/v1beta1
+                  kind: Subnet
+                  metadata:
+                    labels:
+                      type: subnet
+                      visibility: private
+                  spec:
+                    forProvider:
+                      mapPublicIpOnLaunch: false
+                      vpcIdSelector:
+                        matchControllerRef: true
+                    providerConfigRef:
+                      name: dev-aws
+                name: subnet-private-2
+                patches:
+                  - patchSetName: common-parameters
+                    type: PatchSet
+                  - fromFieldPath: spec.parameters.subnet2-private-cidrBlock
+                    toFieldPath: spec.forProvider.cidrBlock
+                    type: FromCompositeFieldPath
+                  - fromFieldPath: spec.parameters.subnet2-private-availabilityZone
+                    toFieldPath: spec.forProvider.availabilityZone
+                    type: FromCompositeFieldPath
+                  - fromFieldPath: spec.parameters.subnet2-private-availabilityZone
+                    toFieldPath: metadata.labels.zone
+                    type: FromCompositeFieldPath
+              - base:
+                  apiVersion: ec2.aws.upbound.io/v1beta1
+                  kind: EIP
+                  metadata:
+                    labels:
+                      type: eip-1
+                  spec:
+                    forProvider:
+                      domain: vpc
+                    providerConfigRef:
+                      name: dev-aws
+                name: elastic-ip-1
+                patches:
+                  - patchSetName: common-parameters
+                    type: PatchSet
+              - base:
+                  apiVersion: ec2.aws.upbound.io/v1beta1
+                  kind: EIP
+                  metadata:
+                    labels:
+                      type: eip-2
+                  spec:
+                    forProvider:
+                      domain: vpc
+                    providerConfigRef:
+                      name: dev-aws
+                name: elastic-ip-2
+                patches:
+                  - patchSetName: common-parameters
+                    type: PatchSet
+              - base:
+                  apiVersion: ec2.aws.upbound.io/v1beta1
+                  kind: NATGateway
+                  metadata:
+                    labels:
+                      type: natgw-1
+                  spec:
+                    forProvider:
+                      allocationIdSelector:
+                        matchLabels:
+                          type: eip-1
+                      subnetIdSelector:
+                        matchLabels:
+                          type: subnet
+                          visibility: public
+                    providerConfigRef:
+                      name: dev-aws
+                name: natgateway-1
+                patches:
+                  - patchSetName: common-parameters
+                    type: PatchSet
+                  - fromFieldPath: spec.parameters.subnet1-public-availabilityZone
+                    toFieldPath: spec.forProvider.subnetIdSelector.matchLabels.zone
+                    type: FromCompositeFieldPath
+              - base:
+                  apiVersion: ec2.aws.upbound.io/v1beta1
+                  kind: NATGateway
+                  metadata:
+                    labels:
+                      type: natgw-2
+                  spec:
+                    forProvider:
+                      allocationIdSelector:
+                        matchLabels:
+                          type: eip-2
+                      subnetIdSelector:
+                        matchLabels:
+                          type: subnet
+                          visibility: public
+                    providerConfigRef:
+                      name: dev-aws
+                name: natgateway-2
+                patches:
+                  - patchSetName: common-parameters
+                    type: PatchSet
+                  - fromFieldPath: spec.parameters.subnet2-public-availabilityZone
+                    toFieldPath: spec.forProvider.subnetIdSelector.matchLabels.zone
+                    type: FromCompositeFieldPath
+              - base:
+                  apiVersion: ec2.aws.upbound.io/v1beta1
+                  kind: RouteTable
+                  spec:
+                    forProvider:
+                      region: PATCHED
+                      vpcIdSelector:
+                        matchControllerRef: true
+                    providerConfigRef:
+                      name: dev-aws
+                name: routetable-public
+                patches:
+                  - patchSetName: common-parameters
+                    type: PatchSet
+              - base:
+                  apiVersion: ec2.aws.upbound.io/v1beta1
+                  kind: RouteTable
+                  spec:
+                    forProvider:
+                      region: PATCHED
+                      vpcIdSelector:
+                        matchControllerRef: true
+                    providerConfigRef:
+                      name: dev-aws
+                name: routetable-private-1
+                patches:
+                  - patchSetName: common-parameters
+                    type: PatchSet
+              - base:
+                  apiVersion: ec2.aws.upbound.io/v1beta1
+                  kind: RouteTable
+                  spec:
+                    forProvider:
+                      region: PATCHED
+                      vpcIdSelector:
+                        matchControllerRef: true
+                    providerConfigRef:
+                      name: dev-aws
+                name: routetable-private-2
+                patches:
+                  - patchSetName: common-parameters
+                    type: PatchSet
+              - base:
+                  apiVersion: eks.aws.upbound.io/v1beta1
+                  kind: Cluster
+                  spec:
+                    providerConfigRef:
+                      name: dev-aws
+                    forProvider:
+                      vpcConfig:
+                        - endpointPrivateAccess: false
+                          endpointPublicAccess: true
+                          subnetIdSelector:
+                            matchLabels:
+                              type: subnet
+                              visibility: private
+                    writeConnectionSecretToRef:
+                      namespace: crossplane-system
+                      name: dev-connection-secret
+                connectionDetails:
+                  - fromConnectionSecretKey: kubeconfig
+                    name: kubeconfig-value
+                    type: FromConnectionSecretKey
+                name: eks-cluster
+                patches:
+                  - patchSetName: common-parameters
+                    type: PatchSet
+                  - fromFieldPath: spec.parameters.k8s-version
+                    toFieldPath: spec.forProvider.version
+                    type: FromCompositeFieldPath
+                  - fromFieldPath: metadata.uid
+                    toFieldPath: spec.writeConnectionSecretToRef.name
+                    transforms:
+                      - string:
+                          fmt: '%s-ekscluster-connection'
+                          type: Format
+                        type: string
+                    type: FromCompositeFieldPath
+                  - fromFieldPath: spec.parameters.cluster-role
+                    toFieldPath: spec.forProvider.roleArn
+                    type: FromCompositeFieldPath
+              - base:
+                  apiVersion: iam.aws.upbound.io/v1beta1
+                  kind: Role
+                  spec:
+                    forProvider:
+                      assumeRolePolicy: |
+                        {
+                          "Version": "2012-10-17",
+                          "Statement": [
+                            {
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": "eks.amazonaws.com"
+                              },
+                              "Action": "sts:AssumeRole"
+                            }
+                          ]
+                        }
+                    providerConfigRef:
+                      name: dev-aws
+                name: role
+              - base:
+                  apiVersion: iam.aws.upbound.io/v1beta1
+                  kind: RolePolicyAttachment
+                  spec:
+                    forProvider:
+                      roleSelector:
+                        matchControllerRef: true
+                      policyArn: arn:aws:iam::aws:policy/AmazonEKSClusterPolicy
+                    providerConfigRef:
+                      name: dev-aws
+                name: rolePolicyAttachment
+              - base:
+                  apiVersion: eks.aws.upbound.io/v1beta1
+                  kind: NodeGroup
+                  spec:
+                    forProvider:
+                      clusterNameSelector:
+                        matchControllerRef: true
+                      instanceTypes:
+                        - t3.medium
+                      scalingConfig:
+                        - minSize: 1
+                      subnetIdSelector:
+                        matchControllerRef: true
+                        matchLabels:
+                          type: subnet
+                          visibility: private
+                    providerConfigRef:
+                      name: dev-aws
+                name: eks-nodegroup
+                patches:
+                  - patchSetName: common-parameters
+                    type: PatchSet
+                  - fromFieldPath: spec.parameters.workers-size
+                    toFieldPath: spec.forProvider.scalingConfig[0].desiredSize
+                    type: FromCompositeFieldPath
+                  - fromFieldPath: spec.parameters.workers-size
+                    toFieldPath: spec.forProvider.scalingConfig[0].maxSize
+                    type: FromCompositeFieldPath
+                  - fromFieldPath: spec.parameters.workload-type
+                    toFieldPath: spec.forProvider.amiType
+                    transforms:
+                      - map:
+                          gpu: x86_GPU
+                          non-gpu: x86
+                        type: map
+                    type: FromCompositeFieldPath
+                  - fromFieldPath: spec.parameters.workernode-role
+                    toFieldPath: spec.forProvider.nodeRoleArn
+                    type: FromCompositeFieldPath
+          step: patch-and-transform
+  - name: "vpc" 
+    spec:
+      compositeTypeRef:
+        apiVersion: api.example/v1alpha1
+        kind: XVPC
+      mode: "Pipeline"
+      pipeline:
+      - step: compose-resources
+        functionRef:
+          name: go-templating
+        input:
+          apiVersion: gotemplating.fn.crossplane.io/v1beta1
+          kind: GoTemplate
+          source: Inline
+          inline:
+            template: |
+              {{ $claimNamespace := index $.observed.composite.resource.metadata.labels "crossplane.io/claim-namespace" }}
+              {{ $tenantAwsProviderConfigRef := printf "%s-aws" $claimNamespace }}
+              {{ $params := get .observed.composite.resource.spec "parameters" | default dict }}
+              ---
+              apiVersion: ec2.aws.crossplane.io/v1beta1
+              kind: VPC
+              metadata:
+                annotations:
+                  {{ setResourceNameAnnotation "vpc" }}
+                  crossplane.io/external-name: {{ get $params "id" | default ( print $claimNamespace "-vpc" ) }}
+              spec:
+                forProvider:
+                  region: {{ get $params "region" | default "east-1" }}
+                  vpcCidrBlock: {{ get $params "vpcCIDRBlock" | default "192.168.0.0/16" }}
+                  enableDnsSupport: true
+                  enableDnsHostNames: true
+                  instanceTenancy: default
+                providerConfigRef:
+                  name: {{ $tenantAwsProviderConfigRef }}
+  - name: "rdsinstance" 
+    spec:
+      compositeTypeRef:
+        apiVersion: api.example/v1alpha1
+        kind: XRDSInstance
+      mode: "Pipeline"
+      pipeline:
+      - step: compose-resources
+        functionRef:
+          name: go-templating
+        input:
+          apiVersion: gotemplating.fn.crossplane.io/v1beta1
+          kind: GoTemplate
+          source: Inline
+          inline:
+            template: |
+              {{ $claimNamespace := index $.observed.composite.resource.metadata.labels "crossplane.io/claim-namespace" }}
+              {{ $claimNamespaceTrimmed := $claimNamespace | replace "-" "" }}
+              {{ $tenantAwsProviderConfigRef := printf "%s-aws" $claimNamespace }}
+              {{ $params := get .observed.composite.resource.spec "parameters" | default dict }}
+              ---
+              apiVersion: rds.aws.upbound.io/v1beta2
+              kind: Instance
+              metadata:
+                annotations:
+                  {{ setResourceNameAnnotation "rdsInstance" }}
+                  crossplane.io/external-name: {{ get $params "id" | default ( print $claimNamespace "-rds-instance" ) }}
+              spec:
+                forProvider:
+                  allocatedStorage: {{ get $params "storage" | default 20 }}
+                  autoGeneratePassword: true
+                  autoMinorVersionUpgrade: true
+                  backupRetentionPeriod: 14
+                  backupWindow: "09:46-10:16"
+                  dbName: {{ get $params "name" | default ( print $claimNamespaceTrimmed "db" ) }}
+                  engine: postgres
+                  engineVersion: "16.1" # 16.3? console shows RDS 16.1-R2 (PostgreSQL 13.1-R2)
+                  instanceClass: {{ printf "db.t3.%s" (get $params "size" | default "micro") }}
+                  maintenanceWindow: Mon:00:00-Mon:03:00
+                  passwordSecretRef:
+                    key: password
+                    name: {{ printf "%s-rds-root" $claimNamespace }}
+                    namespace: {{ $claimNamespace }}
+                  publiclyAccessible: false
+                  region: {{ printf "%s-1" (get $params "region" | default "east") }}
+                  skipFinalSnapshot: true
+                  storageEncrypted: true
+                  storageType: gp2
+                  username: adminuser
+                writeConnectionSecretToRef:
+                  name: {{ printf "%s-rds-connection-details" $claimNamespace }}
+                  namespace: {{ $claimNamespace }}
+                providerConfigRef:
+                  name: {{ $tenantAwsProviderConfigRef }}
+  - name: "eksnetwork.api.example" 
+    spec:
+      compositeTypeRef:
+        apiVersion: api.example/v1alpha1
+        kind: XEKSNetwork
+      mode: "Pipeline"
+      pipeline:
+        - step: compose-resources
+          functionRef:
+            name: go-templating
+          input:
+            apiVersion: gotemplating.fn.crossplane.io/v1beta1
+            kind: GoTemplate
+            source: Inline
+            inline:
+              template: |
+                {{ $claimNamespace := index $.observed.composite.resource.metadata.labels "crossplane.io/claim-namespace" }}
+                {{ $tenantAwsProviderConfigRef := printf "%s-aws" $claimNamespace }}
+                {{ $params := get .observed.composite.resource.spec "parameters" | default dict }}
+                ---
+                {{ $vpcResourceName := "vpc" }}
+                apiVersion: ec2.aws.upbound.io/v1beta1
+                kind: VPC
+                metadata:
+                  labels:
+                    eksnetworks.api.example/network-id: {{ $params.id | toYaml }}
+                  annotations:
+                    {{ setResourceNameAnnotation $vpcResourceName }}
+                spec:
+                  forProvider:
+                    cidrBlock: {{ $params.vpcCidrBlock | toYaml }}
+                    enableDnsHostnames: true
+                    enableDnsSupport: true
+                    tags:
+                      Name: {{ printf "%s-%s" $params.id $vpcResourceName | toYaml }}
+                    region: {{ $params.region | toYaml }}
+                  providerConfigRef:
+                    name: {{ $tenantAwsProviderConfigRef | toYaml }}
+                ---
+                {{ $igwResourceName := "internet-gateway" }}
+                apiVersion: ec2.aws.upbound.io/v1beta1
+                kind: InternetGateway
+                metadata:
+                  labels:
+                    eksnetworks.api.example/network-id: {{ $params.id | toYaml }}
+                  annotations:
+                    {{ setResourceNameAnnotation $igwResourceName }}
+                spec:
+                  forProvider:
+                    region: {{ $params.region | toYaml }}
+                    tags:
+                      Name: {{ printf "%s-%s" $params.id $igwResourceName | toYaml }}
+                    vpcIdSelector:
+                      matchControllerRef: true
+                  providerConfigRef:
+                    name: {{ $tenantAwsProviderConfigRef | toYaml }}
+                {{ $region := $params.region | toYaml }}
+                {{- range $i, $subnet := $params.subnets }}
+                ---
+                {{ $subnetResourceName := printf "subnet-%s-%s-%s" $subnet.availabilityZone $subnet.type (toString $i) }}
+                apiVersion: ec2.aws.upbound.io/v1beta1
+                kind: Subnet
+                metadata:
+                  labels:
+                      zone: {{ $subnet.availabilityZone }}
+                      {{- if eq $subnet.type "private" }}
+                      access: private
+                      {{- else }}
+                      access: public
+                      {{- end }}
+                      eksnetworks.api.example/network-id: {{ $params.id | toYaml }}
+                  annotations:
+                    {{ setResourceNameAnnotation $subnetResourceName }}
+                spec:
+                  forProvider:
+                    cidrBlock: {{ $subnet.cidrBlock | toYaml }}
+                    {{ if eq $subnet.type "public" }}
+                    mapPublicIpOnLaunch: true
+                    {{ end }}
+                    tags:
+                    {{- if eq $subnet.type "private" }}
+                      kubernetes.io/role/internal-elb: "1"
+                    {{- else }}
+                      kubernetes.io/role/elb: "1"
+                    {{- end }}
+                      Name: {{ printf "%s-%s" $params.id $subnetResourceName | toYaml }}
+                    region: {{ $region }}
+                    vpcIdSelector:
+                      matchControllerRef: true
+                    availabilityZone: {{ $subnet.availabilityZone | toYaml }}
+                  providerConfigRef:
+                    name: {{ $tenantAwsProviderConfigRef | toYaml }}
+                {{- end }}
+                ---
+                {{ $routeTableResourceName := "route-table" }}
+                apiVersion: ec2.aws.upbound.io/v1beta1
+                kind: RouteTable
+                metadata:
+                  labels:
+                    eksnetworks.api.example/network-id: {{ $params.id | toYaml }}
+                  annotations:
+                    {{ setResourceNameAnnotation $routeTableResourceName }}
+                spec:
+                  forProvider:
+                    vpcIdSelector:
+                      matchControllerRef: true
+                    region: {{ $params.region | toYaml }}
+                    tags:
+                      Name: {{ printf "%s-%s" $params.id $routeTableResourceName | toYaml }}
+                  providerConfigRef:
+                    name: {{ $tenantAwsProviderConfigRef | toYaml }}
+                ---
+                {{ $publicRouteResourceName := "public-route" }}
+                apiVersion: ec2.aws.upbound.io/v1beta1
+                kind: Route
+                metadata:
+                  labels:
+                    eksnetworks.api.example/network-id: {{ $params.id | toYaml }}
+                  annotations:
+                    {{ setResourceNameAnnotation $publicRouteResourceName }}
+                spec:
+                  forProvider:
+                    destinationCidrBlock: 0.0.0.0/0
+                    gatewayIdSelector:
+                      matchControllerRef: true
+                    routeTableIdSelector:
+                      matchControllerRef: true
+                    region: {{ $params.region | toYaml }}
+                  providerConfigRef:
+                    name: {{ $tenantAwsProviderConfigRef | toYaml }}
+                ---
+                {{ $mainRouteTableAssociationResourceName := "main-route-table-association" }}
+                apiVersion: ec2.aws.upbound.io/v1beta1
+                kind: MainRouteTableAssociation
+                metadata:
+                  labels:
+                    eksnetworks.api.example/network-id: {{ $params.id | toYaml }}
+                  annotations:
+                    {{ setResourceNameAnnotation $mainRouteTableAssociationResourceName }}
+                spec:
+                  forProvider:
+                    region: {{ $params.region | toYaml }}
+                    routeTableIdSelector:
+                      matchControllerRef: true
+                    vpcIdSelector:
+                      matchControllerRef: true
+                  providerConfigRef:
+                    name: {{ $tenantAwsProviderConfigRef | toYaml }}
+                {{- range $i, $subnet := $params.subnets }}
+                ---
+                {{ $routeTableAssociationResourceName := printf "route-table-association-%s-%s-%s" $subnet.availabilityZone $subnet.type (toString $i) }}
+                apiVersion: ec2.aws.upbound.io/v1beta1
+                kind: RouteTableAssociation
+                metadata:
+                  labels:
+                    eksnetworks.api.example/network-id: {{ $params.id | toYaml }}
+                  annotations:
+                    {{ setResourceNameAnnotation $routeTableAssociationResourceName }}
+                spec:
+                  forProvider:
+                    region: {{ $region }}
+                    routeTableIdSelector:
+                      matchControllerRef: true
+                    subnetIdSelector:
+                      matchControllerRef: true
+                      matchLabels:
+                        {{- if eq $subnet.type "private" }}
+                        access: private
+                        {{- else }}
+                        access: public
+                        {{- end }}
+                        zone: {{ $subnet.availabilityZone | toYaml }}
+                  providerConfigRef:
+                    name: {{ $tenantAwsProviderConfigRef | toYaml }}
+                {{- end }}
+                ---
+                {{ $sgResourceName := "security-group" }}
+                apiVersion: ec2.aws.upbound.io/v1beta1
+                kind: SecurityGroup
+                metadata:
+                  labels:
+                    eksnetworks.api.example/network-id: {{ $params.id | toYaml }}
+                  annotations:
+                    {{ setResourceNameAnnotation $sgResourceName }}
+                spec:
+                  forProvider:
+                    description: Allow access to databases
+                    name: {{ printf "%s-%s" $params.id $sgResourceName | toYaml }}
+                    vpcIdSelector:
+                      matchControllerRef: true
+                    region: {{ $params.region | toYaml }}
+                    tags:
+                      Name: {{ printf "%s-%s" $params.id $sgResourceName | toYaml }}
+                  providerConfigRef:
+                    name: {{ $tenantAwsProviderConfigRef | toYaml }}
+                ---
+                {{ $sgrpRulePostGresResourceName := "security-group-rule-postgres" }}
+                apiVersion: ec2.aws.upbound.io/v1beta1
+                kind: SecurityGroupRule
+                metadata:
+                  labels:
+                    eksnetworks.api.example/network-id: {{ $params.id | toYaml }}
+                  annotations:
+                    {{ setResourceNameAnnotation $sgrpRulePostGresResourceName }}
+                spec:
+                  forProvider:
+                    cidrBlocks:
+                      - 192.168.0.0/16
+                    description: Everywhere
+                    fromPort: 5432
+                    protocol: tcp
+                    securityGroupIdSelector:
+                      matchControllerRef: true
+                    toPort: 5432
+                    type: ingress
+                    region: {{ $params.region | toYaml }}
+                  providerConfigRef:
+                    name: {{ $tenantAwsProviderConfigRef | toYaml }}
+                ---
+                {{ $sgrpRuleMySQLResourceName := "security-group-rule-mysql" }}
+                apiVersion: ec2.aws.upbound.io/v1beta1
+                kind: SecurityGroupRule
+                metadata:
+                  labels:
+                    eksnetworks.api.example/network-id: {{ $params.id | toYaml }}
+                  annotations:
+                    {{ setResourceNameAnnotation $sgrpRuleMySQLResourceName }}
+                spec:
+                  forProvider:
+                    cidrBlocks:
+                      - 192.168.0.0/16
+                    description: Everywhere
+                    fromPort: 3306
+                    protocol: tcp
+                    securityGroupIdSelector:
+                      matchControllerRef: true
+                    toPort: 3306
+                    type: ingress
+                    region: {{ $params.region | toYaml }}
+                  providerConfigRef:
+                    name: {{ $tenantAwsProviderConfigRef | toYaml }}
+        - step: set-xr-status
+          functionRef:
+            name: go-templating
+          input:
+            apiVersion: gotemplating.fn.crossplane.io/v1beta1
+            kind: GoTemplate
+            source: Inline
+            inline:
+              template: |
+                {{ $observedResources := get .observed "resources" | default dict }}
+                {{ $params := get .observed.composite.resource.spec "parameters" | default dict }}
+                {{ $vpcStatus := dig "vpc" "resource" "status" dict $observedResources }}
+                {{ $subnetsStatus := dict }}
+                {{ range $i, $subnet := $params.subnets }}
+                  {{ $subnetResourceName := printf "subnet-%s-%s-%s" $subnet.availabilityZone $subnet.type (toString $i) }}
+                  {{ $subnetStatuses := dig $subnetResourceName "resource" "status" dict $observedResources }}
+                  {{ $subnetsStatus = merge $subnetsStatus (dict $subnetResourceName $subnetStatuses) }}
+                {{ end }}
+                apiVersion: api.example/v1alpha1
+                kind: XEKSNetwork
+                status:
+                  vpc: {{ $vpcStatus | toYaml | nindent 4 }}
+                  subnets: {{ $subnetsStatus | toYaml | nindent 4 }}
+        - step: automatically-detect-ready-composed-resources
+          functionRef:
+            name: auto-ready
+
+#########################################################################################################
