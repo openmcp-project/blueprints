@@ -29,42 +29,42 @@ dependencies:
   - name: crossplane-provider-configs
     alias: crossplane-provider-configs
     version: 0.0.18
-    repository: " oci://ghcr.io/openmcp-project"
+    repository: "oci://ghcr.io/openmcp-project"
     tags:
       - crossplane-provider-configs
   - name: external-secrets-config
     alias: external-secrets-config
     version: 0.1.10
-    repository: " oci://ghcr.io/openmcp-project"
+    repository: "oci://ghcr.io/openmcp-project"
     tags:
       - external-secrets-config
   - name: crossplane-provider-aws-ec2
     alias: crossplane-provider-aws-ec2
     version: 0.0.12
-    repository: " oci://ghcr.io/openmcp-project"
+    repository: "oci://ghcr.io/openmcp-project"
     tags:
       - crossplane-provider-aws-ec2
   - name: crossplane-provider-aws-eks
     alias: crossplane-provider-aws-eks
     version: 0.0.12
-    repository: " oci://ghcr.io/openmcp-project"
+    repository: "oci://ghcr.io/openmcp-project"
     tags:
       - crossplane-provider-aws-eks
   - name: crossplane-provider-aws-iam
     alias: crossplane-provider-aws-iam
     version: 0.0.13
-    repository: " oci://ghcr.io/openmcp-project"
+    repository: "oci://ghcr.io/openmcp-project"
     tags:
       - crossplane-provider-aws-rdr
   - name: crossplane-provider-aws-rdr
     alias: crossplane-provider-aws-rdr
     version: 0.0.11
-    repository: " oci://ghcr.io/openmcp-project"
+    repository: "oci://ghcr.io/openmcp-project"
     tags:
       - crossplane-provider-aws-rdr
   - name: crossplane-provider-apiextensions-composition
     alias: crossplane-provider-apiextensions-composition
     version: 0.0.11
-    repository: " oci://ghcr.io/openmcp-project"
+    repository: "oci://ghcr.io/openmcp-project"
     tags:
       - crossplane-provider-apiextensions-composition
