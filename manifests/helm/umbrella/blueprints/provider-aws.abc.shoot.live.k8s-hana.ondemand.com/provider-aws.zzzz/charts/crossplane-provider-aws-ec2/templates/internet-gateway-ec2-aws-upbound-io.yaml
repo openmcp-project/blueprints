@@ -1,0 +1,30 @@
+---
+# Source: provider-aws.zzzz/charts/crossplane-provider-aws-ec2/templates/internet-gateway-ec2-aws-upbound-io.yaml
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: InternetGateway
+metadata:
+  name: dev-us-ekscluster
+spec:
+  deletionPolicy: ""  
+  forProvider:
+    region: us-west-2
+    vpcIdSelector:
+      matchControllerRef: true
+  providerConfigRef:
+    name: dev-us-aws
+---
+# Source: provider-aws.zzzz/charts/crossplane-provider-aws-ec2/templates/internet-gateway-ec2-aws-upbound-io.yaml
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: InternetGateway
+metadata:
+  name: reference-eks-network
+spec:
+  deletionPolicy: ""  
+  forProvider:
+    region: us-east-1
+    tags:
+      Name: platform-ref-eks-network-internet-gateway
+    vpcIdSelector:
+      matchControllerRef: true
+  providerConfigRef:
+    name: dev-us-aws
