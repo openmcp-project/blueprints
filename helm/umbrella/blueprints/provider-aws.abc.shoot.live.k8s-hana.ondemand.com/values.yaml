@@ -77,34 +77,34 @@ crossplane-provider-configs:
 #########################################################################################################
 crossplane-provider-aws-ec2:
   eips:
-    - name: "dev-us-ekscluster"
+    - name: "dev-ekscluster"
       spec:
         forProvider:
           domain: vpc
-          region: us-west-2
+          region: west-2
         providerConfigRef:
-          name: dev-us-aws
-    - name: "dev-us-ekscluster-2"
+          name: dev-aws
+    - name: "dev-ekscluster-2"
       spec:
         forProvider:
           domain: vpc
-          region: us-west-2
+          region: west-2
         providerConfigRef:
-          name: dev-us-aws
+          name: dev-aws
   # -- https://marketplace.upbound.io/providers/upbound/provider-aws-ec2/v1.11.0/resources/ec2.aws.upbound.io/InternetGateway/v1beta1
   internetGateways:
-    - name: "dev-us-ekscluster"
+    - name: "dev-ekscluster"
       labels: {}
       annotations: {}
       ownerReferences: {}      
       spec:
         
         forProvider:
-          region: us-west-2
+          region: west-2
           vpcIdSelector:
             matchControllerRef: true
         providerConfigRef:
-          name: dev-us-aws
+          name: dev-aws
     - name: "reference-eks-network"
       labels: {}
       annotations: {}
@@ -112,16 +112,16 @@ crossplane-provider-aws-ec2:
       spec:
         
         forProvider:
-          region: us-east-1
+          region: east-1
           tags:
             Name: platform-ref-eks-network-internet-gateway
           vpcIdSelector:
             matchControllerRef: true
         providerConfigRef:
-          name: dev-us-aws
+          name: dev-aws
   # -- https://marketplace.upbound.io/providers/upbound/provider-aws-ec2/v1.11.0/resources/ec2.aws.upbound.io/NATGateway/v1beta1
   natGateways:
-    - name: "dev-us-ekscluster"
+    - name: "dev-ekscluster"
       labels: {}
       annotations: {}
       ownerReferences: {}      
@@ -131,15 +131,15 @@ crossplane-provider-aws-ec2:
           allocationIdSelector:
             matchLabels:
               type: eip-1
-          region: us-west-2
+          region: west-2
           subnetIdSelector:
             matchLabels:
               type: subnet
               visibility: public
-              zone: us-west-2a
+              zone: west-2a
         providerConfigRef:
-          name: dev-us-aws
-    - name: "dev-us-ekscluster-2"
+          name: dev-aws
+    - name: "dev-ekscluster-2"
       labels: {}
       annotations: {}
       ownerReferences: {}      
@@ -149,14 +149,14 @@ crossplane-provider-aws-ec2:
           allocationIdSelector:
             matchLabels:
               type: eip-2
-          region: us-west-2
+          region: west-2
           subnetIdSelector:
             matchLabels:
               type: subnet
               visibility: public
-              zone: us-west-2b
+              zone: west-2b
         providerConfigRef:
-          name: dev-us-aws
+          name: dev-aws
   securityGroups:
     - name: "reference-eks-network"
       labels: {}
@@ -166,13 +166,13 @@ crossplane-provider-aws-ec2:
         forProvider:
           description: Allow access to databases
           name: platform-ref-eks-network-security-group
-          region: us-east-1
+          region: east-1
           tags:
             Name: platform-ref-eks-network-security-group
           vpcIdSelector:
             matchControllerRef: true
         providerConfigRef:
-          name: dev-us-aws        
+          name: dev-aws        
   securityGroupRules:
     - name: "reference-eks-network"
       labels: {}
@@ -185,13 +185,13 @@ crossplane-provider-aws-ec2:
           description: Everywhere
           fromPort: 3306
           protocol: tcp
-          region: us-east-1
+          region: east-1
           securityGroupIdSelector:
             matchControllerRef: true
           toPort: 3306
           type: ingress
         providerConfigRef:
-          name: dev-us-aws
+          name: dev-aws
     - name: "reference-eks-network-5432"
       labels: {}
       annotations: {}
@@ -203,33 +203,33 @@ crossplane-provider-aws-ec2:
           description: Everywhere
           fromPort: 5432
           protocol: tcp
-          region: us-east-1
+          region: east-1
           securityGroupIdSelector:
             matchControllerRef: true
           toPort: 5432
           type: ingress
         providerConfigRef:
-          name: dev-us-aws
+          name: dev-aws
   # -- https://marketplace.upbound.io/providers/upbound/provider-aws-ec2/v1.11.0/resources/ec2.aws.upbound.io/RouteTable/v1beta1
   routeTables:
-    - name: "dev-us-ekscluster"
+    - name: "dev-ekscluster"
       spec:
         forProvider:
-          region: us-west-2
+          region: west-2
           vpcIdSelector:
             matchControllerRef: true
         providerConfigRef:
-          name: dev-us-aws        
+          name: dev-aws        
     - name: "reference-eks-network"
       spec:
         forProvider:
-          region: us-east-1
+          region: east-1
           tags:
             Name: platform-ref-eks-network-route-table
           vpcIdSelector:
             matchControllerRef: true
         providerConfigRef:
-          name: dev-us-aws        
+          name: dev-aws        
   
   routeTableAssociations:
     - name: "reference-eks-network-public"
@@ -238,64 +238,64 @@ crossplane-provider-aws-ec2:
       ownerReferences: {}      
       spec:
         forProvider:
-          region: us-east-1
+          region: east-1
           routeTableIdSelector:
             matchControllerRef: true
           subnetIdSelector:
             matchControllerRef: true
             matchLabels:
               access: public
-              zone: us-east-1a
+              zone: east-1a
         providerConfigRef:
-          name: dev-us-aws        
+          name: dev-aws        
     - name: "reference-eks-network-private"
       labels: {}
       annotations: {}
       ownerReferences: {}      
       spec:
         forProvider:
-          region: us-east-1
+          region: east-1
           routeTableIdSelector:
             matchControllerRef: true
           subnetIdSelector:
             matchControllerRef: true
             matchLabels:
               access: private
-              zone: us-east-1a
+              zone: east-1a
         providerConfigRef:
-          name: dev-us-aws        
+          name: dev-aws        
     - name: "reference-eks-network-public-1b"
       labels: {}
       annotations: {}
       ownerReferences: {}      
       spec:
         forProvider:
-          region: us-east-1
+          region: east-1
           routeTableIdSelector:
             matchControllerRef: true
           subnetIdSelector:
             matchControllerRef: true
             matchLabels:
               access: public
-              zone: us-east-1b
+              zone: east-1b
         providerConfigRef:
-          name: dev-us-aws        
+          name: dev-aws        
     - name: "reference-eks-network-private-1b"
       labels: {}
       annotations: {}
       ownerReferences: {}      
       spec:
         forProvider:
-          region: us-east-1
+          region: east-1
           routeTableIdSelector:
             matchControllerRef: true
           subnetIdSelector:
             matchControllerRef: true
             matchLabels:
               access: private
-              zone: us-east-1b
+              zone: east-1b
         providerConfigRef:
-          name: dev-us-aws        
+          name: dev-aws        
   mainRouteTableAssociations:
     - name: "reference-eks-network"
       labels: {}
@@ -303,13 +303,13 @@ crossplane-provider-aws-ec2:
       ownerReferences: {}      
       spec:
         forProvider:
-          region: us-east-1
+          region: east-1
           routeTableIdSelector:
             matchControllerRef: true
           vpcIdSelector:
             matchControllerRef: true
         providerConfigRef:
-          name: dev-us-aws        
+          name: dev-aws        
   routes:
     - name: "reference-eks-network"
       labels: {}
@@ -320,140 +320,140 @@ crossplane-provider-aws-ec2:
           destinationCidrBlock: 0.0.0.0/0
           gatewayIdSelector:
             matchControllerRef: true
-          region: us-east-1
+          region: east-1
           routeTableIdSelector:
             matchControllerRef: true
         providerConfigRef:
-          name: dev-us-aws        
+          name: dev-aws        
   # -- https://marketplace.upbound.io/providers/upbound/provider-aws-ec2/v1.11.0/resources/ec2.aws.upbound.io/Subnet/v1beta1
   subnets:
-    - name: "dev-us-ekscluster"
+    - name: "dev-ekscluster"
       labels: {}
       annotations: {}
       ownerReferences: {}      
       spec:
         forProvider:
-          availabilityZone: us-west-2a
+          availabilityZone: west-2a
           cidrBlock: 192.168.50.0/24
           mapPublicIpOnLaunch: false
-          region: us-west-2
+          region: west-2
           vpcIdSelector:
             matchControllerRef: true
         providerConfigRef:
-          name: dev-us-aws
+          name: dev-aws
     - name: "reference-eks-network"
       labels: {}
       annotations: {}
       ownerReferences: {}      
       spec:
         forProvider:
-          availabilityZone: us-east-1a
+          availabilityZone: east-1a
           cidrBlock: 192.168.128.0/18
-          region: us-east-1
+          region: east-1
           tags:
-            Name: platform-ref-eks-network-subnet-us-east-1a-private-2
+            Name: platform-ref-eks-network-subnet-east-1a-private-2
             kubernetes.io/role/internal-elb: "1"
           vpcIdSelector:
             matchControllerRef: true
         providerConfigRef:
-          name: dev-us-aws
+          name: dev-aws
     - name: "reference-eks-network-public-0"
       labels: {}
       annotations: {}
       ownerReferences: {}      
       spec:
         forProvider:
-          availabilityZone: us-east-1a
+          availabilityZone: east-1a
           cidrBlock: 192.168.0.0/18
           mapPublicIpOnLaunch: true
-          region: us-east-1
+          region: east-1
           tags:
-            Name: platform-ref-eks-network-subnet-us-east-1a-public-0
+            Name: platform-ref-eks-network-subnet-east-1a-public-0
             kubernetes.io/role/elb: "1"
           vpcIdSelector:
             matchControllerRef: true
         providerConfigRef:
-          name: dev-us-aws
-    - name: "reference-eks-network-us-east-1b-private-3"
+          name: dev-aws
+    - name: "reference-eks-network-east-1b-private-3"
       labels: {}
       annotations: {}
       ownerReferences: {}      
       spec:
         forProvider:
-          availabilityZone: us-east-1b
+          availabilityZone: east-1b
           cidrBlock: 192.168.192.0/18
-          region: us-east-1
+          region: east-1
           tags:
-            Name: platform-ref-eks-network-subnet-us-east-1b-private-3
+            Name: platform-ref-eks-network-subnet-east-1b-private-3
             kubernetes.io/role/internal-elb: "1"
           vpcIdSelector:
             matchControllerRef: true
         providerConfigRef:
-          name: dev-us-aws
-    - name: "reference-eks-network-us-east-1b-public-1"
+          name: dev-aws
+    - name: "reference-eks-network-east-1b-public-1"
       labels: {}
       annotations: {}
       ownerReferences: {}      
       spec:
         forProvider:
-          availabilityZone: us-east-1b
+          availabilityZone: east-1b
           cidrBlock: 192.168.64.0/18
           mapPublicIpOnLaunch: true
-          region: us-east-1
+          region: east-1
           tags:
-            Name: platform-ref-eks-network-subnet-us-east-1b-public-1
+            Name: platform-ref-eks-network-subnet-east-1b-public-1
             kubernetes.io/role/elb: "1"
           vpcIdSelector:
             matchControllerRef: true
         providerConfigRef:
-          name: dev-us-aws
-    - name: "dev-us-ekscluster-2"
+          name: dev-aws
+    - name: "dev-ekscluster-2"
       labels: {}
       annotations: {}
       ownerReferences: {}      
       spec:
         forProvider:
-          availabilityZone: us-west-2b
+          availabilityZone: west-2b
           cidrBlock: 192.168.51.0/24
           mapPublicIpOnLaunch: false
-          region: us-west-2
+          region: west-2
           vpcIdSelector:
             matchControllerRef: true
         providerConfigRef:
-          name: dev-us-aws
-    - name: "dev-us-ekscluster-3"
+          name: dev-aws
+    - name: "dev-ekscluster-3"
       labels: {}
       annotations: {}
       ownerReferences: {}      
       spec:
         
         forProvider:
-          availabilityZone: us-west-2b
+          availabilityZone: west-2b
           cidrBlock: 192.168.49.0/24
           mapPublicIpOnLaunch: true
-          region: us-west-2
+          region: west-2
           vpcIdSelector:
             matchControllerRef: true
         providerConfigRef:
-          name: dev-us-aws
-    - name: "dev-us-ekscluster-4"
+          name: dev-aws
+    - name: "dev-ekscluster-4"
       labels: {}
       annotations: {}
       ownerReferences: {}      
       spec:
         
         forProvider:
-          availabilityZone: us-west-2b
+          availabilityZone: west-2b
           cidrBlock: 192.168.49.0/24
           mapPublicIpOnLaunch: true
-          region: us-west-2
+          region: west-2
           vpcIdSelector:
             matchControllerRef: true
         providerConfigRef:
-          name: dev-us-aws
+          name: dev-aws
   # -- https://marketplace.upbound.io/providers/upbound/provider-aws-ec2/v1.11.0/resources/ec2.aws.upbound.io/VPC/v1beta1
   vpcs:
-    - name: "dev-us-ekscluster"
+    - name: "dev-ekscluster"
       labels: {}
       annotations: {}
       ownerReferences: {}      
@@ -462,9 +462,9 @@ crossplane-provider-aws-ec2:
           cidrBlock: 192.168.48.0/20
           enableDnsHostnames: true
           enableDnsSupport: true
-          region: us-west-2
+          region: west-2
         providerConfigRef:
-          name: dev-us-aws        
+          name: dev-aws        
     - name: "reference-eks-network"
       labels: {}
       annotations: {}
@@ -474,12 +474,12 @@ crossplane-provider-aws-ec2:
           cidrBlock: 192.168.0.0/16
           enableDnsHostnames: true
           enableDnsSupport: true
-          region: us-east-1
+          region: east-1
           tags:
             Name: platform-ref-eks-network-vpc
         providerConfigRef:
-          name: dev-us-aws
-    - name: "vpc-us-west-2"
+          name: dev-aws
+    - name: "vpc-west-2"
       labels: {}
       annotations: {}
       ownerReferences: {}      
@@ -488,16 +488,16 @@ crossplane-provider-aws-ec2:
           enableDnsHostNames: true
           enableDnsSupport: true
           instanceTenancy: default
-          region: us-west-2
+          region: west-2
           vpcCidrBlock: 10.0.0.0/16
         providerConfigRef:
-          name: dev-us-aws
+          name: dev-aws
 #########################################################################################################
 crossplane-provider-aws-eks:
   clusters:
-    - name: "dev-us-ekscluster"
+    - name: "dev-ekscluster"
       labels:
-        crossplane.io/composite: dev-us-ekscluster
+        crossplane.io/composite: dev-ekscluster
         crossplane.io/claim-namespace: dev-us
       annotations:
         crossplane.io/composition-resource-name: eks-cluster
@@ -505,13 +505,13 @@ crossplane-provider-aws-eks:
         - apiVersion: api.example/v1alpha1
           blockOwnerDeletion: true
           controller: true
-          kind: XEKSCluster
-          name: dev-us-ekscluster
+          kind: EKSCluster
+          name: dev-ekscluster
           uid: ""
       spec:
         
         forProvider:
-          region: us-west-2
+          region: west-2
           roleArn: arn:aws:iam::XXXX:role/EKS-Cluster-Role
           version: "1.29"
           vpcConfig:
@@ -522,15 +522,15 @@ crossplane-provider-aws-eks:
                   type: subnet
                   visibility: private
         providerConfigRef:
-          name: dev-us-aws
+          name: dev-aws
         writeConnectionSecretToRef:
-          name: dev-us-connection-secret
+          name: dev-connection-secret
           namespace: crossplane-system
         publishConnectionDetailsTo: {}
   nodeGroups:
-    - name: "dev-us-ekscluster"
+    - name: "dev-ekscluster"
       labels:
-        crossplane.io/composite: dev-us-ekscluster
+        crossplane.io/composite: dev-ekscluster
         crossplane.io/claim-namespace: dev-us
       annotations:
         crossplane.io/composition-resource-name: eks-nodegroup
@@ -538,18 +538,18 @@ crossplane-provider-aws-eks:
         - apiVersion: api.example/v1alpha1
           blockOwnerDeletion: true
           controller: true
-          kind: XEKSCluster
-          name: dev-us-ekscluster
+          kind: EKSCluster
+          name: dev-ekscluster
           uid: ""
       spec:
         forProvider:
-          amiType: AL2_x86_64
+          amiType: x86
           clusterNameSelector:
             matchControllerRef: true
           instanceTypes:
             - t3.medium
           nodeRoleArn: arn:aws:iam::XXXX:role/EKS-WorkerNode-Role
-          region: us-west-2
+          region: west-2
           scalingConfig:
             - desiredSize: 2
               maxSize: 2
@@ -560,15 +560,15 @@ crossplane-provider-aws-eks:
               type: subnet
               visibility: private
         providerConfigRef:
-          name: dev-us-aws
+          name: dev-aws
         publishConnectionDetailsTo: {}
         writeConnectionSecretToRef: {}
 #########################################################################################################
 crossplane-provider-aws-iam:
   roles:
-    - name: "dev-us-ekscluster"
+    - name: "dev-ekscluster"
       labels:
-        crossplane.io/composite: dev-us-ekscluster
+        crossplane.io/composite: dev-ekscluster
         crossplane.io/claim-namespace: dev-us
       annotations:
         crossplane.io/composition-resource-name: role
@@ -576,8 +576,8 @@ crossplane-provider-aws-iam:
         - apiVersion: api.example/v1alpha1
           blockOwnerDeletion: true
           controller: true
-          kind: XEKSCluster
-          name: dev-us-ekscluster
+          kind: EKSCluster
+          name: dev-ekscluster
           uid: ""
       spec:
         
@@ -596,13 +596,13 @@ crossplane-provider-aws-iam:
               ]
             }
         providerConfigRef:
-          name: dev-us-aws
+          name: dev-aws
         publishConnectionDetailsTo: {}
         writeConnectionSecretToRef: {}  
   rolePolicyAttachments:
-    - name: "dev-us-ekscluster"
+    - name: "dev-ekscluster"
       labels:
-        crossplane.io/composite: dev-us-ekscluster
+        crossplane.io/composite: dev-ekscluster
         crossplane.io/claim-namespace: dev-us
       annotations:
         crossplane.io/composition-resource-name: rolePolicyAttachment
@@ -610,8 +610,8 @@ crossplane-provider-aws-iam:
         - apiVersion: api.example/v1alpha1
           blockOwnerDeletion: true
           controller: true
-          kind: XEKSCluster
-          name: dev-us-ekscluster
+          kind: EKSCluster
+          name: dev-ekscluster
           uid: ""
       spec:
         
@@ -620,7 +620,7 @@ crossplane-provider-aws-iam:
           roleSelector:
             matchControllerRef: true
         providerConfigRef:
-          name: dev-us-aws
+          name: dev-aws
         publishConnectionDetailsTo: {}
         writeConnectionSecretToRef: {}
 #########################################################################################################
@@ -644,18 +644,18 @@ crossplane-provider-aws-rdr:
           maintenanceWindow: Mon:00:00-Mon:03:00
           passwordSecretRef:
             key: password
-            name: dev-us-rds-admin-pw
+            name: dev-rds-root
             namespace: dev-us
           publiclyAccessible: false
-          region: us-east-1
+          region: east-1
           skipFinalSnapshot: true
           storageEncrypted: true
           storageType: gp2
           username: adminuser
         providerConfigRef:
-          name: dev-us-aws
+          name: dev-aws
         writeConnectionSecretToRef:
-          name: dev-us-rds-connection-details
+          name: dev-rds-connection-details
           namespace: dev-us
 #########################################################################################################
 crossplane-provider-apiextensions-composition:
@@ -674,7 +674,7 @@ crossplane-provider-apiextensions-composition:
               name: basic-bucket
             spec:
               forProvider:
-                region: us-east-2
+                region: east-2
               providerConfigRef:
                 name: default
           patches:
@@ -685,7 +685,7 @@ crossplane-provider-apiextensions-composition:
                 - type: map
                   map:
                     EU: "eu-north-1"
-                    US: "us-east-2"
+                    US: "east-2"
         - name: dynamoDB
           base:
             apiVersion: dynamodb.aws.upbound.io/v1beta1
@@ -694,7 +694,7 @@ crossplane-provider-apiextensions-composition:
               name: nosql-database
             spec:
               forProvider:
-                region: "us-east-2"
+                region: "east-2"
                 writeCapacity: 1
                 readCapacity: 1
                 attribute:
@@ -709,12 +709,12 @@ crossplane-provider-apiextensions-composition:
                 - type: map
                   map:
                     EU: "eu-north-1"
-                    US: "us-east-2"
+                    US: "east-2"
   - name: "eks-cluster" 
     spec:
       compositeTypeRef:
         apiVersion: api.example/v1alpha1
-        kind: XEKSCluster
+        kind: EKSCluster
       mode: "Pipeline"
       writeConnectionSecretsToNamespace: "crossplane-system"
       pipeline:
@@ -738,7 +738,7 @@ crossplane-provider-apiextensions-composition:
                       enableDnsHostnames: true
                       enableDnsSupport: true
                     providerConfigRef:
-                      name: dev-us-aws
+                      name: dev-aws
                 name: vpc
                 patches:
                   - patchSetName: common-parameters
@@ -757,7 +757,7 @@ crossplane-provider-apiextensions-composition:
                       vpcIdSelector:
                         matchControllerRef: true
                     providerConfigRef:
-                      name: dev-us-aws
+                      name: dev-aws
                 name: internetgateway
                 patches:
                   - patchSetName: common-parameters
@@ -775,7 +775,7 @@ crossplane-provider-apiextensions-composition:
                       vpcIdSelector:
                         matchControllerRef: true
                     providerConfigRef:
-                      name: dev-us-aws
+                      name: dev-aws
                 name: subnet-public-1
                 patches:
                   - patchSetName: common-parameters
@@ -802,7 +802,7 @@ crossplane-provider-apiextensions-composition:
                       vpcIdSelector:
                         matchControllerRef: true
                     providerConfigRef:
-                      name: dev-us-aws
+                      name: dev-aws
                 name: subnet-public-2
                 patches:
                   - patchSetName: common-parameters
@@ -829,7 +829,7 @@ crossplane-provider-apiextensions-composition:
                       vpcIdSelector:
                         matchControllerRef: true
                     providerConfigRef:
-                      name: dev-us-aws
+                      name: dev-aws
                 name: subnet-private-1
                 patches:
                   - patchSetName: common-parameters
@@ -856,7 +856,7 @@ crossplane-provider-apiextensions-composition:
                       vpcIdSelector:
                         matchControllerRef: true
                     providerConfigRef:
-                      name: dev-us-aws
+                      name: dev-aws
                 name: subnet-private-2
                 patches:
                   - patchSetName: common-parameters
@@ -880,7 +880,7 @@ crossplane-provider-apiextensions-composition:
                     forProvider:
                       domain: vpc
                     providerConfigRef:
-                      name: dev-us-aws
+                      name: dev-aws
                 name: elastic-ip-1
                 patches:
                   - patchSetName: common-parameters
@@ -895,7 +895,7 @@ crossplane-provider-apiextensions-composition:
                     forProvider:
                       domain: vpc
                     providerConfigRef:
-                      name: dev-us-aws
+                      name: dev-aws
                 name: elastic-ip-2
                 patches:
                   - patchSetName: common-parameters
@@ -916,7 +916,7 @@ crossplane-provider-apiextensions-composition:
                           type: subnet
                           visibility: public
                     providerConfigRef:
-                      name: dev-us-aws
+                      name: dev-aws
                 name: natgateway-1
                 patches:
                   - patchSetName: common-parameters
@@ -940,7 +940,7 @@ crossplane-provider-apiextensions-composition:
                           type: subnet
                           visibility: public
                     providerConfigRef:
-                      name: dev-us-aws
+                      name: dev-aws
                 name: natgateway-2
                 patches:
                   - patchSetName: common-parameters
@@ -957,7 +957,7 @@ crossplane-provider-apiextensions-composition:
                       vpcIdSelector:
                         matchControllerRef: true
                     providerConfigRef:
-                      name: dev-us-aws
+                      name: dev-aws
                 name: routetable-public
                 patches:
                   - patchSetName: common-parameters
@@ -971,7 +971,7 @@ crossplane-provider-apiextensions-composition:
                       vpcIdSelector:
                         matchControllerRef: true
                     providerConfigRef:
-                      name: dev-us-aws
+                      name: dev-aws
                 name: routetable-private-1
                 patches:
                   - patchSetName: common-parameters
@@ -985,7 +985,7 @@ crossplane-provider-apiextensions-composition:
                       vpcIdSelector:
                         matchControllerRef: true
                     providerConfigRef:
-                      name: dev-us-aws
+                      name: dev-aws
                 name: routetable-private-2
                 patches:
                   - patchSetName: common-parameters
@@ -995,7 +995,7 @@ crossplane-provider-apiextensions-composition:
                   kind: Cluster
                   spec:
                     providerConfigRef:
-                      name: dev-us-aws
+                      name: dev-aws
                     forProvider:
                       vpcConfig:
                         - endpointPrivateAccess: false
@@ -1006,7 +1006,7 @@ crossplane-provider-apiextensions-composition:
                               visibility: private
                     writeConnectionSecretToRef:
                       namespace: crossplane-system
-                      name: dev-us-connection-secret
+                      name: dev-connection-secret
                 connectionDetails:
                   - fromConnectionSecretKey: kubeconfig
                     name: kubeconfig-value
@@ -1048,7 +1048,7 @@ crossplane-provider-apiextensions-composition:
                           ]
                         }
                     providerConfigRef:
-                      name: dev-us-aws
+                      name: dev-aws
                 name: role
               - base:
                   apiVersion: iam.aws.upbound.io/v1beta1
@@ -1059,7 +1059,7 @@ crossplane-provider-apiextensions-composition:
                         matchControllerRef: true
                       policyArn: arn:aws:iam::aws:policy/AmazonEKSClusterPolicy
                     providerConfigRef:
-                      name: dev-us-aws
+                      name: dev-aws
                 name: rolePolicyAttachment
               - base:
                   apiVersion: eks.aws.upbound.io/v1beta1
@@ -1078,7 +1078,7 @@ crossplane-provider-apiextensions-composition:
                           type: subnet
                           visibility: private
                     providerConfigRef:
-                      name: dev-us-aws
+                      name: dev-aws
                 name: eks-nodegroup
                 patches:
                   - patchSetName: common-parameters
@@ -1093,8 +1093,8 @@ crossplane-provider-apiextensions-composition:
                     toFieldPath: spec.forProvider.amiType
                     transforms:
                       - map:
-                          gpu: AL2_x86_64_GPU
-                          non-gpu: AL2_x86_64
+                          gpu: x86_GPU
+                          non-gpu: x86
                         type: map
                     type: FromCompositeFieldPath
                   - fromFieldPath: spec.parameters.workernode-role
@@ -1129,7 +1129,7 @@ crossplane-provider-apiextensions-composition:
                   crossplane.io/external-name: {{ get $params "id" | default ( print $claimNamespace "-vpc" ) }}
               spec:
                 forProvider:
-                  region: {{ get $params "region" | default "us-east-1" }}
+                  region: {{ get $params "region" | default "east-1" }}
                   vpcCidrBlock: {{ get $params "vpcCIDRBlock" | default "192.168.0.0/16" }}
                   enableDnsSupport: true
                   enableDnsHostNames: true
@@ -1177,10 +1177,10 @@ crossplane-provider-apiextensions-composition:
                   maintenanceWindow: Mon:00:00-Mon:03:00
                   passwordSecretRef:
                     key: password
-                    name: {{ printf "%s-rds-admin-pw" $claimNamespace }}
+                    name: {{ printf "%s-rds-root" $claimNamespace }}
                     namespace: {{ $claimNamespace }}
                   publiclyAccessible: false
-                  region: {{ printf "us-%s-1" (get $params "region" | default "east") }}
+                  region: {{ printf "%s-1" (get $params "region" | default "east") }}
                   skipFinalSnapshot: true
                   storageEncrypted: true
                   storageType: gp2
