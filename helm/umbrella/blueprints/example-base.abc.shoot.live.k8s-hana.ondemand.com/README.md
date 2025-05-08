@@ -2,7 +2,7 @@
 
 # example-base
 
-![Version: 0.0.15](https://img.shields.io/badge/Version-0.0.15-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.0.1](https://img.shields.io/badge/AppVersion-0.0.1-informational?style=flat-square)
+![Version: 0.0.16](https://img.shields.io/badge/Version-0.0.16-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.0.1](https://img.shields.io/badge/AppVersion-0.0.1-informational?style=flat-square)
 
 A Umbrealla Helm chart which contains the minimum required crossplane manifests to demonstrate orchestration of crossplane provider configs and secrets management.
 
@@ -36,7 +36,7 @@ A Umbrealla Helm chart which contains the minimum required crossplane manifests 
 | external-secrets-config.externalSecret[0].data[1].secretKey | string | `"btp-service-account-provider-credentials"` |  |
 | external-secrets-config.externalSecret[0].name | string | `"btp-account-mcp-blueprints"` |  |
 | external-secrets-config.externalSecret[0].namespace | string | `"default"` |  |
-| external-secrets-config.externalSecret[0].refreshInterval | string | `"30m"` |  |
+| external-secrets-config.externalSecret[0].refreshInterval | string | `"15m"` |  |
 | external-secrets-config.externalSecret[0].secretStore.name | string | `"hashicorp-vault"` |  |
 | external-secrets-config.externalSecret[0].targetSecretName | string | `"btp-account-mcp-blueprints"` |  |
 | external-secrets-config.secretStores[0].name | string | `"hashicorp-vault"` |  |
