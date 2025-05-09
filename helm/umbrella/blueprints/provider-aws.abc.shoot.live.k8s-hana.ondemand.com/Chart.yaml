@@ -1,0 +1,70 @@
+---
+apiVersion: v2
+name: provider-aws.zzzz
+description: A Umbrealla Helm chart which contains crossplane manifests to demonstrate orchestration of AWS resources
+# A chart can be either an 'application' or a 'library' chart.
+#
+# Application charts are a collection of templates that can be packaged into
+# versioned archives to be deployed.
+#
+# Library charts provide useful utilities or functions for the chart developer.
+# They're included as a dependency of application charts to inject those
+# utilities and functions into the rendering pipeline. Library charts
+# do not define any templates and therefore cannot be deployed.
+type: application
+# A URL to an SVG or PNG image to be used as an icon
+icon: "https://avatars.githubusercontent.com/u/2531208?s=200&v=4"
+# This is the chart version. This version number should be incremented each time
+# you make changes to the chart and its templates, including the app version.
+# Versions are expected to follow Semantic Versioning (https://semver.org/)
+
+version: 0.0.35
+
+# This is the version number of the application being deployed. This version
+# number should be incremented each time you make changes to the application.
+# Versions are not expected to follow Semantic Versioning. They should reflect
+# the version the application is using. It is recommended to use it with quotes.
+appVersion: "0.0.1"
+dependencies:
+  - name: crossplane-provider-configs
+    alias: crossplane-provider-configs
+    version: 0.0.18
+    repository: "oci://ghcr.io/openmcp-project"
+    tags:
+      - crossplane-provider-configs
+  - name: external-secrets-config
+    alias: external-secrets-config
+    version: 0.1.10
+    repository: "oci://ghcr.io/openmcp-project"
+    tags:
+      - external-secrets-config
+  - name: crossplane-provider-aws-ec2
+    alias: crossplane-provider-aws-ec2
+    version: 0.0.12
+    repository: "oci://ghcr.io/openmcp-project"
+    tags:
+      - crossplane-provider-aws-ec2
+  - name: crossplane-provider-aws-eks
+    alias: crossplane-provider-aws-eks
+    version: 0.0.12
+    repository: "oci://ghcr.io/openmcp-project"
+    tags:
+      - crossplane-provider-aws-eks
+  - name: crossplane-provider-aws-iam
+    alias: crossplane-provider-aws-iam
+    version: 0.0.13
+    repository: "oci://ghcr.io/openmcp-project"
+    tags:
+      - crossplane-provider-aws-rdr
+  - name: crossplane-provider-aws-rdr
+    alias: crossplane-provider-aws-rdr
+    version: 0.0.11
+    repository: "oci://ghcr.io/openmcp-project"
+    tags:
+      - crossplane-provider-aws-rdr
+  - name: crossplane-provider-apiextensions-composition
+    alias: crossplane-provider-apiextensions-composition
+    version: 0.0.11
+    repository: "oci://ghcr.io/openmcp-project"
+    tags:
+      - crossplane-provider-apiextensions-composition
