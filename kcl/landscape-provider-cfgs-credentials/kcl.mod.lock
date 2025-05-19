@@ -1,0 +1,7 @@
+[dependencies]
+  [dependencies.externalsecretsconfig]
+    name = "externalsecretsconfig"
+    full_name = "externalsecretsconfig_0.0.2"
+    version = "0.0.2"
+    url = "https://github.com/wchomik/kcl-external-secrets-config.git"
+    branch = "main"
