@@ -12,15 +12,14 @@ external-secrets-config:
     namespace: "default"
     provider:
       vault:
-        server: "https://test.example/"
-        namespace: "openmcp/blueprints"
-        path: "mcps"
-        version: "v2"
         auth:
           kubernetes:
-            mountPath: "k8s-openmcp-blueprints"
-            role: "k8s-openmcp-role"
             secretRef:
-              name: "test-tokenreview-service-account"
-              namespace: "default"
-              key: "token"
+              name: "ASDA-tokenreview-service-account"
+  externalSecret:
+    - name: "ASDA-btp-account-mcp-blueprints"
+      namespace: "ASDA-default"
+      refreshInterval: "30m"
+      targetSecretName: "ASDA-btp-account-credentials"
+      secretStore:
+        name: "hashicorp-vault"
