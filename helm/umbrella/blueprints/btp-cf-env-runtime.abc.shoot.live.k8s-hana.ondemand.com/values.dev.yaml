@@ -12,7 +12,7 @@ external-secrets-config:
     namespace: "default"
     provider:
       vault:
-        server: "https://test.example/"
+        server: "https://vault.example/"
         namespace: "openmcp/blueprints"
         path: "mcps"
         version: "v2"
@@ -21,6 +21,84 @@ external-secrets-config:
             mountPath: "k8s-openmcp-blueprints"
             role: "k8s-openmcp-role"
             secretRef:
-              name: "test-tokenreview-service-account"
+              name: "vault-tokenreview-service-account"
               namespace: "default"
               key: "token"
+  externalSecret:
+    - name: "btp-account-mcp-blueprints"
+      namespace: "default"
+      refreshInterval: "15m"
+      targetSecretName: "btp-account-credentials"
+      secretStore:
+        name: "hashicorp-vault"
+      data:
+        - secretKey: btp-cis-provider-credentials
+          remoteRef:
+            key: "btp-endpoint.example/btp-account"
+            property: btp-cis-provider-credentials
+        - secretKey: btp-service-account-provider-credentials
+          remoteRef:
+            key: "btp-endpoint.example/btp-account"
+            property: btp-service-account-provider-credentials
+######################################################################################################################################
+crossplane-provider-configs:
+  providerConfigs:
+    btpSapCrossplane:
+      - providerConfigRefName: "btp-account-provider-config"
+        globalAccountSubDomain: "exmpl"
+        cliServerUrl: "https://cli.btp.cloud.sap"
+        cisCredentials:
+          source: "Secret"
+          secretRef:
+            namespace: default
+            name: "btp-account-mcp-blueprints"
+            key: btp-cis-provider-credentials
+        serviceAccountSecret:
+          source: "Secret"
+          secretRef:
+            namespace: default
+            name: "btp-account-mcp-blueprints"
+            key: btp-service-account-provider-credentials
+#########################################################################################################
+crossplane-provider-sap-btp-account:
+  cfAdminEmails: &cfAdminEmails []
+  subaccountAdminEmails: &subaccountAdminEmails []
+  #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#        
+  btpEntitlements: &btpEntitlements    
+  - name: "cis-local"
+    serviceName: cis
+    servicePlanName: local
+    permitNumericQuota: false
+    amount: 1
+  #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#        
+  accounts:
+    - btpSapCrossplaneProviderConfigRefName: "btp-account-provider-config"
+      #-------------------------------------------------------------------------------------------------------------------------#
+      #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
+      subAccounts:
+        #-------------------------------------------------------------------------------------------------------------------------#
+        - name: "subAccount1"
+          forProvider:
+            displayName: "exmpl dev eu01"
+            description: "Open Orchestrator Managed Control Plane Blueprint PoC"
+            subdomain: "exmpl-dev-eu01"
+            region: "eu01"
+            subaccountAdminEmails: *subaccountAdminEmails
+          entitlements: *btpEntitlements
+          services:
+            serviceManager: true
+            cloudManagement: true
+        #-------------------------------------------------------------------------------------------------------------------------#                                     
+#########################################################################################################
+crossplane-provider-sap-btp-environment:
+  cloudFoundryEnvironments:
+  - btpSapCrossplaneProviderConfigRefName: "btp-account-provider-config"
+    name: "test"
+    forProvider:
+      initialOrgManagers: *cfAdminEmails
+      landscape: "eu01"
+    cloudManagementRef:
+      name: "dev-eu01"
+    subaccountRef:
+      name: "dev-eu01"
+#########################################################################################################
