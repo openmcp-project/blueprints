@@ -1,0 +1,32 @@
+---
+# Source: k8s-validating-admission-policy/charts/k8s-validating-admission-policy/templates/ValidatingAdmissionPolicy.yaml
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingAdmissionPolicy
+metadata:
+  name: crossplane-helm-provider-config-if-secret-exists
+  labels:
+    openmcp.cloud/blueprint-building-block: "k8s-validating-admission-policy"
+    openmcp.cloud/blueprint-building-block-version: "0.0.5"
+spec:
+  failurePolicy: Fail
+  matchConstraints:
+    resourceRules:
+    - apiGroups:
+      - ""
+      apiVersions:
+      - v1
+      operations:
+      - DELETE
+      resources:
+      - secrets
+  paramKind:
+    apiVersion: helm.crossplane.io/v1beta1
+    kind: ProviderConfig
+  validations:
+  - expression: "( \nhas(params.spec) && \nhas(params.spec.credentials) && \nhas(params.spec.credentials.secretRef)
+      && \nhas(params.spec.credentials.secretRef.name) && \noldObject.metadata.name
+      != params.spec.credentials.secretRef.name &&\noldObject.metadata.namespace !=
+      params.spec.credentials.secretRef.namespace\n)\n"
+    messageExpression: '''Secret %s cannot be deleted because its referenced in Kind:%s
+      (%s) %s''.format([oldObject.metadata.name,params.kind,params.apiVersion,params.metadata.name])'
+    reason: Invalid
