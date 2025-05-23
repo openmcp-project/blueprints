@@ -1,0 +1,20 @@
+---
+# Source: btp-cf-env-runtime/charts/crossplane-provider-sap-btp-account/templates/mcp/btp-subscriptions/cloud-management.yaml
+apiVersion: account.btp.sap.crossplane.io/v1alpha1
+kind: CloudManagement
+metadata:
+  name: subaccount1
+  labels:
+    openmcp.cloud/blueprint-building-block: "crossplane-provider-sap-btp-account"
+    openmcp.cloud/blueprint-building-block-version: "0.0.9"
+spec:
+  providerConfigRef:
+    name: btp-account-provider-config
+  forProvider:
+    serviceManagerRef:
+      name: subaccount1
+    subaccountRef:
+      name: subaccount1
+  writeConnectionSecretToRef:
+    name: cis-btp-account-provider-config-subaccount1
+    namespace: default
