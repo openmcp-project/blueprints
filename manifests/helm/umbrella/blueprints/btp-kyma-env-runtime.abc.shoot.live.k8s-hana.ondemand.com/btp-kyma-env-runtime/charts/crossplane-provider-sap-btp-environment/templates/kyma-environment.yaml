@@ -1,0 +1,27 @@
+---
+# Source: btp-kyma-env-runtime/charts/crossplane-provider-sap-btp-environment/templates/kyma-environment.yaml
+apiVersion: environment.btp.sap.crossplane.io/v1alpha1
+kind: KymaEnvironment
+metadata:
+  name: btp-account-provider-config-kyma-test
+  labels:
+    openmcp.cloud/blueprint-building-block: "crossplane-provider-sap-btp-environment"
+    openmcp.cloud/blueprint-building-block-version: "0.0.15"
+spec:
+  providerConfigRef:
+    name: btp-account-provider-config
+  forProvider:
+    parameters:
+      administrators: []
+      autoScalerMax: 9
+      autoScalerMin: 6
+      machineType: n2-standard-48
+      region: europe-west3
+    planName: gcp
+  cloudManagementRef:
+    name: dev-eu01
+  subaccountRef:
+    name: dev-eu01
+  writeConnectionSecretToRef:
+    name: kyma-kubeconfig-local
+    namespace: default

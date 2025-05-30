@@ -1,0 +1,36 @@
+---
+# Source: btp-kyma-env-runtime/charts/crossplane-provider-sap-btp-account/templates/mcp/btp-subscriptions/entitlements.yaml
+apiVersion: account.btp.sap.crossplane.io/v1alpha1
+kind: Entitlement
+metadata:  
+  name: kymaruntime-gcp  
+  labels:
+    openmcp.cloud/blueprint-building-block: "crossplane-provider-sap-btp-account"
+    openmcp.cloud/blueprint-building-block-version: "0.0.9"
+spec:
+  forProvider:    
+    serviceName: kymaruntime
+    servicePlanName: gcp
+    amount: 1
+    subaccountRef:
+      name: subaccount1
+  providerConfigRef:
+    name: "btp-account-provider-config"
+---
+# Source: btp-kyma-env-runtime/charts/crossplane-provider-sap-btp-account/templates/mcp/btp-subscriptions/entitlements.yaml
+apiVersion: account.btp.sap.crossplane.io/v1alpha1
+kind: Entitlement
+metadata:  
+  name: cis-local  
+  labels:
+    openmcp.cloud/blueprint-building-block: "crossplane-provider-sap-btp-account"
+    openmcp.cloud/blueprint-building-block-version: "0.0.9"
+spec:
+  forProvider:    
+    serviceName: cis
+    servicePlanName: local
+    enable: true
+    subaccountRef:
+      name: subaccount1
+  providerConfigRef:
+    name: "btp-account-provider-config"
