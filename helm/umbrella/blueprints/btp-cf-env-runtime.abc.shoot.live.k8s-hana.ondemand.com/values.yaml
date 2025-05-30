@@ -27,7 +27,7 @@ external-secrets-config:
   externalSecret:
     - name: "btp-account-mcp-blueprints"
       namespace: "default"
-      refreshInterval: "15m"
+      refreshInterval: "30m"
       targetSecretName: "btp-account-credentials"
       secretStore:
         name: "hashicorp-vault"
