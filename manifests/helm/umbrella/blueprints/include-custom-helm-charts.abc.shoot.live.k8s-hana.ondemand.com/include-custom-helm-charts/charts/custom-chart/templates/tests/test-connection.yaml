@@ -1,0 +1,21 @@
+---
+# Source: include-custom-helm-charts/charts/custom-chart/templates/tests/test-connection.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "helm-release-name-custom-chart-test-connection"
+  labels:
+    helm.sh/chart: custom-chart-0.0.2
+    app.kubernetes.io/name: custom-chart
+    app.kubernetes.io/instance: helm-release-name
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['helm-release-name-custom-chart:80']
+  restartPolicy: Never

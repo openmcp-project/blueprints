@@ -1,0 +1,42 @@
+---
+# Source: provider-gardener-existing/charts/crossplane-provider-helm/templates/helm-release.yaml
+apiVersion: helm.crossplane.io/v1beta1
+kind: Release
+metadata:
+  name: gardener-shoot-iad-test-ingress-nginx  
+  labels:
+    openmcp.cloud/blueprint-building-block: "crossplane-provider-helm"
+    openmcp.cloud/blueprint-building-block-version: "0.0.11"
+spec:
+  providerConfigRef:
+    name: gardener-shoot-iad-test
+  # rollbackLimit: 3
+  forProvider:
+    chart:
+      name: ingress-nginx
+      repository: https://kubernetes.github.io/ingress-nginx
+      version: 4.10.0
+    namespace: default
+    #   insecureSkipTLSVerify: true/false
+    #   skipCreateNamespace: true/false
+    #   wait: true/false
+    #   skipCRDs: true/false
+    values:
+      controller:
+        config:
+          enable-underscores-in-headers: "true"
+        extraArgs:
+          default-ssl-certificate: default/www-tls
+        ingressClassResource:
+          default: true
+        service:
+          annotations:
+            cert.gardener.cloud/secretname: www-tls
+            dns.gardener.cloud/class: garden
+            dns.gardener.cloud/dnsnames: ""
+            dns.gardener.cloud/ttl: "600"
+          appProtocol: false
+        watchIngressWithoutClass: true
+      defaultBackend:
+        enabled: true
+      fullnameOverride: ingress-nginx
