@@ -1,0 +1,97 @@
+---
+# Source: provider-gardener/charts/crossplane-gardener-shoot-clusters/templates/garden-manifests/gardener-shoot-cluster-gcp.yaml
+apiVersion: kubernetes.crossplane.io/v1alpha1
+kind: Object
+metadata:
+  name: "iad-test"
+  labels:
+    openmcp.cloud/blueprint-building-block: "crossplane-gardener-shoot-clusters"
+    openmcp.cloud/blueprint-building-block-version: "0.0.11"
+spec:
+  providerConfigRef:
+    name: "garden-co-golden" # Set to Kubernetes ProviderConfig
+  forProvider:
+    manifest:
+      # gardener shoot api: https://github.com/gardener/gardener/blob/master/docs/api-reference/core.md
+      apiVersion: core.gardener.cloud/v1beta1
+      kind: Shoot
+      metadata:
+        annotations:
+          confirmation.gardener.cloud/deletion: "true" # otherwise it can't be destroyed using IAD
+        name: iad-test
+        namespace: garden-co-golden    
+      
+      spec:
+        secretBindingName: gcp-sa-garden-co-golden # Set your SecretBinding name
+        cloudProfileName: gcp
+        region: "europe-west1"
+        purpose: "testing"
+        #### START hyperscaler specific stuff START ####
+        provider:
+          type: gcp
+          infrastructureConfig:
+            apiVersion: gcp.provider.extensions.gardener.cloud/v1alpha1
+            kind: InfrastructureConfig
+            networks:
+              workers: 10.180.0.0/16
+          controlPlaneConfig:
+            apiVersion: gcp.provider.extensions.gardener.cloud/v1alpha1
+            kind: ControlPlaneConfig
+            zone: europe-west1-b
+          workers:
+            - machine:
+                image:
+                  name: gardenlinux
+                  version: 1312.3.0
+                type: n2-standard-8
+              maxSurge: 1
+              maxUnavailable: 0
+              maximum: 3
+              minimum: 1
+              name: worker
+              volume:
+                encrypted: true
+                size: 50Gi
+                type: pd-standard
+              zones:
+              - europe-west1-b
+        #### END hyperscaler specific stuff END ####
+        kubernetes:
+          version: "1.30.2"
+          kubeAPIServer:
+            enableAnonymousAuthentication: false
+            scheduling.k8s.io/v1alpha1: true                        
+          kubeControllerManager:
+            nodeCIDRMaskSize: 24
+          clusterAutoscaler:
+            scaleDownDelayAfterAdd: 1h0m0s
+            scaleDownDelayAfterDelete: 10s
+            scaleDownDelayAfterFailure: 10m0s
+            scaleDownUnneededTime: 30m0s
+            scaleDownUtilizationThreshold: 0.5
+            scanInterval: 10s
+        extensions: 
+          []
+        networking:
+          nodes: 10.180.0.0/16
+          type: calico
+        maintenance:
+          autoUpdate:
+            kubernetesVersion: false
+            machineImageVersion: true
+          confineSpecUpdateRollout: true
+          timeWindow:
+            begin: 120000+0000
+            end: 130000+0000
+        hibernation:
+          schedules:
+          - end: 00 08 * * 1,2,3,4,5
+            location: Europe/Berlin
+            start: 00 21 * * 1,2,3,4,5
+        addons:
+          kubernetesDashboard:
+            enabled: false
+          nginxIngress:
+            enabled: false
+        resources:
+          []

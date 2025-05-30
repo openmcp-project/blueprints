@@ -1,0 +1,34 @@
+---
+# Source: provider-aws.zzzz/charts/crossplane-provider-aws-rdr/templates/instance-rdr-aws-upbound-io.yaml
+apiVersion: rds.aws.upbound.io/v1beta2
+kind: Instance
+metadata:
+  name: rds-instance
+spec:
+  deletionPolicy: ""
+  forProvider:
+    allocatedStorage: 20
+    autoGeneratePassword: true
+    autoMinorVersionUpgrade: true
+    backupRetentionPeriod: 14
+    backupWindow: 09:46-10:16
+    dbName: clopsdevusdb
+    engine: postgres
+    engineVersion: "16.1"
+    instanceClass: db.t3.micro
+    maintenanceWindow: Mon:00:00-Mon:03:00
+    passwordSecretRef:
+      key: password
+      name: dev-rds-root
+      namespace: dev-us
+    publiclyAccessible: false
+    region: east-1
+    skipFinalSnapshot: true
+    storageEncrypted: true
+    storageType: gp2
+    username: adminuser
+  providerConfigRef:
+    name: dev-aws
+  writeConnectionSecretToRef:
+    name: dev-rds-connection-details
+    namespace: dev-us
