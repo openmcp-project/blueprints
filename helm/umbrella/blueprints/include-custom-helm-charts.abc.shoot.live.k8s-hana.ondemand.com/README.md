@@ -2,7 +2,7 @@
 
 # include-custom-helm-charts
 
-![Version: 0.0.15](https://img.shields.io/badge/Version-0.0.15-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.0.1](https://img.shields.io/badge/AppVersion-0.0.1-informational?style=flat-square)
+![Version: 0.0.16](https://img.shields.io/badge/Version-0.0.16-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.0.1](https://img.shields.io/badge/AppVersion-0.0.1-informational?style=flat-square)
 
 A Umbrealla Helm chart which demonstrate on how to include local Helm Charts within the same Git Repository.
 
@@ -11,7 +11,7 @@ A Umbrealla Helm chart which demonstrate on how to include local Helm Charts wit
 | Repository | Name | Version |
 |------------|------|---------|
 | file://../../../charts/custom-chart | custom-chart(custom-chart) | ~0.x.x |
-| oci://ghcr.io/openmcp-project | crossplane-provider-configs(crossplane-provider-configs) | 0.0.18 |
+| oci://ghcr.io/openmcp-project | crossplane-provider-configs(crossplane-provider-configs) | 0.0.19 |
 | oci://ghcr.io/openmcp-project | external-secrets-config(external-secrets-config) | 0.1.10 |
 
 ## Values
