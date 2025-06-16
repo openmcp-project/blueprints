@@ -6,7 +6,7 @@ metadata:
   name: "garden-co-golden"
   labels:
     openmcp.cloud/blueprint-building-block: "crossplane-provider-configs"
-    openmcp.cloud/blueprint-building-block-version: "0.0.18"
+    openmcp.cloud/blueprint-building-block-version: "0.0.19"
 spec:
   credentials:
     secretRef:
