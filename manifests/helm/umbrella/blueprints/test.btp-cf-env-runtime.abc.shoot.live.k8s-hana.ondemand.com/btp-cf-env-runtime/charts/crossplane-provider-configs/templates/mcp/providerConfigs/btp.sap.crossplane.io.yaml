@@ -8,7 +8,7 @@ metadata:
     openmcp.cloud/blueprint-building-block: "crossplane-provider-configs"
     openmcp.cloud/blueprint-building-block-version: "0.0.19"
 spec:
-  cliServerUrl: "https://cli.dev.btp.cloud.sap"
+  cliServerUrl: "https://cli.test.btp.cloud.sap"
   globalAccount: "exmpl"
   cisCredentials:
     secretRef:
