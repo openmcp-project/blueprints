@@ -2,7 +2,7 @@
 
 # provider-gardener
 
-![Version: 0.0.21](https://img.shields.io/badge/Version-0.0.21-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.0.1](https://img.shields.io/badge/AppVersion-0.0.1-informational?style=flat-square)
+![Version: 0.0.22](https://img.shields.io/badge/Version-0.0.22-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.0.1](https://img.shields.io/badge/AppVersion-0.0.1-informational?style=flat-square)
 
 A Umbrealla Helm chart which contains crossplane manifests to demonstrate orchestration of new SAP Gardener Clusters and its stack
 
@@ -11,7 +11,7 @@ A Umbrealla Helm chart which contains crossplane manifests to demonstrate orches
 | Repository | Name | Version |
 |------------|------|---------|
 | oci://ghcr.io/openmcp-project | crossplane-gardener-shoot-clusters(crossplane-gardener-shoot-clusters) | 0.0.11 |
-| oci://ghcr.io/openmcp-project | crossplane-provider-configs(crossplane-provider-configs) | 0.0.18 |
+| oci://ghcr.io/openmcp-project | crossplane-provider-configs(crossplane-provider-configs) | 0.0.19 |
 | oci://ghcr.io/openmcp-project | crossplane-provider-helm(crossplane-provider-helm) | 0.0.11 |
 | oci://ghcr.io/openmcp-project | external-secrets-config(external-secrets-config) | 0.1.10 |
 # TL;DR
