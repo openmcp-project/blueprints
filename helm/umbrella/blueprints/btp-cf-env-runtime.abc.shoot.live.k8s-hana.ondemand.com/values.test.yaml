@@ -23,5 +23,18 @@ crossplane-provider-configs:
   providerConfigs:
     btpSapCrossplane:
       - providerConfigRefName: "btp-account-provider-config"
-        cliServerUrl: "https://cli.test.btp.cloud.sap"       
+        cliServerUrl: "https://cli.test.btp.cloud.sap"
+        globalAccountSubDomain: "exmpl"
+        cisCredentials:
+          source: "Secret"
+          secretRef:
+            namespace: default
+            name: "btp-account-mcp-blueprints"
+            key: btp-cis-provider-credentials
+        serviceAccountSecret:
+          source: "Secret"
+          secretRef:
+            namespace: default
+            name: "btp-account-mcp-blueprints"
+            key: btp-service-account-provider-credentials
 #########################################################################################################
