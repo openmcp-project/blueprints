@@ -1,0 +1,40 @@
+---
+######################################################################################################################################
+external-secrets-config:
+  secretStores:
+  - name: "hashicorp-vault"
+    namespace: "default"
+    provider:
+      vault:
+        server: "https://vault.example/"
+        namespace: "openmcp/blueprints/test"
+        path: "mcps"
+        version: "v2"
+        auth:
+          kubernetes:
+            mountPath: "k8s-openmcp-blueprints"
+            role: "k8s-openmcp-role"
+            secretRef:
+              name: "vault-tokenreview-service-account"
+              namespace: "default"
+              key: "token"
+######################################################################################################################################
+crossplane-provider-configs:
+  providerConfigs:
+    btpSapCrossplane:
+      - providerConfigRefName: "btp-account-provider-config"
+        cliServerUrl: "https://cli.test.btp.cloud.sap"
+        globalAccountSubDomain: "exmpl"
+        cisCredentials:
+          source: "Secret"
+          secretRef:
+            namespace: default
+            name: "btp-account-mcp-blueprints"
+            key: btp-cis-provider-credentials
+        serviceAccountSecret:
+          source: "Secret"
+          secretRef:
+            namespace: default
+            name: "btp-account-mcp-blueprints"
+            key: btp-service-account-provider-credentials
+#########################################################################################################
