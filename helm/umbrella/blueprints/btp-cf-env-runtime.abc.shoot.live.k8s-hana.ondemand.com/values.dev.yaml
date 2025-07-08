@@ -9,7 +9,7 @@ external-secrets-config:
         server: "https://vault.example/"
         namespace: "openmcp/blueprints/dev"
         path: "mcps"
-        version: "v2"
+        version: "v3"
         auth:
           kubernetes:
             mountPath: "k8s-openmcp-blueprints"
@@ -24,7 +24,7 @@ crossplane-provider-configs:
     btpSapCrossplane:
       - providerConfigRefName: "btp-account-provider-config"
         cliServerUrl: "https://cli.dev.btp.cloud.sap"
-        globalAccountSubDomain: "exmpl"
+        globalAccountSubDomain: "sub1"
         cisCredentials:
           source: "Secret"
           secretRef:
