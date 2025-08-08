@@ -52,7 +52,7 @@ dependencies:
       - crossplane-provider-aws-eks
   - name: crossplane-provider-aws-iam
     alias: crossplane-provider-aws-iam
-    version: 0.0.13
+    version: 0.0.14
     repository: "oci://ghcr.io/openmcp-project"
     tags:
       - crossplane-provider-aws-rdr
