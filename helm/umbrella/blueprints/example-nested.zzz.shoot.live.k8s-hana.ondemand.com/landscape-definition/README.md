@@ -2,7 +2,7 @@
 
 # landscape-definition
 
-![Version: 0.0.11](https://img.shields.io/badge/Version-0.0.11-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.0.1](https://img.shields.io/badge/AppVersion-0.0.1-informational?style=flat-square)
+![Version: 0.0.12](https://img.shields.io/badge/Version-0.0.12-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.0.1](https://img.shields.io/badge/AppVersion-0.0.1-informational?style=flat-square)
 
 A nested umbrealla Helm chart which contains crossplane manifests to demonstrate orchestration of BTP Sub-Accounts. Crossplane Provider Configs and landscape credentials are managed by Helm Chart landscape-provider-cfgs-credentials!
 
@@ -10,7 +10,7 @@ A nested umbrealla Helm chart which contains crossplane manifests to demonstrate
 
 | Repository | Name | Version |
 |------------|------|---------|
-| oci://ghcr.io/openmcp-project | crossplane-provider-sap-btp-account(crossplane-provider-sap-btp-account) | 0.0.9 |
+| oci://ghcr.io/openmcp-project | crossplane-provider-sap-btp-account(crossplane-provider-sap-btp-account) | 0.0.12 |
 
 ## Values
 
