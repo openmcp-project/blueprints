@@ -40,7 +40,7 @@ dependencies:
       - external-secrets-config
   - name: crossplane-provider-aws-ec2
     alias: crossplane-provider-aws-ec2
-    version: 0.0.12
+    version: 0.0.13
     repository: "oci://ghcr.io/openmcp-project"
     tags:
       - crossplane-provider-aws-ec2
