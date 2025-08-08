@@ -46,7 +46,7 @@ dependencies:
       - crossplane-gardener-shoot-kubeconfigs
   - name: crossplane-provider-helm
     alias: crossplane-provider-helm
-    version: 0.0.11
+    version: 0.0.12
     repository: "oci://ghcr.io/openmcp-project"
     tags:
       - crossplane-provider-helm
