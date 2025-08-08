@@ -2,7 +2,7 @@
 
 # migration-test-provider-btp-accounts
 
-![Version: 0.0.18](https://img.shields.io/badge/Version-0.0.18-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.0.1](https://img.shields.io/badge/AppVersion-0.0.1-informational?style=flat-square)
+![Version: 0.0.19](https://img.shields.io/badge/Version-0.0.19-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.0.1](https://img.shields.io/badge/AppVersion-0.0.1-informational?style=flat-square)
 
 A Umbrealla Helm chart which contains crossplane manifests to demonstrate orchestration of SAP BTP Accounts
 
@@ -11,7 +11,7 @@ A Umbrealla Helm chart which contains crossplane manifests to demonstrate orches
 | Repository | Name | Version |
 |------------|------|---------|
 | oci://ghcr.io/openmcp-project | crossplane-provider-configs(crossplane-provider-configs) | 0.0.19 |
-| oci://ghcr.io/openmcp-project | crossplane-provider-sap-btp-account(crossplane-provider-sap-btp-account) | 0.0.9 |
+| oci://ghcr.io/openmcp-project | crossplane-provider-sap-btp-account(crossplane-provider-sap-btp-account) | 0.0.12 |
 # TL;DR
 This template umbrella Helm Chart demonstrates the orchestration of BTP resources such as [BTP Sub Accounts](https://learning.sap.com/learning-journeys/introducing-cloud-security-on-sap-business-technology-platform/using-global-accounts-and-subaccounts_fc42dbb5-5c5b-4903-a3f6-fed3d7f5ee22) and [BTP Entitlements](https://help.sap.com/docs/btp/sap-business-technology-platform/managing-entitlements-and-quotas-using-cockpit?locale=322080db84734e9b8812ede13703b83c.html).
 
