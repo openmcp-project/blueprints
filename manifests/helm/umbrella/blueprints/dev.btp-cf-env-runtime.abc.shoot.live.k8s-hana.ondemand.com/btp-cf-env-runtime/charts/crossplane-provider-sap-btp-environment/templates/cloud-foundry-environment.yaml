@@ -6,7 +6,7 @@ metadata:
   name: btp-account-provider-config-test
   labels:
     openmcp.cloud/blueprint-building-block: "crossplane-provider-sap-btp-environment"
-    openmcp.cloud/blueprint-building-block-version: "0.0.16"
+    openmcp.cloud/blueprint-building-block-version: "0.0.19"
 spec:
   providerConfigRef:
     name: btp-account-provider-config
