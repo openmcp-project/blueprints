@@ -2,7 +2,7 @@
 
 # provider-aws.zzzz
 
-![Version: 0.0.36](https://img.shields.io/badge/Version-0.0.36-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.0.1](https://img.shields.io/badge/AppVersion-0.0.1-informational?style=flat-square)
+![Version: 0.0.37](https://img.shields.io/badge/Version-0.0.37-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.0.1](https://img.shields.io/badge/AppVersion-0.0.1-informational?style=flat-square)
 
 A Umbrealla Helm chart which contains crossplane manifests to demonstrate orchestration of AWS resources
 
@@ -16,13 +16,13 @@ A Umbrealla Helm chart which contains crossplane manifests to demonstrate orches
 | oci://ghcr.io/openmcp-project | crossplane-provider-aws-iam(crossplane-provider-aws-iam) | 0.0.13 |
 | oci://ghcr.io/openmcp-project | crossplane-provider-aws-rdr(crossplane-provider-aws-rdr) | 0.0.11 |
 | oci://ghcr.io/openmcp-project | crossplane-provider-configs(crossplane-provider-configs) | 0.0.19 |
-| oci://ghcr.io/openmcp-project | external-secrets-config(external-secrets-config) | 0.1.10 |
+| oci://ghcr.io/openmcp-project | external-secrets-config(external-secrets-config) | 0.1.12 |
 # TL;DR
 This template umbrella Helm Chart demonstrates the orchestration of AWS native cloud resources such as [Elastic Compute Cloud (EC2)](https://docs.aws.amazon.com/de_de/AWSEC2/latest/UserGuide/concepts.html), [Elastic Kubernetes Service (EKS)](https://docs.aws.amazon.com/de_de/eks/latest/userguide/what-is-eks.html) and some more.
 
 # provider-aws.zzzz
 
-![Version: 0.0.36](https://img.shields.io/badge/Version-0.0.36-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.0.1](https://img.shields.io/badge/AppVersion-0.0.1-informational?style=flat-square)
+![Version: 0.0.37](https://img.shields.io/badge/Version-0.0.37-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.0.1](https://img.shields.io/badge/AppVersion-0.0.1-informational?style=flat-square)
 
 A Umbrealla Helm chart which contains crossplane manifests to demonstrate orchestration of AWS resources
 
@@ -36,7 +36,7 @@ A Umbrealla Helm chart which contains crossplane manifests to demonstrate orches
 | oci://ghcr.io/openmcp-project | crossplane-provider-aws-iam(crossplane-provider-aws-iam) | 0.0.13 |
 | oci://ghcr.io/openmcp-project | crossplane-provider-aws-rdr(crossplane-provider-aws-rdr) | 0.0.11 |
 | oci://ghcr.io/openmcp-project | crossplane-provider-configs(crossplane-provider-configs) | 0.0.19 |
-| oci://ghcr.io/openmcp-project | external-secrets-config(external-secrets-config) | 0.1.10 |
+| oci://ghcr.io/openmcp-project | external-secrets-config(external-secrets-config) | 0.1.12 |
 
 ## Values
 
