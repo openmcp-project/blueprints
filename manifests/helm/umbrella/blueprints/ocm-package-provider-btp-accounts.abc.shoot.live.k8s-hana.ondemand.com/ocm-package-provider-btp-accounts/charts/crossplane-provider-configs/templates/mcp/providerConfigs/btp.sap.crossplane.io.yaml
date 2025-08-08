@@ -6,7 +6,7 @@ metadata:
   name: "provider-config-ref-name-btp-account-mcp-blueprints"
   labels:
     openmcp.cloud/blueprint-building-block: "crossplane-provider-configs"
-    openmcp.cloud/blueprint-building-block-version: "0.0.19"
+    openmcp.cloud/blueprint-building-block-version: "0.0.20"
 spec:
   cliServerUrl: "https://cli.btp.cloud.sap"
   globalAccount: "globalaccountsubdomain"
