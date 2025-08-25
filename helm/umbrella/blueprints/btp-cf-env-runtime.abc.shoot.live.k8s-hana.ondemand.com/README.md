@@ -2,7 +2,7 @@
 
 # btp-cf-env-runtime
 
-![Version: 0.0.32](https://img.shields.io/badge/Version-0.0.32-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.0.1](https://img.shields.io/badge/AppVersion-0.0.1-informational?style=flat-square)
+![Version: 0.0.33](https://img.shields.io/badge/Version-0.0.33-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.0.1](https://img.shields.io/badge/AppVersion-0.0.1-informational?style=flat-square)
 
 A Umbrealla Helm chart which demonstrate orchestration of SAP BTP Cloud Foundry Environment.
 
@@ -17,7 +17,7 @@ A Umbrealla Helm chart which demonstrate orchestration of SAP BTP Cloud Foundry 
 |------------|------|---------|
 | oci://ghcr.io/openmcp-project | crossplane-provider-configs(crossplane-provider-configs) | 0.0.20 |
 | oci://ghcr.io/openmcp-project | crossplane-provider-sap-btp-account(crossplane-provider-sap-btp-account) | 0.0.12 |
-| oci://ghcr.io/openmcp-project | crossplane-provider-sap-btp-environment(crossplane-provider-sap-btp-environment) | 0.0.19 |
+| oci://ghcr.io/openmcp-project | crossplane-provider-sap-btp-environment(crossplane-provider-sap-btp-environment) | 0.0.20 |
 | oci://ghcr.io/openmcp-project | external-secrets-config(external-secrets-config) | 0.1.12 |
 
 ## Values
