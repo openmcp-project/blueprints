@@ -4,7 +4,7 @@ tags: # see ./Chart.yaml @url: https://helm.sh/docs/topics/charts/#tags-and-cond
   crossplane-provider-sap-btp-account: true  
 #########################################################################################################
 crossplane-provider-sap-btp-account:
-  subaccountAdminEmails: &subaccountAdminEmails []
+  subaccountAdmins: &subaccountAdmins []
   #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#        
   entitlementsLegacyLandscape: &entitlementsLegacyLandscape
     - name: "auditlog-oauth2"
@@ -25,7 +25,7 @@ crossplane-provider-sap-btp-account:
             description: "Sub Account managed by Open MCP & IaD"
             subdomain: "dev-eu01"
             region: "eu01"
-            subaccountAdminEmails: *subaccountAdminEmails
+            subaccountAdmins: *subaccountAdmins
           entitlements: *entitlementsLegacyLandscape
         #-------------------------------------------------------------------------------------------------------------------------#                                     
 ######################################################################################################################################

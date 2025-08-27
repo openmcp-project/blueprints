@@ -12,7 +12,7 @@ spec:
     description: Open Orchestrator Managed Control Plane Blueprint PoC
     displayName: exmpl dev eu01
     region: eu01
-    subaccountAdminEmails: []
+    subaccountAdmins: []
     subdomain: exmpl-dev-eu01
   providerConfigRef:
     name: "btp-account-provider-config"

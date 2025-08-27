@@ -12,7 +12,7 @@ spec:
     description: Sub Account managed by OpenMCP & IaD
     displayName: CO Managed Control Plane Blueprint Sub-Account
     region: eu01
-    subaccountAdminEmails: []
+    subaccountAdmins: []
     subdomain: mcp-blueprint-test-1
   providerConfigRef:
     name: "provider-config-ref-name-btp-account-mcp-blueprints"
