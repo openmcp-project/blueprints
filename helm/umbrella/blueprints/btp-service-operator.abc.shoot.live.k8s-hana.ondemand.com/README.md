@@ -2,7 +2,7 @@
 
 # btp-service-operator
 
-![Version: 0.0.30](https://img.shields.io/badge/Version-0.0.30-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.0.1](https://img.shields.io/badge/AppVersion-0.0.1-informational?style=flat-square)
+![Version: 0.0.31](https://img.shields.io/badge/Version-0.0.31-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.0.1](https://img.shields.io/badge/AppVersion-0.0.1-informational?style=flat-square)
 
 A Umbrealla Helm chart which demonstrate orchestration of SAP BTP Service Operator Instance+Bindings.
 
@@ -44,7 +44,7 @@ A Umbrealla Helm chart which demonstrate orchestration of SAP BTP Service Operat
 | crossplane-provider-sap-btp-account.accounts[0].subAccounts[0].forProvider.description | string | `"Open Managed Control Plane Blueprint"` |  |
 | crossplane-provider-sap-btp-account.accounts[0].subAccounts[0].forProvider.displayName | string | `"dev-eu01"` |  |
 | crossplane-provider-sap-btp-account.accounts[0].subAccounts[0].forProvider.region | string | `"eu01"` |  |
-| crossplane-provider-sap-btp-account.accounts[0].subAccounts[0].forProvider.subaccountAdminEmails | list | `[]` |  |
+| crossplane-provider-sap-btp-account.accounts[0].subAccounts[0].forProvider.subaccountAdmins | list | `[]` |  |
 | crossplane-provider-sap-btp-account.accounts[0].subAccounts[0].forProvider.subdomain | string | `"dev-eu01"` |  |
 | crossplane-provider-sap-btp-account.accounts[0].subAccounts[0].name | string | `"subAccount1"` |  |
 | crossplane-provider-sap-btp-account.accounts[0].subAccounts[0].services.cloudManagement | bool | `false` |  |
@@ -54,7 +54,7 @@ A Umbrealla Helm chart which demonstrate orchestration of SAP BTP Service Operat
 | crossplane-provider-sap-btp-account.btpEntitlements[0].permitNumericQuota | bool | `false` |  |
 | crossplane-provider-sap-btp-account.btpEntitlements[0].serviceName | string | `"cis"` |  |
 | crossplane-provider-sap-btp-account.btpEntitlements[0].servicePlanName | string | `"local"` |  |
-| crossplane-provider-sap-btp-account.subaccountAdminEmails | list | `[]` |  |
+| crossplane-provider-sap-btp-account.subaccountAdmins | list | `[]` |  |
 | external-secrets-config.externalSecret[0].data[0].remoteRef.key | string | `"btp-endpoint.example/btp-account"` |  |
 | external-secrets-config.externalSecret[0].data[0].remoteRef.property | string | `"btp-cis-provider-credentials"` |  |
 | external-secrets-config.externalSecret[0].data[0].secretKey | string | `"btp-cis-provider-credentials"` |  |
