@@ -40,7 +40,7 @@ dependencies:
       - external-secrets-config
   - name: crossplane-gardener-shoot-clusters
     alias: crossplane-gardener-shoot-clusters
-    version: 0.0.12
+    version: 0.0.13
     repository: "oci://ghcr.io/openmcp-project"
     tags:
       - crossplane-gardener-shoot-clusters
