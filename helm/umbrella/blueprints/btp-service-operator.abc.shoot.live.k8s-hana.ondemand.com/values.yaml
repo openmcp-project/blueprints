@@ -61,7 +61,7 @@ crossplane-provider-configs:
             key: btp-service-account-provider-credentials
 #########################################################################################################
 crossplane-provider-sap-btp-account:
-  subaccountAdminEmails: &subaccountAdminEmails []
+  subaccountAdmins: &subaccountAdmins []
   #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#        
   btpEntitlements: &btpEntitlements       
   - name: "cis-local"
@@ -82,7 +82,7 @@ crossplane-provider-sap-btp-account:
             description: "Open Managed Control Plane Blueprint"
             subdomain: "dev-eu01"
             region: "eu01"
-            subaccountAdminEmails: *subaccountAdminEmails
+            subaccountAdmins: *subaccountAdmins
           entitlements: *btpEntitlements
           services:
             serviceManager: true

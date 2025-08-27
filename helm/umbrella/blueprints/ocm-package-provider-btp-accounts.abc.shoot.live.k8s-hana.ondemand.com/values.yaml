@@ -95,7 +95,7 @@ crossplane-provider-configs:
             key: btp-service-account-provider-credentials
 #########################################################################################################
 crossplane-provider-sap-btp-account:
-  subaccountAdminEmails: &subaccountAdminEmails []
+  subaccountAdmins: &subaccountAdmins []
   #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#        
   entitlementsLegacyLandscape: &entitlementsLegacyLandscape
     - name: "auditlog-oauth2"
@@ -116,7 +116,7 @@ crossplane-provider-sap-btp-account:
             description: "Sub Account managed by OpenMCP & IaD"
             subdomain: mcp-blueprint-test-1
             region: "eu01"
-            subaccountAdminEmails: *subaccountAdminEmails
+            subaccountAdmins: *subaccountAdmins
           entitlements: *entitlementsLegacyLandscape
         #-------------------------------------------------------------------------------------------------------------------------#                                     
 #########################################################################################################
