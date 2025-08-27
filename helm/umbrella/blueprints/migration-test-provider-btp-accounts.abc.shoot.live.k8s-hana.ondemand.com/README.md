@@ -2,7 +2,7 @@
 
 # migration-test-provider-btp-accounts
 
-![Version: 0.0.20](https://img.shields.io/badge/Version-0.0.20-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.0.1](https://img.shields.io/badge/AppVersion-0.0.1-informational?style=flat-square)
+![Version: 0.0.21](https://img.shields.io/badge/Version-0.0.21-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.0.1](https://img.shields.io/badge/AppVersion-0.0.1-informational?style=flat-square)
 
 A Umbrealla Helm chart which contains crossplane manifests to demonstrate orchestration of SAP BTP Accounts
 
@@ -67,7 +67,7 @@ This template umbrella Helm Chart demonstrates the orchestration of BTP resource
 | crossplane-provider-sap-btp-account.entitlementsLegacyLandscape[1].permitNumericQuota | bool | `false` |  |
 | crossplane-provider-sap-btp-account.entitlementsLegacyLandscape[1].serviceName | string | `"cis"` |  |
 | crossplane-provider-sap-btp-account.entitlementsLegacyLandscape[1].servicePlanName | string | `"local"` |  |
-| crossplane-provider-sap-btp-account.subaccountAdminEmails | list | `[]` |  |
+| crossplane-provider-sap-btp-account.subaccountAdmins | list | `[]` |  |
 | tags.crossplane-provider-configs | bool | `true` |  |
 | tags.crossplane-provider-sap-btp-account | bool | `true` |  |
 
