@@ -6,7 +6,7 @@ metadata:
   name: "iad-test"
   labels:
     openmcp.cloud/blueprint-building-block: "crossplane-gardener-shoot-clusters"
-    openmcp.cloud/blueprint-building-block-version: "0.0.13"
+    openmcp.cloud/blueprint-building-block-version: "0.0.14"
 spec:
   providerConfigRef:
     name: "garden-co-golden" # Set to Kubernetes ProviderConfig
@@ -19,8 +19,7 @@ spec:
         annotations:
           confirmation.gardener.cloud/deletion: "true" # otherwise it can't be destroyed using IAD
         name: iad-test
-        namespace: garden-co-golden    
-      
+        namespace: garden-co-golden
       spec:
         secretBindingName: gcp-sa-garden-co-golden # Set your SecretBinding name
         cloudProfileName: gcp
