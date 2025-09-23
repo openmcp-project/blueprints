@@ -2,7 +2,7 @@
 
 # landscape-definition
 
-![Version: 0.0.12](https://img.shields.io/badge/Version-0.0.12-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.0.1](https://img.shields.io/badge/AppVersion-0.0.1-informational?style=flat-square)
+![Version: 0.0.13](https://img.shields.io/badge/Version-0.0.13-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.0.1](https://img.shields.io/badge/AppVersion-0.0.1-informational?style=flat-square)
 
 A nested umbrealla Helm chart which contains crossplane manifests to demonstrate orchestration of BTP Sub-Accounts. Crossplane Provider Configs and landscape credentials are managed by Helm Chart landscape-provider-cfgs-credentials!
 
@@ -25,7 +25,7 @@ A nested umbrealla Helm chart which contains crossplane manifests to demonstrate
 | crossplane-provider-sap-btp-account.accounts[0].subAccounts[0].forProvider.description | string | `"Sub Account managed by Open MCP & IaD"` |  |
 | crossplane-provider-sap-btp-account.accounts[0].subAccounts[0].forProvider.displayName | string | `"Open Managed Control Plane Blueprint Sub-Account"` |  |
 | crossplane-provider-sap-btp-account.accounts[0].subAccounts[0].forProvider.region | string | `"eu01"` |  |
-| crossplane-provider-sap-btp-account.accounts[0].subAccounts[0].forProvider.subaccountAdminEmails | list | `[]` |  |
+| crossplane-provider-sap-btp-account.accounts[0].subAccounts[0].forProvider.subaccountAdmins | list | `[]` |  |
 | crossplane-provider-sap-btp-account.accounts[0].subAccounts[0].forProvider.subdomain | string | `"dev-eu01"` |  |
 | crossplane-provider-sap-btp-account.accounts[0].subAccounts[0].name | string | `"subAccount1"` |  |
 | crossplane-provider-sap-btp-account.entitlementsLegacyLandscape[0].amount | int | `1` |  |
@@ -33,7 +33,7 @@ A nested umbrealla Helm chart which contains crossplane manifests to demonstrate
 | crossplane-provider-sap-btp-account.entitlementsLegacyLandscape[0].permitNumericQuota | bool | `true` |  |
 | crossplane-provider-sap-btp-account.entitlementsLegacyLandscape[0].serviceName | string | `"auditlog-management"` |  |
 | crossplane-provider-sap-btp-account.entitlementsLegacyLandscape[0].servicePlanName | string | `"default"` |  |
-| crossplane-provider-sap-btp-account.subaccountAdminEmails | list | `[]` |  |
+| crossplane-provider-sap-btp-account.subaccountAdmins | list | `[]` |  |
 | tags.crossplane-provider-sap-btp-account | bool | `true` |  |
 
 ----------------------------------------------

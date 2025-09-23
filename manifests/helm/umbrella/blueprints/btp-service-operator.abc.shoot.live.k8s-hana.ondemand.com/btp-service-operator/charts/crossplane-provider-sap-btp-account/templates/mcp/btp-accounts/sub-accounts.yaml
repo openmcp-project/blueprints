@@ -12,7 +12,7 @@ spec:
     description: Open Managed Control Plane Blueprint
     displayName: dev-eu01
     region: eu01
-    subaccountAdminEmails: []
+    subaccountAdmins: []
     subdomain: dev-eu01
   providerConfigRef:
     name: "btpSapCrossplaneProviderConfigRefName"

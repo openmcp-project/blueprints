@@ -62,7 +62,7 @@ crossplane-provider-configs:
 #########################################################################################################
 crossplane-provider-sap-btp-account:
   cfAdminEmails: &cfAdminEmails []
-  subaccountAdminEmails: &subaccountAdminEmails []
+  subaccountAdmins: &subaccountAdmins []
   #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#        
   btpEntitlements: &btpEntitlements    
   - name: "kymaruntime-gcp"
@@ -88,7 +88,7 @@ crossplane-provider-sap-btp-account:
             description: "Open Orchestrator Managed Control Plane Blueprint PoC"
             subdomain: "exmpl-dev-eu01"
             region: "eu01"
-            subaccountAdminEmails: *subaccountAdminEmails
+            subaccountAdmins: *subaccountAdmins
           entitlements: *btpEntitlements
           services:
             serviceManager: true
@@ -101,7 +101,7 @@ crossplane-provider-sap-btp-environment:
     name: "kyma-test"
     forProvider:
       parameters:
-        administrators: *subaccountAdminEmails
+        administrators: *subaccountAdmins
         autoScalerMax: 9
         autoScalerMin: 6
         machineType: "n2-standard-48" 
