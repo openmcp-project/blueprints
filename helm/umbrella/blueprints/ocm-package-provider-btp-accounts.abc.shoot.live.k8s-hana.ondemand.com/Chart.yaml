@@ -18,7 +18,7 @@ icon: "https://avatars.githubusercontent.com/u/2531208?s=200&v=4"
 # you make changes to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
 
-version: 0.0.15
+version: 0.0.16
 
 # This is the version number of the application being deployed. This version
 # number should be incremented each time you make changes to the application.
@@ -46,7 +46,7 @@ dependencies:
       - external-secrets-config
   - name: crossplane-provider-sap-btp-account
     alias: crossplane-provider-sap-btp-account
-    version: 0.0.12
+    version: 0.0.13
     repository: "oci://ghcr.io/openmcp-project"
     tags:
       - crossplane-provider-sap-btp-account
