@@ -6,7 +6,7 @@ metadata:
   name: auditlog-oauth2  
   labels:
     openmcp.cloud/blueprint-building-block: "crossplane-provider-sap-btp-account"
-    openmcp.cloud/blueprint-building-block-version: "0.0.12"
+    openmcp.cloud/blueprint-building-block-version: "0.0.13"
 spec:
   forProvider:    
     serviceName: auditlog-management
