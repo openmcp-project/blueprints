@@ -46,7 +46,7 @@ dependencies:
       - crossplane-provider-aws-ec2
   - name: crossplane-provider-aws-eks
     alias: crossplane-provider-aws-eks
-    version: 0.0.12
+    version: 0.0.13
     repository: "oci://ghcr.io/openmcp-project"
     tags:
       - crossplane-provider-aws-eks
