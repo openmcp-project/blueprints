@@ -10,7 +10,7 @@ A Umbrealla Helm chart which contains crossplane manifests to demonstrate orches
 
 | Repository | Name | Version |
 |------------|------|---------|
-| oci://ghcr.io/openmcp-project | crossplane-gardener-shoot-clusters(crossplane-gardener-shoot-clusters) | 0.0.15 |
+| oci://ghcr.io/openmcp-project | crossplane-gardener-shoot-clusters(crossplane-gardener-shoot-clusters) | 0.0.16 |
 | oci://ghcr.io/openmcp-project | crossplane-provider-configs(crossplane-provider-configs) | 0.0.21 |
 | oci://ghcr.io/openmcp-project | crossplane-provider-helm(crossplane-provider-helm) | 0.0.13 |
 | oci://ghcr.io/openmcp-project | external-secrets-config(external-secrets-config) | 0.1.13 |
