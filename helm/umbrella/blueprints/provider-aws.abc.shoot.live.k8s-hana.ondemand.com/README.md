@@ -12,7 +12,7 @@ A Umbrealla Helm chart which contains crossplane manifests to demonstrate orches
 |------------|------|---------|
 | oci://ghcr.io/openmcp-project | crossplane-provider-apiextensions-composition(crossplane-provider-apiextensions-composition) | 0.0.13 |
 | oci://ghcr.io/openmcp-project | crossplane-provider-aws-ec2(crossplane-provider-aws-ec2) | 0.0.13 |
-| oci://ghcr.io/openmcp-project | crossplane-provider-aws-eks(crossplane-provider-aws-eks) | 0.0.12 |
+| oci://ghcr.io/openmcp-project | crossplane-provider-aws-eks(crossplane-provider-aws-eks) | 0.0.13 |
 | oci://ghcr.io/openmcp-project | crossplane-provider-aws-iam(crossplane-provider-aws-iam) | 0.0.14 |
 | oci://ghcr.io/openmcp-project | crossplane-provider-aws-rdr(crossplane-provider-aws-rdr) | 0.0.13 |
 | oci://ghcr.io/openmcp-project | crossplane-provider-configs(crossplane-provider-configs) | 0.0.21 |
@@ -32,7 +32,7 @@ A Umbrealla Helm chart which contains crossplane manifests to demonstrate orches
 |------------|------|---------|
 | oci://ghcr.io/openmcp-project | crossplane-provider-apiextensions-composition(crossplane-provider-apiextensions-composition) | 0.0.13 |
 | oci://ghcr.io/openmcp-project | crossplane-provider-aws-ec2(crossplane-provider-aws-ec2) | 0.0.13 |
-| oci://ghcr.io/openmcp-project | crossplane-provider-aws-eks(crossplane-provider-aws-eks) | 0.0.12 |
+| oci://ghcr.io/openmcp-project | crossplane-provider-aws-eks(crossplane-provider-aws-eks) | 0.0.13 |
 | oci://ghcr.io/openmcp-project | crossplane-provider-aws-iam(crossplane-provider-aws-iam) | 0.0.14 |
 | oci://ghcr.io/openmcp-project | crossplane-provider-aws-rdr(crossplane-provider-aws-rdr) | 0.0.13 |
 | oci://ghcr.io/openmcp-project | crossplane-provider-configs(crossplane-provider-configs) | 0.0.21 |
